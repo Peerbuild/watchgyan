@@ -1,8 +1,10 @@
-import { playflairDisplay } from '@/lib/fonts';
+'use client';
+import { usePathname } from 'next/navigation';
 import FeatherIcon from 'feather-icons-react';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from './ui/button';
+import EditorHeader from '@/features/blog/components/Header';
 
 const navlinks = [
   {
@@ -27,12 +29,10 @@ const navlinks = [
   },
 ];
 
-const Header = () => {
+export const PublicHeader = () => {
   return (
     <header className="flex items-center justify-between px-12 py-10">
-      <h1 className={`${playflairDisplay.className} text-xl font-medium`}>
-        WatchGyan
-      </h1>
+      <h1 className="font-serif text-xl font-medium">WatchGyan</h1>
       <nav>
         <ul className="flex gap-8">
           {navlinks.map((link) => {
@@ -59,4 +59,14 @@ const Header = () => {
   );
 };
 
-export default Header;
+export const AdminHeader = () => {
+  const path = usePathname();
+
+  const isEditorPage = path.startsWith('/admin/blog/write');
+
+  if (isEditorPage) {
+    return <EditorHeader />;
+  }
+
+  return <div>Header</div>;
+};

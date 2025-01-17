@@ -1,16 +1,40 @@
 import type { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
+import typography from '@tailwindcss/typography';
 
 export default {
   darkMode: ['class'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/features/*/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    fontFamily: {
+      serif: [
+        'var(--font-playfair-display)',
+        'ui-serif',
+        'Georgia',
+        'Cambria',
+        'Times New Roman',
+        'Times',
+        'serif',
+      ],
+      sans: [
+        'var(--font-dm-sans)',
+        'ui-sans',
+        'system-ui',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        'Segoe UI',
+        'Roboto',
+      ],
+    },
     fontSize: {
-      base: '0.875rem',
+      sm: '0.875rem',
+      base: '1rem',
+      md: '1.125rem',
       lg: '1.5rem',
       xl: '1.625rem',
       '2xl': ['2.875rem', '3.56rem'],
@@ -65,5 +89,5 @@ export default {
       },
     },
   },
-  plugins: [tailwindAnimate],
+  plugins: [tailwindAnimate, typography],
 } satisfies Config;
