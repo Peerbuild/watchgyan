@@ -19,6 +19,7 @@
     "@tiptap/core": "^2.11.2",
     "@tiptap/extension-horizontal-rule": "^2.11.2",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
     "feather-icons-react": "^0.7.0",

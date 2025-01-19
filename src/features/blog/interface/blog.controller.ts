@@ -3,6 +3,7 @@
 import { safeAction } from '@/lib/safeAction';
 import { BlogService } from './blog.service';
 import {
+  CreateBlogRequest,
   createBlogRequestDto,
   createBlogResponseDto,
 } from '../dto/createBlog.dto';
@@ -10,9 +11,9 @@ import {
 const blogService = new BlogService();
 
 export const createBlog = safeAction(
-  createBlogRequestDto,
-  createBlogResponseDto,
-  async (data) => {
+  async (data: CreateBlogRequest) => {
     return blogService.createBlog(data);
   },
+  createBlogResponseDto,
+  createBlogRequestDto,
 );

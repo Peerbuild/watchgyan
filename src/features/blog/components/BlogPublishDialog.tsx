@@ -3,21 +3,24 @@ import { useMutation } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEditorMetadata } from '../Providers/EditorMetadataProvider';
 import { createBlog } from '../interface/blog.controller';
 import { generateHTML } from '@tiptap/core';
 import { defaultExtensions } from '@/lib/extentions';
 import { slashCommand } from '@/lib/suggestions';
 import { toast } from 'sonner';
-import { isEditorContentEmpty } from '@/lib/utils';
+import { cn, isEditorContentEmpty, uploadMedia } from '@/lib/utils';
+import Image from 'next/image';
 
 const BlogPublishDialog = () => {
   const { title, subtitle, content } = useEditorMetadata();
-  const [values, setValues] = React.useState({
+  const [isImageUploading, setIsImageUploading] = useState(false);
+  const [values, setValues] = useState({
     title: '',
     subtitle: '',
     tags: '',
+    thumbnail: '',
     content,
   });
 
@@ -57,17 +60,61 @@ const BlogPublishDialog = () => {
     }));
   }, [title, subtitle, content]);
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsImageUploading(true);
+      const result = await uploadMedia(file);
+      console.log(result);
+      setValues({
+        ...values,
+        thumbnail: result.secure_url,
+      });
+    } catch (error) {
+      toast.error((error as Error).message);
+    } finally {
+      setIsImageUploading(false);
+    }
+  };
+
   return (
     <DialogContent className="h-full max-w-none data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 sm:rounded-none">
       <DialogTitle hidden>Publish Blog</DialogTitle>
       <div className="mx-auto flex max-w-screen-lg justify-center gap-16 self-center">
         <div className="flex-1 space-y-4">
           <h2 className="font-serif text-md font-semibold">Story Preview</h2>
-          <div className="flex aspect-video items-center justify-center bg-muted">
-            <span className="max-w-72 text-center text-muted-foreground">
-              Add a thumbnail to give readers a quick prevew of your post.
-            </span>
-          </div>
+          <label
+            htmlFor="thumbnail"
+            className={cn(
+              'flex aspect-video w-[30rem] cursor-pointer items-center justify-center bg-muted',
+              isImageUploading && 'animate-pulse',
+            )}
+          >
+            {values.thumbnail ? (
+              <Image
+                src={values.thumbnail}
+                alt="Blog Thumbnail"
+                width={400}
+                height={300}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <span className="w-64 text-center text-muted-foreground">
+                {isImageUploading
+                  ? 'Uploading Thumbnail'
+                  : 'Add a thumbnail to give readers a quick prevew of your post.'}
+              </span>
+            )}
+          </label>
+          <input
+            onChange={handleFileChange}
+            type="file"
+            name="thumbnail"
+            id="thumbnail"
+            hidden
+          />
           <AutoSizeTextarea
             value={values.title}
             onChange={(e) => {

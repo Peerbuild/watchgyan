@@ -1,4 +1,4 @@
-import { z, ZodSchema } from 'zod';
+import { ZodSchema } from 'zod';
 
 export class ApiError extends Error {
   constructor(
@@ -10,19 +10,35 @@ export class ApiError extends Error {
 }
 
 export const safeAction = <T, U>(
-  inputDto: ZodSchema<T>,
-  outputDto: ZodSchema<U>,
-  action: (data: T) => Promise<U>,
+  action: (data: T) => Promise<U> | (() => Promise<U>), // Action with or without input
+  outputDto: ZodSchema<U>, // Schema for output validation
+  inputDto?: ZodSchema<T>, // Optional schema for input validation
 ) => {
-  return async function (input: z.infer<typeof inputDto>) {
+  return async function (input?: T) {
     try {
-      const { success, data: parsedInput, error } = inputDto.safeParse(input);
+      let parsedInput: T | undefined = input;
 
-      if (!success)
-        throw new ApiError(400, error?.errors[0].message || 'Bad Request');
+      // Validate input if inputDto is provided
+      if (inputDto) {
+        if (input === undefined) {
+          throw new ApiError(400, 'Input is required but missing');
+        }
 
-      const output = await action(parsedInput);
+        const { success, data, error } = inputDto.safeParse(input);
 
+        if (!success) {
+          throw new ApiError(400, error?.errors[0].message || 'Bad Request');
+        }
+
+        parsedInput = data;
+      }
+
+      // Call action based on whether it expects an argument
+      const output = await (inputDto
+        ? action(parsedInput as T)
+        : (action as () => Promise<U>)());
+
+      // Validate and return the output
       return outputDto.parse(output);
     } catch (error) {
       if (error instanceof ApiError) throw error;

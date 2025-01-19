@@ -11,7 +11,6 @@ export default function useAutoSizeTextarea({
 }: UseAutoSizeTextarea) {
   useEffect(() => {
     if (textareaRef && textareaRef.current) {
-      console.log(textareaRef, value);
       textareaRef.current.style.height = '0px';
       const scrollHeight = textareaRef.current.scrollHeight;
       textareaRef.current.style.height = scrollHeight + 'px';

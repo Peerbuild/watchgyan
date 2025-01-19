@@ -5,6 +5,7 @@ export const createBlogRequestDto = z.object({
   subtitle: z.string().optional(),
   content: z.string().min(10, { message: 'Content is required' }),
   tags: z.array(z.string()),
+  thumbnail: z.string().optional(),
 });
 
 export const createBlogResponseDto = z.string();
