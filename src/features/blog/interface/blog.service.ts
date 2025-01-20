@@ -19,4 +19,41 @@ export class BlogService {
 
     return `Blog created with id: ${blog.id}`;
   }
+
+  async getRecentBlogs() {
+    return await prisma.blog.findMany({
+      take: 3,
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  async getBlogById(id: string) {
+    const blog = await prisma.blog.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!blog) {
+      throw new Error('Blog not found');
+    }
+
+    return blog;
+  }
+
+  async getTopBlogs() {
+    return await prisma.blog.findMany({
+      take: 6,
+      orderBy: [
+        {
+          createdAt: 'desc',
+        },
+        {
+          views: 'desc',
+        },
+      ],
+    });
+  }
 }

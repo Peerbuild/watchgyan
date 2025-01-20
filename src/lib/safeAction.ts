@@ -11,8 +11,8 @@ export class ApiError extends Error {
 
 export const safeAction = <T, U>(
   action: (data: T) => Promise<U> | (() => Promise<U>), // Action with or without input
-  outputDto: ZodSchema<U>, // Schema for output validation
   inputDto?: ZodSchema<T>, // Optional schema for input validation
+  outputDto?: ZodSchema<U>, // Schema for output validation
 ) => {
   return async function (input?: T) {
     try {
@@ -39,7 +39,11 @@ export const safeAction = <T, U>(
         : (action as () => Promise<U>)());
 
       // Validate and return the output
-      return outputDto.parse(output);
+      if (outputDto) {
+        return outputDto.parse(output);
+      }
+
+      return output as U;
     } catch (error) {
       if (error instanceof ApiError) throw error;
 
