@@ -35,7 +35,9 @@ export const PublicHeader = () => {
 
   return (
     <header className="flex items-center justify-between px-12 py-10">
-      <h1 className="font-serif text-xl font-medium">WatchGyan</h1>
+      <Link href="/">
+        <h1 className="font-serif text-xl font-medium">WatchGyan</h1>
+      </Link>
       <nav>
         <ul className="flex gap-8">
           {navlinks.map((link) => {

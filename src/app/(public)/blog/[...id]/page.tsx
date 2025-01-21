@@ -1,12 +1,16 @@
 import { getBlogById } from '@/features/blog/interface/blog.controller';
+import { JSDOM } from 'jsdom';
+import DomPurify from 'dompurify';
+import { Blog } from '@prisma/client';
 import Image from 'next/image';
 import React from 'react';
 
 export default async function BlogPage({
-  params: { id },
+  params,
 }: {
-  params: { id: string[] };
+  params: Promise<{ id: string[] }>;
 }) {
+  const { id } = await params;
   const [blogId] = id;
 
   const blog = await getBlogById(blogId);
@@ -25,7 +29,21 @@ export default async function BlogPage({
           width={800}
           height={600}
         />
+        <BlogContent content={blog.content} />
       </div>
     </div>
   );
 }
+
+const BlogContent = ({ content }: { content: Blog['content'] }) => {
+  const window = new JSDOM('').window;
+  const DOMPurifyServer = DomPurify(window);
+
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: DOMPurifyServer.sanitize(content),
+      }}
+    ></div>
+  );
+};
