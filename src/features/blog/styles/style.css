@@ -1,5 +1,9 @@
 .ProseMirror {
-  @apply text-md pl-24;
+  @apply pl-24 text-md;
+}
+
+.BlogContent {
+  @apply prose max-w-full dark:prose-invert focus:outline-none prose-headings:font-serif prose-headings:font-medium prose-p:text-md prose-li:-my-4;
 }
 
 .ProseMirror .is-editor-empty:first-child::before {

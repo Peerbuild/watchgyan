@@ -6,6 +6,10 @@ import { getSignedUrlResponseDto } from './dto/getSignedUrl.dto';
 
 const cloudinaryService = new CloudinaryService();
 
-export const getSignature = safeAction(async () => {
-  return cloudinaryService.getSignature();
-}, getSignedUrlResponseDto);
+export const getSignature = safeAction(
+  async () => {
+    return cloudinaryService.getSignature();
+  },
+  undefined,
+  getSignedUrlResponseDto,
+);

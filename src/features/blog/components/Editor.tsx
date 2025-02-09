@@ -8,15 +8,16 @@ import {
   EditorInstance,
   EditorRoot,
 } from 'novel';
+import UniqueId from 'tiptap-unique-id';
 import { PlayflairDisplay } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { defaultExtensions } from '@/lib/extentions';
 import { slashCommand, suggestionItems } from '@/lib/suggestions';
 import { handleCommandNavigation } from 'novel/extensions';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import useAutoSizeTextarea from '@/app/hooks/useAutoSizeTextarea';
 import { useEditorMetadata } from '../Providers/EditorMetadataProvider';
+import BlogOutline from './BlogOutline';
 
 const TiptapEditor = ({
   setEditor,
@@ -29,7 +30,14 @@ const TiptapEditor = ({
     <EditorRoot>
       <EditorContent
         immediatelyRender={false}
-        extensions={[...defaultExtensions, slashCommand]}
+        extensions={[
+          ...defaultExtensions,
+          slashCommand,
+          UniqueId.configure({
+            attributeName: 'id',
+            types: ['heading'],
+          }),
+        ]}
         onCreate={({ editor }) => {
           setEditor(editor);
         }}
@@ -38,7 +46,7 @@ const TiptapEditor = ({
             keydown: (_view, event) => handleCommandNavigation(event),
           },
           attributes: {
-            class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
+            class: `BlogContent`,
           },
         }}
         initialContent={content}
@@ -78,13 +86,16 @@ const TiptapEditor = ({
 
 export const Editor = () => {
   const subtitleInputRef = React.useRef<HTMLTextAreaElement>(null);
+  const titleInputRef = React.useRef<HTMLTextAreaElement>(null);
   const [editor, setEditor] = useState<EditorInstance | null>(null);
 
-  const { title, setTitle, subtitle, setSubtitle } = useEditorMetadata();
+  const { title, setTitle, subtitle, setSubtitle, content } =
+    useEditorMetadata();
 
   const [showSubtitle, setShowSubtitle] = useState(false);
 
   useAutoSizeTextarea({ value: subtitle, textareaRef: subtitleInputRef });
+  useAutoSizeTextarea({ value: title, textareaRef: titleInputRef });
 
   useEffect(() => {
     if (showSubtitle) {
@@ -93,63 +104,67 @@ export const Editor = () => {
   }, [showSubtitle]);
 
   return (
-    <div className="space-y-6">
-      <div className="relative flex items-center gap-4">
-        <div
-          className={cn(
-            'w-20 border-r-2 p-2 text-right text-base text-muted-foreground opacity-0 transition-opacity',
-            title && 'opacity-100',
-          )}
-        >
-          Title
-        </div>
-        <Input
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          autoFocus
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && title) {
-              e.preventDefault();
-              subtitleInputRef.current?.focus();
-              setShowSubtitle(true);
-            }
-          }}
-          className={`ml-1 border-none shadow-none focus-visible:ring-0 md:text-2xl ${PlayflairDisplay.className} h-fit p-0`}
-          placeholder="Title"
-        />
-      </div>
-      {showSubtitle && (
+    <div className="flex flex-row-reverse">
+      <BlogOutline content={content ?? ''} />
+      <div className="flex-1 space-y-6">
         <div className="relative flex items-center gap-4">
           <div
             className={cn(
               'w-20 border-r-2 p-2 text-right text-base text-muted-foreground opacity-0 transition-opacity',
-              subtitle && 'opacity-100',
+              title && 'opacity-100',
             )}
           >
-            Subtitle
+            Title
           </div>
           <Textarea
-            ref={subtitleInputRef}
-            value={subtitle}
-            rows={1}
-            onChange={(e) => setSubtitle(e.target.value)}
-            className={`ml-1 border-none p-0 text-muted-foreground shadow-none focus-visible:ring-0 md:text-lg`}
+            ref={titleInputRef}
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            autoFocus
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                if (!subtitle) {
-                  setShowSubtitle(false);
-                }
+              if (e.key === 'Enter' && title) {
                 e.preventDefault();
-                editor?.view.dom.focus();
+                subtitleInputRef.current?.focus();
+                setShowSubtitle(true);
               }
             }}
-            placeholder="Subtitle"
+            className={`ml-1 border-none shadow-none focus-visible:ring-0 md:text-2xl ${PlayflairDisplay.className} h-fit p-0`}
+            placeholder="Title"
           />
         </div>
-      )}
-      <TiptapEditor setEditor={setEditor} />
+        {showSubtitle && (
+          <div className="relative flex items-center gap-4">
+            <div
+              className={cn(
+                'w-20 border-r-2 p-2 text-right text-base text-muted-foreground opacity-0 transition-opacity',
+                subtitle && 'opacity-100',
+              )}
+            >
+              Subtitle
+            </div>
+            <Textarea
+              ref={subtitleInputRef}
+              value={subtitle}
+              rows={1}
+              onChange={(e) => setSubtitle(e.target.value)}
+              className={`ml-1 border-none p-0 text-muted-foreground shadow-none focus-visible:ring-0 md:text-lg`}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (!subtitle) {
+                    setShowSubtitle(false);
+                  }
+                  e.preventDefault();
+                  editor?.view.dom.focus();
+                }
+              }}
+              placeholder="Subtitle"
+            />
+          </div>
+        )}
+        <TiptapEditor setEditor={setEditor} />
+      </div>
     </div>
   );
 };

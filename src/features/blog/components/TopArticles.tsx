@@ -6,9 +6,9 @@ export default async function TopArticles() {
   const topArticles = await getTopBlogs();
 
   return (
-    <section className="mx-auto w-fit space-y-16">
+    <section className="mx-auto max-w-screen-xl space-y-16">
       <h2 className="text-center font-serif text-2xl">Top Articles</h2>
-      <div className="flex gap-16">
+      <div className="grid grid-cols-3 gap-16">
         {topArticles.map((article) => (
           <BlogCard blog={article} key={article.id} />
         ))}

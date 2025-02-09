@@ -1,10 +1,10 @@
 import React from 'react';
-import './style.css';
+import '@/features/blog/styles/style.css';
 import { Editor } from '@/features/blog/components/Editor';
 
 export default function EditorPage() {
   return (
-    <div className="mx-auto max-w-screen-md pt-20">
+    <div className="mx-auto mb-40 mt-20 max-w-screen-xl px-20">
       <Editor />
     </div>
   );

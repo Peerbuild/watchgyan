@@ -9,11 +9,11 @@ import { cn } from '@/lib/utils';
 
 const navlinks = [
   {
-    name: 'About',
+    name: 'Home',
     link: '/',
   },
   {
-    name: 'Journey',
+    name: 'Youtube',
     link: '#journey',
   },
   {

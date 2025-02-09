@@ -89,6 +89,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
+      tiptap-unique-id:
+        specifier: ^2.10.3
+        version: 2.10.3(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -3115,6 +3118,12 @@ packages:
     resolution: {integrity: sha512-iDVkR2BjAqkTDtFX0h94yVvE2AihCXlF0Q7RIXSJPRSR5I0PA1TMuAg6FHFpmqTn4tPxJ0by0CK7PUMlnFLGEQ==}
     peerDependencies:
       '@tiptap/core': ^2.0.3
+
+  tiptap-unique-id@2.10.3:
+    resolution: {integrity: sha512-6HKb/kdrHCWbfszmRUyWO6EbSKYergBlOzWC9oXomfvCWIVXM4GLBPoR/fE3f8mWe4fQN/zYReyHDthAxyqMuQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.10.3
+      '@tiptap/pm': ^2.10.3
 
   tldts-core@6.1.73:
     resolution: {integrity: sha512-k1g5eX87vxu3g//6XMn62y4qjayu4cYby/PF7Ksnh4F4uUK1Z1ze/mJ4a+y5OjdJ+cXRp+YTInZhH+FGdUWy1w==}
@@ -6737,6 +6746,11 @@ snapshots:
       markdown-it: 14.1.0
       markdown-it-task-lists: 2.1.1
       prosemirror-markdown: 1.13.1
+
+  tiptap-unique-id@2.10.3(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2):
+    dependencies:
+      '@tiptap/core': 2.11.2(@tiptap/pm@2.11.2)
+      '@tiptap/pm': 2.11.2
 
   tldts-core@6.1.73: {}
 

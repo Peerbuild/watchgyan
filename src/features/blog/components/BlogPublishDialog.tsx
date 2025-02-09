@@ -1,7 +1,12 @@
 import AutoSizeTextarea from '@/components/AutoSizeTextarea';
 import { useMutation } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
-import { DialogContent, DialogTitle } from '@/components/ui/dialog';
+import UniqueId from 'tiptap-unique-id';
+import {
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import React, { useEffect, useState } from 'react';
 import { useEditorMetadata } from '../Providers/EditorMetadataProvider';
@@ -12,6 +17,7 @@ import { slashCommand } from '@/lib/suggestions';
 import { toast } from 'sonner';
 import { cn, isEditorContentEmpty, uploadMedia } from '@/lib/utils';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const BlogPublishDialog = () => {
   const { title, subtitle, content } = useEditorMetadata();
@@ -19,19 +25,31 @@ const BlogPublishDialog = () => {
   const [values, setValues] = useState({
     title: '',
     subtitle: '',
+    description: '',
     tags: '',
     thumbnail: '',
     content,
   });
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: async () => {
       console.log(isEditorContentEmpty(values.content), values.title);
-      if (isEditorContentEmpty(values.content) || !values.title) return;
+      if (
+        isEditorContentEmpty(values.content) ||
+        !values.title ||
+        !values.description
+      ) {
+        throw new Error('Title and Description are required');
+      }
 
       const html = generateHTML(values.content!, [
         ...defaultExtensions,
         slashCommand,
+        UniqueId.configure({
+          attributeName: 'id',
+          types: ['heading'],
+        }),
       ]);
 
       const tags = values.tags
@@ -48,7 +66,9 @@ const BlogPublishDialog = () => {
     onError: (error) => {
       toast.error(error.message);
     },
-    onSuccess: () => {},
+    onSuccess: (data) => {
+      router.push(`/blog/${data.id}/${data.slug}`);
+    },
   });
 
   useEffect(() => {
@@ -56,6 +76,7 @@ const BlogPublishDialog = () => {
       ...prev,
       title,
       subtitle,
+      description: subtitle,
       content,
     }));
   }, [title, subtitle, content]);
@@ -67,7 +88,6 @@ const BlogPublishDialog = () => {
     try {
       setIsImageUploading(true);
       const result = await uploadMedia(file);
-      console.log(result);
       setValues({
         ...values,
         thumbnail: result.secure_url,
@@ -80,7 +100,7 @@ const BlogPublishDialog = () => {
   };
 
   return (
-    <DialogContent className="h-full max-w-none data-[state=closed]:zoom-out-100 data-[state=open]:zoom-in-100 sm:rounded-none">
+    <DialogContent className="h-full max-w-none transition-none data-[state=closed]:!animate-none data-[state=open]:!animate-none sm:rounded-none">
       <DialogTitle hidden>Publish Blog</DialogTitle>
       <div className="mx-auto flex max-w-screen-lg justify-center gap-16 self-center">
         <div className="flex-1 space-y-4">
@@ -127,15 +147,15 @@ const BlogPublishDialog = () => {
             className="border-b font-serif text-md font-semibold"
           />
           <AutoSizeTextarea
-            value={values.subtitle}
+            value={values.description}
             onChange={(e) => {
               setValues({
                 ...values,
-                subtitle: e.target.value,
+                description: e.target.value,
               });
             }}
             className="border-b"
-            placeholder="Enter a breif subtitle"
+            placeholder="Enter a breif description"
           />
         </div>
         <div className="flex-1 space-y-4">
@@ -153,9 +173,9 @@ const BlogPublishDialog = () => {
               })
             }
             placeholder="Add a topic..."
-            className="resize-none border-none bg-muted px-4 py-3"
+            className="resize-none rounded-none border-none bg-muted px-4 py-3"
           />
-          <div>
+          <div className="space-x-2">
             <Button
               className="uppercase"
               onClick={() => {
@@ -164,7 +184,9 @@ const BlogPublishDialog = () => {
             >
               Publish Now
             </Button>
-            <Button variant={'ghost'}>Save as Draft</Button>
+            <DialogClose asChild>
+              <Button variant={'ghost'}>Cancel</Button>
+            </DialogClose>
           </div>
         </div>
       </div>

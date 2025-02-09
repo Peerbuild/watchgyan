@@ -31,6 +31,7 @@ export async function uploadMedia(file: File) {
       method: 'POST',
       body: formData,
     });
+    console.log('Uploaded image');
     return await resonse.json();
   } catch (error) {
     console.log(error);

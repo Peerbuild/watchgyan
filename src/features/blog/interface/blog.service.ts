@@ -5,11 +5,6 @@ export class BlogService {
   async createBlog(dto: CreateBlogRequest) {
     const slug = dto.title.toLowerCase().replace(/ /g, '-');
 
-    console.log({
-      ...dto,
-      slug,
-    });
-
     const blog = await prisma.blog.create({
       data: {
         ...dto,
@@ -17,7 +12,7 @@ export class BlogService {
       },
     });
 
-    return `Blog created with id: ${blog.id}`;
+    return blog;
   }
 
   async getRecentBlogs() {

@@ -2,22 +2,17 @@
 
 import { safeAction } from '@/lib/safeAction';
 import { BlogService } from './blog.service';
-import {
-  CreateBlogRequest,
-  createBlogRequestDto,
-  createBlogResponseDto,
-} from '../dto/createBlog.dto';
+import { CreateBlogRequest, createBlogRequestDto } from '../dto/createBlog.dto';
 import { getBlogByIdRequestDto } from '../dto/getBlogById.dto';
+import { revalidatePath } from 'next/cache';
 
 const blogService = new BlogService();
 
-export const createBlog = safeAction(
-  async (data: CreateBlogRequest) => {
-    return blogService.createBlog(data);
-  },
-  createBlogRequestDto,
-  createBlogResponseDto,
-);
+export const createBlog = safeAction(async (data: CreateBlogRequest) => {
+  const newBlog = blogService.createBlog(data);
+  revalidatePath('/blog');
+  return newBlog;
+}, createBlogRequestDto);
 
 export const getRecentBlogs = safeAction(async () => {
   return blogService.getRecentBlogs();
