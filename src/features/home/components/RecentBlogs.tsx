@@ -8,7 +8,7 @@ export default async function RecentBlogs() {
   const recentBlogs = await getRecentBlogs();
 
   return (
-    <section className="mx-auto max-w-screen-xl space-y-16 text-center">
+    <section className="mx-auto max-w-screen-lg space-y-16 text-center">
       <SectionTitle
         title="Global Stories for You to Binge on"
         subtitle="Blogs & Stories"

@@ -6,7 +6,7 @@ import Testimonials from '@/features/home/components/Testimonial';
 
 export default async function Home() {
   return (
-    <div className="mb-20 space-y-24">
+    <div className="mb-20 space-y-80">
       <Herosection />
       <LatestVideos />
       <RecentBlogs />

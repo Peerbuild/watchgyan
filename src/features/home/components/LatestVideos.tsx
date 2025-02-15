@@ -47,7 +47,7 @@ export default async function LatestVideos() {
         title="Fresh watch reviews, trends, and insights"
         subtitle="Latest Drops"
       />
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-x-5 gap-y-4">
         {videos?.map(({ video }, i) => {
           return (
             <div key={i}>
