@@ -36,7 +36,7 @@ export const PublicHeader = () => {
   return (
     <header className="flex items-center justify-between px-12 py-10">
       <Link href="/">
-        <h1 className="font-serif text-sub font-medium">WatchGyan</h1>
+        <h1 className="font-serif text-[1.875rem] font-medium">WatchGyan</h1>
       </Link>
       <nav>
         <ul className="flex gap-8">
@@ -47,7 +47,7 @@ export const PublicHeader = () => {
                 <Link
                   href={link.link}
                   className={cn(
-                    'font-medium uppercase text-foreground/60 transition-colors hover:text-foreground',
+                    'text-caps2 font-medium uppercase text-foreground/60 transition-colors hover:text-foreground',
                     isActive && 'text-foreground',
                   )}
                 >
@@ -62,7 +62,9 @@ export const PublicHeader = () => {
         <Button variant={'ghost'} size={'icon'}>
           <FeatherIcon icon="search" />
         </Button>
-        <Button className="uppercase">Get in touch</Button>
+        <Button className="uppercase" variant={'outline'}>
+          Get in touch
+        </Button>
       </div>
     </header>
   );

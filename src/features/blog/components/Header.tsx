@@ -10,7 +10,7 @@ export default function EditorHeader() {
 
   return (
     <header className="flex items-center justify-between px-12 py-10">
-      <h1 className="font-serif text-xl font-medium">WatchGyan</h1>
+      <h1 className="font-serif text-[1.875rem] font-medium">WatchGyan</h1>
       <div className="flex gap-4">
         <Dialog>
           <DialogTrigger asChild>

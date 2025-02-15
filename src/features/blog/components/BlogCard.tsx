@@ -8,7 +8,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
   const tag = blog.tags[0];
   return (
     <Link href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
-      <article className="max-w-sm space-y-4 text-left">
+      <article className="max-w-md space-y-4 text-left">
         <div className="aspect-video w-full overflow-hidden">
           {blog.thumbnail ? (
             <Image

@@ -42,16 +42,17 @@ export default async function LatestVideos() {
   console.log(videos);
 
   return (
-    <section className="mx-auto max-w-screen-lg space-y-24 text-center">
+    <section className="mx-auto max-w-screen-xl space-y-24 text-center">
       <SectionTitle
         title="Fresh watch reviews, trends, and insights"
         subtitle="Latest Drops"
       />
-      <div className="grid grid-cols-3 gap-x-5 gap-y-4">
+      <div className="grid grid-cols-3 gap-x-6 gap-y-5">
         {videos?.map(({ video }, i) => {
           return (
             <div key={i}>
               <Image
+                className="w-full"
                 src={video.thumbnails[3].url}
                 alt="Video Thumbnail"
                 width={video.thumbnails[3].width}
