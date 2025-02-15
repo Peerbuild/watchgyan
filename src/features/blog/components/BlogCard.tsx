@@ -8,7 +8,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
   const tag = blog.tags[0];
   return (
     <Link href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
-      <article className="max-w-sm space-y-4">
+      <article className="max-w-sm space-y-4 text-left">
         <div className="aspect-video w-full overflow-hidden">
           {blog.thumbnail ? (
             <Image
@@ -27,10 +27,10 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
 
         <div className="space-y-1">
           <h3 className="font-semibold">{blog.title}</h3>
-          <p className="text-sm font-light">{blog.description}</p>
+          <p className="text-md">{blog.description}</p>
         </div>
 
-        <div className="flex gap-3 text-xs font-medium">
+        <div className="flex gap-3 text-sm text-muted-foreground">
           <div>3 Min</div>
           {tag && <div>{tag}</div>}
         </div>

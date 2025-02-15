@@ -7,7 +7,7 @@ export default async function TopArticles() {
 
   return (
     <section className="mx-auto max-w-screen-xl space-y-16">
-      <h2 className="text-center font-serif text-2xl">Top Articles</h2>
+      <h2 className="text-h1 text-center font-serif">Top Articles</h2>
       <div className="grid grid-cols-3 gap-16">
         {topArticles.map((article) => (
           <BlogCard blog={article} key={article.id} />

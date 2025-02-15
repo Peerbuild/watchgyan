@@ -1,8 +1,16 @@
 import { getSignature } from '@/features/cloudinary/cloudinary.controller';
 import { clsx, type ClassValue } from 'clsx';
 import { JSONContent } from 'novel';
-import { twMerge } from 'tailwind-merge';
+import { extendTailwindMerge } from 'tailwind-merge';
 import { ApiError } from './safeAction';
+
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': ['text-caps2'],
+    },
+  },
+});
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

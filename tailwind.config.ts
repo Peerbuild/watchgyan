@@ -32,13 +32,69 @@ export default {
       ],
     },
     fontSize: {
-      xs: '0.75rem',
-      sm: '0.875rem',
-      base: '1rem',
-      md: '1.125rem',
-      lg: '1.5rem',
-      xl: '1.625rem',
-      '2xl': ['2.875rem', '3.56rem'],
+      display: [
+        '3.5rem',
+        {
+          fontWeight: 500,
+          lineHeight: '4.5rem',
+        },
+      ],
+      h1: [
+        '2.875rem',
+        {
+          fontWeight: 500,
+          lineHeight: '3.625rem',
+        },
+      ],
+      h2: [
+        '2.25rem',
+        {
+          fontWeight: 500,
+          lineHeight: '3rem',
+        },
+      ],
+      caps1: [
+        '1.375rem',
+        {
+          fontWeight: 500,
+          lineHeight: '1.787rem',
+          letterSpacing: '0.275rem',
+        },
+      ],
+      caps2: [
+        '0.875rem',
+        {
+          lineHeight: '1.137rem',
+          letterSpacing: '0.0875rem',
+          fontWeight: 600,
+        },
+      ],
+      sub: [
+        '1.25rem',
+        {
+          lineHeight: '1.625rem',
+        },
+      ],
+      body: [
+        '1rem',
+        {
+          lineHeight: '1.3rem',
+        },
+      ],
+      md: [
+        '0.875rem',
+        {
+          lineHeight: '1.1375rem',
+          fontWeight: 300,
+        },
+      ],
+      sm: [
+        '0.75rem',
+        {
+          lineHeight: '0.975rem',
+          fontWeight: 500,
+        },
+      ],
     },
     extend: {
       colors: {
@@ -87,6 +143,15 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      keyframes: {
+        marque: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        marque: 'marque var(--duration) linear infinite',
       },
     },
   },

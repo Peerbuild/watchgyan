@@ -10,8 +10,8 @@ const Newsletter = () => {
       <main className="mx-auto flex max-w-screen-xl items-center gap-40">
         <div className="max-w-screen-sm flex-[2_1_0%] space-y-12">
           <div className="space-y-4">
-            <div className="text-sm">SIGN UP FOR BLOGS & NEWSLETTERS</div>
-            <div className="font-serif text-2xl">
+            <div className="text-caps2">SIGN UP FOR BLOGS & NEWSLETTERS</div>
+            <div className="text-h1 font-serif">
               Inspirational Stories Right to Your Inbox
             </div>
           </div>

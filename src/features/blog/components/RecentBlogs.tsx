@@ -7,7 +7,7 @@ export default async function RecentBlogs() {
 
   return (
     <section className="mx-auto max-w-screen-xl space-y-16">
-      <h2 className="text-center font-serif text-2xl">Recent Stories</h2>
+      <h2 className="text-h1 text-center font-serif">Recent Stories</h2>
       <div className="grid grid-cols-3 gap-16">
         {recentBlogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />

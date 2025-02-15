@@ -16,13 +16,11 @@ const Herosection = () => {
         <div className="absolute inset-0 h-full w-full bg-gradient-to-t from-primary to-primary/40"></div>
       </div>
       <main>
-        <span className="text-xs font-medium uppercase tracking-wider">
-          Featured post
-        </span>
-        <h2 className="mt-2 font-serif text-2xl">
+        <span className="text-caps2 uppercase">Featured post</span>
+        <h2 className="text-display mt-2 font-serif">
           The Watch Collectors’ Journal
         </h2>
-        <p className="mt-5 text-md font-light">
+        <p className="text-sub mt-5 font-light">
           A curated look at rare finds, industry trends and expert insights
         </p>
         <Button className="mt-12 uppercase" variant={'outline'}>
