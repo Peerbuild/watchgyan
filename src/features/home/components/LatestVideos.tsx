@@ -30,7 +30,7 @@ const getLatestVideos = async () => {
       throw new Error(result.error.message);
     }
     console.log(response.ok);
-    return result.contents.slice(0, 9) as Video[];
+    return result.contents.slice(0, 6) as Video[];
   } catch (error) {
     console.log(error);
   }
@@ -42,12 +42,12 @@ export default async function LatestVideos() {
   console.log(videos);
 
   return (
-    <section className="mx-auto max-w-screen-xl space-y-24 text-center">
+    <section className="mx-auto max-w-screen-xl space-y-12 px-6 text-center lg:space-y-24">
       <SectionTitle
         title="Fresh watch reviews, trends, and insights"
         subtitle="Latest Drops"
       />
-      <div className="grid grid-cols-3 gap-x-6 gap-y-5">
+      <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-5">
         {videos?.map(({ video }, i) => {
           return (
             <div key={i}>

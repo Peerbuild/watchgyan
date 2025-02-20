@@ -101,7 +101,7 @@ function TestimonailMarquee({
   return (
     <div
       style={{ ['--duration' as string]: `${duration}s` }}
-      className="animate-marque flex w-max will-change-transform"
+      className="flex w-max will-change-transform"
     >
       {[...testimonials, ...testimonials].map((testimonial, i) => {
         return (

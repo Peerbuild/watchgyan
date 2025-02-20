@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import EditorHeader from '@/features/blog/components/Header';
 import { cn } from '@/lib/utils';
+import Logo from './Logo';
 
 const navlinks = [
   {
@@ -34,11 +35,9 @@ export const PublicHeader = () => {
   const path = usePathname();
 
   return (
-    <header className="flex items-center justify-between px-12 py-10">
-      <Link href="/">
-        <h1 className="font-serif text-[1.875rem] font-medium">WatchGyan</h1>
-      </Link>
-      <nav>
+    <header className="flex items-center justify-between px-6 py-8 lg:px-12 lg:py-10">
+      <Logo />
+      <nav className="hidden lg:block">
         <ul className="flex gap-8">
           {navlinks.map((link) => {
             const isActive = path === link.link;
@@ -47,7 +46,7 @@ export const PublicHeader = () => {
                 <Link
                   href={link.link}
                   className={cn(
-                    'text-caps2 font-medium uppercase text-foreground/60 transition-colors hover:text-foreground',
+                    'text-caps2 font-medium uppercase text-muted-foreground transition-colors hover:text-foreground',
                     isActive && 'text-foreground',
                   )}
                 >
@@ -58,12 +57,17 @@ export const PublicHeader = () => {
           })}
         </ul>
       </nav>
-      <div className="flex items-center gap-8">
+      <div className="hidden items-center gap-10 text-muted-foreground lg:flex">
         <Button variant={'ghost'} size={'icon'}>
           <FeatherIcon icon="search" />
         </Button>
-        <Button className="uppercase" variant={'outline'}>
-          Get in touch
+        <Button variant={'ghost'} size={'icon'}>
+          <FeatherIcon icon="mail" />
+        </Button>
+      </div>
+      <div className="lg:hidden">
+        <Button variant={'ghost'} size={'icon'}>
+          <FeatherIcon icon="menu" />
         </Button>
       </div>
     </header>

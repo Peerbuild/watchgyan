@@ -53,12 +53,19 @@ export default {
           lineHeight: '3rem',
         },
       ],
-      caps1: [
-        '1.375rem',
+      h3: [
+        '1.5rem',
         {
           fontWeight: 500,
+          lineHeight: '1.875rem',
+        },
+      ],
+      caps1: [
+        '1.125rem',
+        {
+          fontWeight: 600,
           lineHeight: '1.787rem',
-          letterSpacing: '0.275rem',
+          letterSpacing: '0.18rem',
         },
       ],
       caps2: [

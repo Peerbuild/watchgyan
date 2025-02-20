@@ -5,15 +5,15 @@ import Image from 'next/image';
 
 export default function Newsletter() {
   return (
-    <section className="relative mx-auto flex h-[40rem] max-w-screen-lg flex-col items-center justify-center">
+    <section className="relative mx-auto flex h-[30rem] max-w-screen-lg flex-col items-center justify-center px-8 lg:h-[40rem]">
       <SectionTitle
         title="Inspirational Stories Right to Your Inbox"
         subtitle="NEWSLETTER"
       />
       <div className="absolute left-1/2 top-0 -z-10 h-full w-full -translate-x-1/2">
-        <div className="absolute h-full w-full bg-gradient-to-t from-background from-40% to-background/80"></div>
+        <div className="absolute h-full w-full bg-gradient-to-t from-background from-40% to-background/80 transition-colors duration-500"></div>
         <Image
-          className="mx-auto h-full w-3/4 object-cover"
+          className="mx-auto h-full w-full object-cover"
           src="/watch2.png"
           width={700}
           height={400}

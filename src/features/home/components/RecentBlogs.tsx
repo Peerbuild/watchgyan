@@ -9,12 +9,12 @@ export default async function RecentBlogs() {
   const recentBlogs = await getRecentBlogs();
 
   return (
-    <section className="mx-auto max-w-screen-xl space-y-16 text-center">
+    <section className="mx-auto max-w-screen-xl space-y-12 px-6 text-center lg:space-y-16">
       <SectionTitle
         title="Global Stories for You to Binge on"
         subtitle="Blogs & Stories"
       />
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {recentBlogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}
