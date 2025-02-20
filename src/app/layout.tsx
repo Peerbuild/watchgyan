@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${DMSans.variable} ${PlayflairDisplay.variable} font-sans text-body antialiased`}
+        className={`${DMSans.variable} ${PlayflairDisplay.variable} font-sans text-body antialiased transition-colors duration-500`}
       >
         <ReactQueryProvider>{children}</ReactQueryProvider>
         <Toaster richColors />

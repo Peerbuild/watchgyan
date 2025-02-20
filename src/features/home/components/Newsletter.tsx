@@ -11,9 +11,9 @@ export default function Newsletter() {
         subtitle="NEWSLETTER"
       />
       <div className="absolute left-1/2 top-0 -z-10 h-full w-full -translate-x-1/2">
-        <div className="absolute h-full w-full bg-gradient-to-t from-background from-40% to-background/80 transition-colors duration-500"></div>
+        {/* <div className="absolute h-full w-full bg-gradient-to-t from-background from-40% to-background/80 transition-colors duration-500"></div> */}
         <Image
-          className="mx-auto h-full w-full object-cover"
+          className="mx-auto h-full w-full object-cover opacity-30"
           src="/watch2.png"
           width={700}
           height={400}

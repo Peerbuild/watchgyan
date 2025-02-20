@@ -7,6 +7,7 @@ import { Button } from './ui/button';
 import EditorHeader from '@/features/blog/components/Header';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
+import useToggleNavbar from '@/features/home/hooks/useToggleNavbar';
 
 const navlinks = [
   {
@@ -33,9 +34,16 @@ const navlinks = [
 
 export const PublicHeader = () => {
   const path = usePathname();
+  const { showNav, isTransparent } = useToggleNavbar();
 
   return (
-    <header className="flex items-center justify-between px-6 py-8 lg:px-12 lg:py-10">
+    <header
+      className={cn(
+        'fixed top-0 z-50 flex w-full -translate-y-full items-center justify-between bg-background px-6 py-8 transition-all duration-500 lg:px-12 lg:py-10',
+        showNav && 'translate-y-0',
+        isTransparent && 'bg-transparent',
+      )}
+    >
       <Logo />
       <nav className="hidden lg:block">
         <ul className="flex gap-8">

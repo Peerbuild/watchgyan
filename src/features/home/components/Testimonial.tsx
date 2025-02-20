@@ -74,10 +74,12 @@ export default function Testimonial() {
         subtitle="timeless echoes"
       />
 
-      <div className="relative space-y-4">
-        <div className="absolute bottom-0 left-0 z-10 h-full w-40 bg-gradient-to-r from-background" />
-        <div className="absolute bottom-0 right-0 z-10 h-full w-40 bg-gradient-to-l from-background" />
-
+      <div
+        className="relative space-y-4"
+        style={{
+          mask: 'linear-gradient(90deg,transparent,white 20%,white 80%, transparent)',
+        }}
+      >
         <TestimonailMarquee
           testimonials={testimonials.slice(0, testimonials.length / 2)}
           duration={50}
@@ -100,8 +102,10 @@ function TestimonailMarquee({
 }) {
   return (
     <div
-      style={{ ['--duration' as string]: `${duration}s` }}
-      className="flex w-max will-change-transform"
+      style={{
+        ['--duration' as string]: `${duration}s`,
+      }}
+      className="flex w-max animate-marque will-change-transform"
     >
       {[...testimonials, ...testimonials].map((testimonial, i) => {
         return (
@@ -120,7 +124,7 @@ function TestimonialCard({
   testimonial: Testimonial;
 }) {
   return (
-    <div className="h-full space-y-2 rounded-lg bg-background p-6">
+    <div className="h-full space-y-2 rounded-lg p-6">
       <div className="text-xs font-medium">{name}</div>
       <p className="text-xs">{testimonial}</p>
     </div>

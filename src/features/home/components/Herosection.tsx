@@ -23,7 +23,7 @@ const communityFeatures = [
 
 export default function Herosection() {
   return (
-    <section className="relative bg-[url('/hero-bg.jpg')] bg-[length:350%] bg-[position:75%_120%] bg-no-repeat px-8 pt-80 before:absolute before:inset-0 before:h-full before:w-full before:bg-gradient-to-b before:from-background before:via-background/70 before:via-10% before:to-background before:to-80% sm:bg-cover md:bg-[length:150%] lg:via-0% lg:bg-cover lg:bg-center lg:p-28 lg:before:bg-[radial-gradient(50.31%_50.84%_at_73.91%_50.24%,var(--tw-gradient-stops))] lg:before:from-background/50 lg:before:to-background lg:before:to-100%">
+    <section className="relative bg-[url('/hero-bg.jpg')] bg-[length:350%] bg-[position:75%_120%] bg-no-repeat px-8 pt-80 before:absolute before:inset-0 before:h-full before:w-full before:bg-gradient-to-b before:from-background before:via-background/70 before:via-10% before:to-background before:to-80% sm:bg-cover md:bg-[length:150%] lg:via-0% lg:bg-cover lg:bg-center lg:p-28 lg:pt-80 lg:before:bg-[radial-gradient(100.31%_100.84%_at_93.91%_0.24%,var(--tw-gradient-stops))] lg:before:from-background/10 lg:before:to-background lg:before:to-100%">
       <div className="mx-auto max-w-screen-2xl">
         <main className="relative z-10 mx-auto max-w-md space-y-14 text-center lg:mx-0 lg:text-left">
           <div className="space-y-7">
