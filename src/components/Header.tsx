@@ -34,15 +34,12 @@ const navlinks = [
 
 export const PublicHeader = () => {
   const path = usePathname();
-  const { showNav, isTransparent } = useToggleNavbar();
 
   return (
     <header
-      className={cn(
-        'fixed top-0 z-50 flex w-full -translate-y-full items-center justify-between bg-background px-6 py-8 transition-all duration-500 lg:px-12 lg:py-10',
-        showNav && 'translate-y-0',
-        isTransparent && 'bg-transparent',
-      )}
+      className={
+        'absolute top-0 z-50 flex w-full items-center justify-between px-6 py-8 transition-all duration-500 lg:px-12 lg:py-10'
+      }
     >
       <Logo />
       <nav className="hidden lg:block">
@@ -66,9 +63,6 @@ export const PublicHeader = () => {
         </ul>
       </nav>
       <div className="hidden items-center gap-10 text-muted-foreground lg:flex">
-        <Button variant={'ghost'} size={'icon'}>
-          <FeatherIcon icon="search" />
-        </Button>
         <Button variant={'ghost'} size={'icon'}>
           <FeatherIcon icon="mail" />
         </Button>

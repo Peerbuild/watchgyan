@@ -6,7 +6,7 @@ const useToggleNavbar = () => {
   const [isTransparent, setIsTransparent] = useState(true);
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, 'change', (latest) => {
-    if (scrollY.get() < window.innerHeight - 400) {
+    if (scrollY.get() < 0) {
       setIsTransparent(true);
       return;
     }
