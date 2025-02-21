@@ -2,7 +2,6 @@ import BlogCard from '@/features/blog/components/BlogCard';
 import { getRecentBlogs } from '@/features/blog/interface/blog.controller';
 import React from 'react';
 import SectionTitle from './SectionTitle';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Animate from '@/components/Animate';
 import AnimatedButton from './AnimatedButton';

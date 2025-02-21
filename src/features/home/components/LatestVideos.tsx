@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import SectionTitle from './SectionTitle';
-import { Button } from '@/components/ui/button';
 import Animate from '@/components/Animate';
 import AnimatedButton from './AnimatedButton';
 

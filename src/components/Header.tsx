@@ -7,7 +7,6 @@ import { Button } from './ui/button';
 import EditorHeader from '@/features/blog/components/Header';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
-import useToggleNavbar from '@/features/home/hooks/useToggleNavbar';
 
 const navlinks = [
   {
