@@ -8,7 +8,7 @@ export default function Newsletter() {
   return (
     <section className="relative mx-auto flex h-[30rem] max-w-screen-lg flex-col items-center justify-center px-8 lg:h-[40rem]">
       <Animate
-        className="absolute left-1/2 top-1/4 -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-1/2 top-[45%] -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 lg:top-1/4"
         delay={0.5}
       >
         <Image

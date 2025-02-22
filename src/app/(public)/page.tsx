@@ -8,7 +8,7 @@ import ThemeSwitcherWrapper from '@/features/home/components/ThemeSwitcherWrappe
 
 export default async function Home() {
   return (
-    <div className="mb-20 space-y-28 lg:space-y-80">
+    <div className="mb-20 space-y-44 lg:space-y-80">
       <Herosection />
       <LatestVideos />
       <ThemeSwitcherWrapper className="space-y-28 lg:space-y-80">

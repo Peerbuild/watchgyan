@@ -14,7 +14,7 @@ export default function HeroParalaxBg({
 
   return (
     <motion.div
-      style={{ y, backgroundImage: `url(${bgUrl})` }}
+      style={{ backgroundImage: `url(${bgUrl})` }}
       className={cn('absolute inset-0 -z-10 h-full w-full', className)}
     ></motion.div>
   );

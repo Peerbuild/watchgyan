@@ -1,3 +1,4 @@
+import FeatherIcon from 'feather-icons-react';
 import SectionTitle from './SectionTitle';
 
 type Testimonial = {
@@ -125,7 +126,12 @@ function TestimonialCard({
 }) {
   return (
     <div className="h-full space-y-2 rounded-lg p-6">
-      <div className="text-xs font-medium">{name}</div>
+      <div className="flex items-center gap-2">
+        <div className="flex items-center justify-center rounded-full bg-muted p-2">
+          <FeatherIcon icon="user" />
+        </div>
+        <div className="text-xs font-medium">{name}</div>
+      </div>
       <p className="text-xs">{testimonial}</p>
     </div>
   );

@@ -16,7 +16,7 @@ export default async function RecentBlogs() {
           title="Global Stories for You to Binge on"
           subtitle="Blogs & Stories"
         />
-        <div className="grid grid-cols-1 gap-6 text-foreground sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-10 text-foreground sm:grid-cols-2 lg:grid-cols-3">
           {recentBlogs.map((blog) => (
             <BlogCard key={blog.id} blog={blog} />
           ))}

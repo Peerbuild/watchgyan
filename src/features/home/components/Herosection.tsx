@@ -25,7 +25,7 @@ const communityFeatures = [
 
 export default function Herosection() {
   return (
-    <section className="relative flex min-h-svh items-center px-8 pt-80 lg:p-28">
+    <section className="relative flex min-h-svh items-center px-8 pt-80 lg:p-28 lg:pt-60">
       <div className="mx-auto w-full max-w-screen-2xl">
         <HeroParalaxBg
           bgUrl="/hero-bg.jpg"
@@ -34,10 +34,11 @@ export default function Herosection() {
         <main className="relative z-10 mx-auto max-w-md text-center lg:mx-0 lg:text-left">
           <Animate className="space-y-14">
             <div className="space-y-7">
-              <h1 className="font-serif text-h2 md:text-display">
-                In every tick, a tale of artistry.
+              <h1 className="text-balance font-serif text-h2 text-foreground transition-colors md:text-display">
+                In every tick,
+                <br /> a tale of artistry.
               </h1>
-              <p className="text-body lg:text-sub">
+              <p className="text-body text-foreground transition-colors lg:text-sub">
                 Wisdom, for true watch enthusiasts.
               </p>
             </div>
@@ -49,7 +50,7 @@ export default function Herosection() {
                 {communityFeatures.map((feature) => {
                   return (
                     <div
-                      className="flex w-fit items-center gap-2"
+                      className="flex w-fit items-center gap-2 text-foreground transition-colors"
                       key={feature.title}
                     >
                       <FeatherIcon

@@ -4,23 +4,25 @@ import Animate from '@/components/Animate';
 import AnimatedButton from './AnimatedButton';
 
 type Video = {
-  video: {
+  snippet: {
     thumbnails: {
-      height: number;
-      url: string;
-      width: number;
-    }[];
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
   };
 };
 
 const getLatestVideos = async () => {
   const url =
-    'https://youtube138.p.rapidapi.com/channel/videos/?id=UCPIQoK95A4-rkNIM3T6COQA&filter=videos_latest&hl=en&gl=US';
+    'https://youtube-v3-lite.p.rapidapi.com/search?channelId=UCPIQoK95A4-rkNIM3T6COQA&part=id%2Csnippet';
   const options = {
     method: 'GET',
     headers: {
       'x-rapidapi-key': process.env.YOUTUBE_API_KEY!,
-      'x-rapidapi-host': 'youtube138.p.rapidapi.com',
+      'x-rapidapi-host': 'youtube-v3-lite.p.rapidapi.com',
     },
   };
 
@@ -32,7 +34,7 @@ const getLatestVideos = async () => {
     }
     console.log(response.ok);
     console.log(result);
-    return result.contents.slice(0, 6) as Video[];
+    return result.items.slice(0, 6) as Video[];
   } catch (error) {
     console.log(error);
   }
@@ -51,15 +53,15 @@ export default async function LatestVideos() {
           subtitle="Latest Drops"
         />
         <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-5">
-          {videos?.map(({ video }, i) => {
+          {videos?.map(({ snippet }, i) => {
             return (
-              <div key={i}>
+              <div key={i} className="aspect-video overflow-hidden">
                 <Image
-                  className="w-full"
-                  src={video.thumbnails[3].url}
+                  className="h-full w-full object-cover"
+                  src={snippet.thumbnails.high.url}
                   alt="Video Thumbnail"
-                  width={video.thumbnails[3].width}
-                  height={video.thumbnails[3].height}
+                  width={snippet.thumbnails.high.width}
+                  height={snippet.thumbnails.high.height}
                 />
               </div>
             );
