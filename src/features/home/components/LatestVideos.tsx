@@ -47,7 +47,7 @@ export default async function LatestVideos() {
 
   return (
     <section className="mx-auto max-w-screen-xl px-6 text-center">
-      <Animate className="space-y-12 lg:space-y-24" duration={0.2}>
+      <Animate className="space-y-12 lg:space-y-24">
         <SectionTitle
           title="Fresh watch reviews, trends, and insights"
           subtitle="Latest Drops"
