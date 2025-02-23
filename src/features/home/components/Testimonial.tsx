@@ -1,6 +1,5 @@
 import FeatherIcon from 'feather-icons-react';
 import SectionTitle from './SectionTitle';
-import Animate from '@/components/Animate';
 
 type Testimonial = {
   name: string;
