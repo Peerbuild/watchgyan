@@ -15,6 +15,7 @@ type Video = {
   };
 };
 
+// TODO: have to add cache and revalidate every hour
 const getLatestVideos = async () => {
   const url =
     'https://youtube-v3-lite.p.rapidapi.com/search?channelId=UCPIQoK95A4-rkNIM3T6COQA&part=id%2Csnippet';
@@ -32,8 +33,6 @@ const getLatestVideos = async () => {
     if (result.error) {
       throw new Error(result.error.message);
     }
-    console.log(response.ok);
-    console.log(result);
     return result.items.slice(0, 6) as Video[];
   } catch (error) {
     console.log(error);
@@ -43,11 +42,52 @@ const getLatestVideos = async () => {
 export default async function LatestVideos() {
   const videos = await getLatestVideos();
 
-  console.log(videos);
-
   return (
-    <section className="mx-auto max-w-screen-xl px-6 text-center">
-      <Animate className="space-y-12 lg:space-y-24">
+    <section className="relative px-6 text-center">
+      <div>
+        <Animate
+          delay={1.5}
+          hidden={{
+            opacity: 0,
+            rotate: 0,
+            scale: 1,
+            y: '-10%',
+            x: '25%',
+          }}
+          visible={{
+            opacity: 1,
+            rotate: 120,
+            scale: 1.3,
+            y: '-10%',
+            x: '25%',
+          }}
+          childrenClassName="absolute -z-10 -right-40 top-10 md:top-0 h-[10rem] w-[16rem] md:h-[36rem] mg:w-[28rem]  rounded-[50%] bg-primary/50 mg:bg-primary/35 blur-[60px] md:blur-[120px]"
+        >
+          <div></div>
+        </Animate>
+        <Animate
+          delay={1.5}
+          hidden={{
+            opacity: 0,
+            rotate: 0,
+            scale: 1,
+            y: '50%',
+            x: '-25%',
+          }}
+          visible={{
+            opacity: 1,
+            rotate: 120,
+            scale: 1.3,
+            y: '50%',
+            x: '-25%',
+          }}
+          childrenClassName="absolute -z-10 -left-40 bottom-0 h-[20rem] w-[16rem] lg:h-[30rem] lg:w-[24rem]   rounded-[50%] bg-primary/35 blur-[120px]"
+        >
+          <div></div>
+        </Animate>
+      </div>
+
+      <Animate className="mx-auto max-w-screen-xl space-y-12 lg:space-y-24">
         <SectionTitle
           title="Fresh watch reviews, trends, and insights"
           subtitle="Latest Drops"

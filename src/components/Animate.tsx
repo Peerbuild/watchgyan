@@ -10,6 +10,7 @@ import { Children, ReactNode, useEffect, useRef, useState } from 'react';
 interface AnimateProps extends MotionProps {
   children: ReactNode;
   className?: string;
+  childrenClassName?: string;
   delay?: number;
   duration?: number;
   hidden?: MotionStyle;
@@ -21,6 +22,7 @@ interface AnimateProps extends MotionProps {
 export default function Animate({
   children,
   className,
+  childrenClassName,
   delay,
   duration,
   margin,
@@ -85,6 +87,7 @@ export default function Animate({
             key={i}
           >
             <motion.div
+              className={childrenClassName}
               style={{
                 ...initialStyles,
                 transition: `all ${duration ?? 1}s`,

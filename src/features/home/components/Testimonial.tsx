@@ -1,5 +1,6 @@
 import FeatherIcon from 'feather-icons-react';
 import SectionTitle from './SectionTitle';
+import Animate from '@/components/Animate';
 
 type Testimonial = {
   name: string;
@@ -69,7 +70,7 @@ const testimonials: Testimonial[] = [
 
 export default function Testimonial() {
   return (
-    <section className="mx-auto max-w-screen-lg space-y-24 overflow-hidden">
+    <section className="relative mx-auto max-w-screen-lg space-y-24 overflow-hidden">
       <SectionTitle
         title="What our Audience are Saying"
         subtitle="timeless echoes"
