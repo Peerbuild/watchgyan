@@ -17,10 +17,10 @@ const Herosection = () => {
       </div>
       <main>
         <span className="text-caps2 uppercase">Featured post</span>
-        <h2 className="text-display mt-2 font-serif">
+        <h2 className="mt-2 font-serif text-display">
           The Watch Collectors’ Journal
         </h2>
-        <p className="text-sub mt-5 font-light">
+        <p className="mt-5 text-sub font-light">
           A curated look at rare finds, industry trends and expert insights
         </p>
         <Button className="mt-12 uppercase" variant={'outline'}>

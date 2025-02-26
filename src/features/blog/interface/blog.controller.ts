@@ -11,6 +11,7 @@ const blogService = new BlogService();
 export const createBlog = safeAction(async (data: CreateBlogRequest) => {
   const newBlog = blogService.createBlog(data);
   revalidatePath('/blog');
+  revalidatePath('/');
   return newBlog;
 }, createBlogRequestDto);
 

@@ -17,7 +17,7 @@ export default async function Home() {
         <Newsletter />
       </ThemeSwitcherWrapper>
 
-      <div className="absolute h-svh w-full -translate-y-0 md:translate-y-[60%]">
+      <div className="absolute h-svh w-full -translate-y-0 md:translate-y-1/4">
         <Animate
           once={false}
           delay={1.2}
