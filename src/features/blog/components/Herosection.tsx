@@ -13,7 +13,7 @@ const Herosection = () => {
           height={800}
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 h-full w-full bg-gradient-to-t from-primary to-primary/40"></div>
+        <div className="absolute inset-0 h-full w-full bg-gradient-to-t from-foreground to-foreground/40"></div>
       </div>
       <main>
         <span className="text-caps2 uppercase">Featured post</span>

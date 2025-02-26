@@ -40,8 +40,6 @@ const BlogOutline = ({ content }: BlogOutlineProps) => {
     setHeadings(elements);
   }, [content]);
 
-  console.log(activeId);
-
   return (
     <div className="min-w-40">
       <ul className="sticky top-0">

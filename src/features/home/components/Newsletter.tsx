@@ -8,7 +8,7 @@ export default function Newsletter() {
   return (
     <section className="relative mx-auto flex h-[30rem] max-w-screen-lg flex-col items-center justify-center px-8 lg:h-[40rem]">
       <Animate
-        className="absolute left-1/2 top-[45%] -z-10 h-full w-full -translate-x-1/2 -translate-y-1/2 lg:top-1/4"
+        className="absolute left-1/2 top-[45%] h-full w-full -translate-x-1/2 -translate-y-1/2 lg:top-1/4"
         delay={0.5}
       >
         <Image
@@ -19,7 +19,7 @@ export default function Newsletter() {
           alt="Watch 2"
         />
       </Animate>
-      <Animate>
+      <Animate className="relative z-10">
         <SectionTitle
           title="Inspirational Stories Right to Your Inbox"
           subtitle="NEWSLETTER"
@@ -28,7 +28,7 @@ export default function Newsletter() {
           <Input placeholder="Enter your personal email" className="pr-10" />
           <FeatherIcon
             icon="arrow-right"
-            className="absolute right-0 top-1/2 -translate-y-1/2"
+            className="absolute right-0 top-1/2 -translate-y-1/2 text-foreground transition-colors duration-500"
           />
         </div>
       </Animate>

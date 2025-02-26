@@ -11,7 +11,6 @@ export default function useHighlightHeading({
   useEffect(() => {
     const handleObserver = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        console.log(entry);
         if (entry.isIntersecting) {
           setActiveId(entry.target.id);
         }
@@ -24,8 +23,6 @@ export default function useHighlightHeading({
 
     const editorContent = document.querySelector('.BlogContent');
     const elements = editorContent?.querySelectorAll('h1');
-
-    console.log(elements);
 
     elements?.forEach((elem) => {
       obeserver.observe(elem);

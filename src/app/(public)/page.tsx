@@ -9,7 +9,10 @@ import ThemeSwitcherWrapper from '@/features/home/components/ThemeSwitcherWrappe
 
 export default async function Home() {
   return (
-    <div className="relative mb-20 space-y-44 overflow-x-hidden lg:space-y-80">
+    <div
+      id="home"
+      className="relative mb-20 space-y-44 overflow-x-hidden bg-background transition-colors duration-500 lg:space-y-80"
+    >
       <Herosection />
       <LatestVideos />
       <ThemeSwitcherWrapper className="space-y-28 lg:space-y-80">

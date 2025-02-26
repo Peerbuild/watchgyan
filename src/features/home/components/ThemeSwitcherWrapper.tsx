@@ -15,10 +15,13 @@ export default function ThemeSwitcherWrapper({
   });
 
   useEffect(() => {
+    const home = document.getElementById('home');
+    if (!home) return;
+
     if (isInView) {
-      document.body.classList.add('dark');
+      home.classList.add('dark');
     } else {
-      document.body.classList.remove('dark');
+      home.classList.remove('dark');
     }
   }, [isInView]);
 

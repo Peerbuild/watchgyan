@@ -34,7 +34,7 @@ export default function Herosection() {
               src="/hero-bg.jpg"
               alt="Hero Background"
               fill
-              className="!-top-40 !h-[110%] object-cover object-[75%_120%] md:h-full lg:object-center"
+              className="!-top-40 !h-[110%] object-cover object-[75%_120%] md:!top-0 md:!h-full lg:object-center"
               priority
             />
           </div>
