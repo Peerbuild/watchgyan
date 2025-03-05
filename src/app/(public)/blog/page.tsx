@@ -1,15 +1,20 @@
-import Herosection from '@/features/blog/components/Herosection';
-import Newsletter from '@/features/blog/components/Newsletter';
-import RecentBlogs from '@/features/blog/components/RecentBlogs';
-import TopArticles from '@/features/blog/components/TopArticles';
+import Herosection from "@/features/blog/components/Herosection";
+import LatestGlobalBlogs from "@/features/blog/components/LatestGlobalBlogs";
+import RecentBlogs from "@/features/blog/components/RecentBlogs";
+import TopArticles from "@/features/blog/components/TopArticles";
+import Footer from "@/features/home/components/Footer";
+import ThemeSwitcherWrapper from "@/features/home/components/ThemeSwitcherWrapper";
 
 export default function BlogPage() {
   return (
-    <div className="space-y-32">
+    <div className="theme-wrapper space-y-32 bg-background transition-colors duration-500">
       <Herosection />
       <RecentBlogs />
-      <Newsletter />
       <TopArticles />
+      <ThemeSwitcherWrapper>
+        <LatestGlobalBlogs />
+        <Footer />
+      </ThemeSwitcherWrapper>
     </div>
   );
 }

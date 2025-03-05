@@ -1,24 +1,28 @@
-import { Input } from '@/components/ui/input';
-import SectionTitle from './SectionTitle';
-import FeatherIcon from 'feather-icons-react';
-import Image from 'next/image';
-import Animate from '@/components/Animate';
+import { Input } from "@/components/ui/input";
+import SectionTitle from "./SectionTitle";
+import FeatherIcon from "feather-icons-react";
+import Image from "next/image";
+import Animate from "@/components/Animate";
+import Paralax from "@/features/blog/components/Paralax";
 
 export default function Newsletter() {
   return (
     <section className="relative mx-auto flex h-[30rem] max-w-screen-lg flex-col items-center justify-center px-8 lg:h-[40rem]">
-      <Animate
-        className="absolute left-1/2 top-[45%] h-full w-full -translate-x-1/2 -translate-y-1/2 lg:top-1/4"
-        delay={0.5}
-      >
-        <Image
-          className="mx-auto h-full w-full object-cover opacity-30"
-          src="/watch2.png"
-          width={700}
-          height={400}
-          alt="Watch 2"
-        />
-      </Animate>
+      <div className="absolute left-1/2 top-[16%] h-full w-full -translate-x-1/2 -translate-y-1/2 lg:top-1/4">
+        <Paralax
+          inputRange={[0, 1]}
+          outputRange={[120, 200]}
+          offset={["start center", "end center"]}
+        >
+          <Image
+            className="mx-auto h-full w-full object-cover opacity-30"
+            src="/watch.png"
+            width={700}
+            height={400}
+            alt="Watch 2"
+          />
+        </Paralax>
+      </div>
       <Animate className="relative z-10">
         <SectionTitle
           title="Inspirational Stories Right to Your Inbox"

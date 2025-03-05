@@ -1,6 +1,6 @@
-'use client';
-import { useInView } from 'motion/react';
-import { useEffect, useRef } from 'react';
+"use client";
+import { useInView } from "motion/react";
+import { useEffect, useRef } from "react";
 
 export default function ThemeSwitcherWrapper({
   children,
@@ -11,17 +11,17 @@ export default function ThemeSwitcherWrapper({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, {
-    margin: '-50% 0px',
+    margin: "-50% 0px",
   });
 
   useEffect(() => {
-    const home = document.getElementById('home');
-    if (!home) return;
+    const [container] = document.getElementsByClassName("theme-wrapper");
+    if (!container) return;
 
     if (isInView) {
-      home.classList.add('dark');
+      container.classList.add("dark");
     } else {
-      home.classList.remove('dark');
+      container.classList.remove("dark");
     }
   }, [isInView]);
 

@@ -1,5 +1,5 @@
-import FeatherIcon from 'feather-icons-react';
-import SectionTitle from './SectionTitle';
+import FeatherIcon from "feather-icons-react";
+import SectionTitle from "./SectionTitle";
 
 type Testimonial = {
   name: string;
@@ -8,62 +8,62 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    name: 'Aman Sharma',
-    testimonial: 'I went from struggling with views to constant vitality.',
+    name: "Aman Sharma",
+    testimonial: "I went from struggling with views to constant vitality.",
   },
   {
-    name: 'Meera Joshi',
+    name: "Meera Joshi",
     testimonial:
-      'Hands down the best investment I have made, simple and straightforward strategies.',
+      "Hands down the best investment I have made, simple and straightforward strategies.",
   },
   {
-    name: 'Liam Carter',
+    name: "Liam Carter",
     testimonial:
-      'I struggled to get engagement for months—until this. Now, my content gets traction daily!',
+      "I struggled to get engagement for months—until this. Now, my content gets traction daily!",
   },
   {
-    name: 'Sophia Martinez',
+    name: "Sophia Martinez",
     testimonial:
-      'This changed the game for me. More leads, more conversions, and zero guesswork.',
+      "This changed the game for me. More leads, more conversions, and zero guesswork.",
   },
   {
-    name: 'Ethan Williams',
+    name: "Ethan Williams",
     testimonial:
-      'From invisible to undeniable. The smartest decision I ever made.',
+      "From invisible to undeniable. The smartest decision I ever made.",
   },
   {
-    name: 'Isabella Chen',
+    name: "Isabella Chen",
     testimonial:
-      'My revenue doubled in just weeks. Wish I had found this sooner!',
+      "My revenue doubled in just weeks. Wish I had found this sooner!",
   },
   {
-    name: 'Daniel Thompson',
+    name: "Daniel Thompson",
     testimonial:
       "No fluff, just results. If you're serious about growth, this is it.",
   },
   {
-    name: 'Olivia Bennett',
+    name: "Olivia Bennett",
     testimonial:
-      'I was stuck at 500 followers for months. Now I wake up to new leads every day.',
+      "I was stuck at 500 followers for months. Now I wake up to new leads every day.",
   },
   {
-    name: 'Raj Patel',
+    name: "Raj Patel",
     testimonial:
-      'Clear, actionable, and no BS. I finally understand what works—and why.',
+      "Clear, actionable, and no BS. I finally understand what works—and why.",
   },
   {
-    name: 'Emily Wong',
+    name: "Emily Wong",
     testimonial:
-      'I used to chase clients. Now they come to me. Best investment I’ve made.',
+      "I used to chase clients. Now they come to me. Best investment I’ve made.",
   },
   {
-    name: 'James Müller',
+    name: "James Müller",
     testimonial:
-      'I thought growth was luck. Turns out, it’s just the right strategy.',
+      "I thought growth was luck. Turns out, it’s just the right strategy.",
   },
   {
-    name: 'Aisha Khan',
-    testimonial: 'From 2 sales a month to 20+. Same effort, better system.',
+    name: "Aisha Khan",
+    testimonial: "From 2 sales a month to 20+. Same effort, better system.",
   },
 ];
 
@@ -72,13 +72,13 @@ export default function Testimonial() {
     <section className="relative mx-auto max-w-screen-lg space-y-24 overflow-hidden">
       <SectionTitle
         title="What our Audience are Saying"
-        subtitle="timeless echoes"
+        subtitle="150K+ Following"
       />
 
       <div
         className="relative space-y-4"
         style={{
-          mask: 'linear-gradient(90deg,transparent,white 20%,white 80%, transparent)',
+          mask: "linear-gradient(90deg,transparent,white 20%,white 80%, transparent)",
         }}
       >
         <TestimonailMarquee
@@ -104,7 +104,7 @@ function TestimonailMarquee({
   return (
     <div
       style={{
-        ['--duration' as string]: `${duration}s`,
+        ["--duration" as string]: `${duration}s`,
       }}
       className="flex w-max animate-marque will-change-transform"
     >

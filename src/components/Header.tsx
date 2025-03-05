@@ -1,44 +1,44 @@
-'use client';
-import { usePathname } from 'next/navigation';
-import FeatherIcon from 'feather-icons-react';
-import React from 'react';
-import Link from 'next/link';
-import { Button } from './ui/button';
-import EditorHeader from '@/features/blog/components/Header';
-import { cn } from '@/lib/utils';
-import Logo from './Logo';
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from './ui/dialog';
-import { useQuery } from '@tanstack/react-query';
-import { getRecentBlogs } from '@/features/blog/interface/blog.controller';
-import BlogCard from '@/features/blog/components/BlogCard';
+"use client";
+import { usePathname } from "next/navigation";
+import FeatherIcon from "feather-icons-react";
+import React from "react";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import EditorHeader from "@/features/blog/components/Header";
+import { cn } from "@/lib/utils";
+import Logo from "./Logo";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { useQuery } from "@tanstack/react-query";
+import { getRecentBlogs } from "@/features/blog/interface/blog.controller";
+import BlogCard from "@/features/blog/components/BlogCard";
 
 const navlinks = [
   {
-    name: 'Home',
-    link: '/',
+    name: "Home",
+    link: "/",
   },
   {
-    name: 'Youtube',
-    link: '#journey',
+    name: "Youtube",
+    link: "#journey",
   },
   {
-    name: 'Newsletter',
-    link: '#newsletter',
+    name: "Newsletter",
+    link: "#newsletter",
   },
   {
-    name: 'blog',
-    link: '/blog',
+    name: "blog",
+    link: "/blog",
   },
   {
-    name: 'Community',
-    link: '/community',
+    name: "Community",
+    link: "/community",
   },
 ];
 
 export const PublicHeader = () => {
   const path = usePathname();
   const { data } = useQuery({
-    queryKey: ['recent-blogs'],
+    queryKey: ["recent-blogs"],
     queryFn: async () => {
       return getRecentBlogs();
     },
@@ -47,7 +47,7 @@ export const PublicHeader = () => {
   return (
     <header
       className={
-        'absolute top-0 z-50 flex w-full items-center justify-between px-6 py-8 transition-all duration-500 lg:px-12 lg:py-10'
+        "absolute top-0 z-50 flex w-full items-center justify-between px-6 py-8 transition-all duration-500 lg:px-12 lg:py-10"
       }
     >
       <Logo />
@@ -60,8 +60,8 @@ export const PublicHeader = () => {
                 <Link
                   href={link.link}
                   className={cn(
-                    'text-caps2 font-medium uppercase text-muted-foreground transition-colors hover:text-foreground',
-                    isActive && 'text-foreground',
+                    "dark text-caps2 font-medium uppercase text-muted-foreground transition-colors hover:text-primary",
+                    isActive && "text-primary",
                   )}
                 >
                   {link.name}
@@ -72,14 +72,14 @@ export const PublicHeader = () => {
         </ul>
       </nav>
       <div className="hidden items-center gap-10 text-muted-foreground lg:flex">
-        <Button variant={'ghost'} size={'icon'}>
+        <Button variant={"ghost"} size={"icon"}>
           <FeatherIcon icon="mail" />
         </Button>
       </div>
       <div className="lg:hidden">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant={'ghost'} size={'icon'}>
+            <Button variant={"ghost"} size={"icon"}>
               <FeatherIcon
                 icon="menu"
                 className="text-foreground transition-colors duration-500"
@@ -96,7 +96,7 @@ export const PublicHeader = () => {
 
             <nav>
               <ul className="flex flex-wrap gap-4">
-                {[...navlinks, { name: 'Contact', link: '#contact' }].map(
+                {[...navlinks, { name: "Contact", link: "#contact" }].map(
                   (link) => {
                     const isActive = path === link.link;
                     return (
@@ -104,8 +104,8 @@ export const PublicHeader = () => {
                         <Link
                           href={link.link}
                           className={cn(
-                            'text-caps2 font-medium uppercase text-muted-foreground transition-colors hover:text-foreground',
-                            isActive && 'text-foreground',
+                            "text-caps2 font-medium uppercase text-muted-foreground transition-colors hover:text-foreground",
+                            isActive && "text-foreground",
                           )}
                         >
                           {link.name}
@@ -143,7 +143,7 @@ export const PublicHeader = () => {
 export const AdminHeader = () => {
   const path = usePathname();
 
-  const isEditorPage = path.startsWith('/admin/blog/write');
+  const isEditorPage = path.startsWith("/admin/blog/write");
 
   if (isEditorPage) {
     return <EditorHeader />;

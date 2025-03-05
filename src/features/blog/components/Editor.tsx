@@ -1,5 +1,5 @@
-'use client';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+"use client";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   EditorCommand,
   EditorCommandItem,
@@ -7,17 +7,17 @@ import {
   EditorContent,
   EditorInstance,
   EditorRoot,
-} from 'novel';
-import UniqueId from 'tiptap-unique-id';
-import { PlayflairDisplay } from '@/lib/fonts';
-import { cn } from '@/lib/utils';
-import { defaultExtensions } from '@/lib/extentions';
-import { slashCommand, suggestionItems } from '@/lib/suggestions';
-import { handleCommandNavigation } from 'novel/extensions';
-import { Textarea } from '@/components/ui/textarea';
-import useAutoSizeTextarea from '@/app/hooks/useAutoSizeTextarea';
-import { useEditorMetadata } from '../Providers/EditorMetadataProvider';
-import BlogOutline from './BlogOutline';
+} from "novel";
+import UniqueId from "tiptap-unique-id";
+import { PlayflairDisplay } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { defaultExtensions } from "@/lib/extentions";
+import { slashCommand, suggestionItems } from "@/lib/suggestions";
+import { handleCommandNavigation } from "novel/extensions";
+import { Textarea } from "@/components/ui/textarea";
+import useAutoSizeTextarea from "@/app/hooks/useAutoSizeTextarea";
+import { useEditorMetadata } from "../Providers/EditorMetadataProvider";
+import BlogOutline from "./BlogOutline";
 
 const TiptapEditor = ({
   setEditor,
@@ -34,8 +34,8 @@ const TiptapEditor = ({
           ...defaultExtensions,
           slashCommand,
           UniqueId.configure({
-            attributeName: 'id',
-            types: ['heading'],
+            attributeName: "id",
+            types: ["heading"],
           }),
         ]}
         onCreate={({ editor }) => {
@@ -105,13 +105,13 @@ export const Editor = () => {
 
   return (
     <div className="flex flex-row-reverse">
-      <BlogOutline content={content ?? ''} />
+      <BlogOutline content={content ?? ""} />
       <div className="flex-1 space-y-6">
         <div className="relative flex items-center gap-4">
           <div
             className={cn(
-              'w-20 border-r-2 p-2 text-right text-base text-muted-foreground opacity-0 transition-opacity',
-              title && 'opacity-100',
+              "text-base w-20 border-r-2 p-2 text-right text-muted-foreground opacity-0 transition-opacity",
+              title && "opacity-100",
             )}
           >
             Title
@@ -124,13 +124,13 @@ export const Editor = () => {
             }}
             autoFocus
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && title) {
+              if (e.key === "Enter" && title) {
                 e.preventDefault();
                 subtitleInputRef.current?.focus();
                 setShowSubtitle(true);
               }
             }}
-            className={`ml-1 border-none shadow-none focus-visible:ring-0 md:text-2xl ${PlayflairDisplay.className} h-fit p-0`}
+            className={`ml- 1 resize-none border-none shadow-none focus-visible:ring-0 md:text-h1 ${PlayflairDisplay.className} h-fit p-0`}
             placeholder="Title"
           />
         </div>
@@ -138,8 +138,8 @@ export const Editor = () => {
           <div className="relative flex items-center gap-4">
             <div
               className={cn(
-                'w-20 border-r-2 p-2 text-right text-base text-muted-foreground opacity-0 transition-opacity',
-                subtitle && 'opacity-100',
+                "text-base w-20 border-r-2 p-2 text-right text-muted-foreground opacity-0 transition-opacity",
+                subtitle && "opacity-100",
               )}
             >
               Subtitle
@@ -149,9 +149,9 @@ export const Editor = () => {
               value={subtitle}
               rows={1}
               onChange={(e) => setSubtitle(e.target.value)}
-              className={`ml-1 border-none p-0 text-muted-foreground shadow-none focus-visible:ring-0 md:text-lg`}
+              className={`md:text-lg ml-1 resize-none border-none p-0 text-muted-foreground shadow-none focus-visible:ring-0`}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   if (!subtitle) {
                     setShowSubtitle(false);
                   }

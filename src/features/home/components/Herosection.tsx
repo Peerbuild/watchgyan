@@ -1,25 +1,25 @@
-import { Separator } from '@/components/ui/separator';
-import FeatherIcon from 'feather-icons-react';
-import AnimatedButton from './AnimatedButton';
-import Animate from '@/components/Animate';
-import Image from 'next/image';
+import { Separator } from "@/components/ui/separator";
+import FeatherIcon from "feather-icons-react";
+import AnimatedButton from "./AnimatedButton";
+import Animate from "@/components/Animate";
+import Image from "next/image";
 
 const communityFeatures = [
   {
-    title: 'Regular Youtube Videos',
-    icon: 'youtube',
+    title: "Regular Youtube Videos",
+    icon: "youtube",
   },
   {
-    title: 'Insightful Newsletters',
-    icon: 'mail',
+    title: "Insightful Newsletters",
+    icon: "mail",
   },
   {
-    title: 'Global Blogs & Stories',
-    icon: 'book-open',
+    title: "Global Blogs & Stories",
+    icon: "book-open",
   },
   {
-    title: 'Pan India Collaborations',
-    icon: 'users',
+    title: "Pan India Collaborations",
+    icon: "users",
   },
 ];
 
@@ -42,7 +42,7 @@ export default function Herosection() {
           {/* Gradient Overlay */}
           <div className="absolute inset-0 h-[105%] w-full bg-gradient-to-b from-background via-background/70 via-10% to-background to-80% lg:bg-[radial-gradient(100.31%_100.84%_at_93.91%_-5%,var(--tw-gradient-stops))] lg:from-background/10 lg:to-background lg:to-100%" />
         </div>
-        <main className="relative z-10 mx-auto max-w-md text-center lg:mx-0 lg:text-left">
+        <main className="relative z-10 mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
           <Animate className="space-y-10 lg:space-y-14">
             <div className="space-y-4 lg:space-y-7">
               <h1 className="text-balance font-serif text-h2 text-foreground transition-colors md:text-display">
@@ -74,7 +74,7 @@ export default function Herosection() {
                 })}
               </div>
             </div>
-            <AnimatedButton size={'lg'}>
+            <AnimatedButton size={"lg"}>
               Join Community
               <Separator orientation="vertical" className="h-1/2 bg-primary" />
               <span className="line-through">₹ 199</span> Free

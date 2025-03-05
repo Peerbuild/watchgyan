@@ -18,9 +18,9 @@ export default async function BlogPage({
   const blog = await getBlogById(blogId);
 
   return (
-    <div className="mx-auto mt-32 flex max-w-screen-xl flex-row-reverse">
+    <div className="mx-auto mt-32 flex max-w-screen-lg flex-row-reverse">
       <BlogOutline content={blog.content} />
-      <div className="mx-auto space-y-10 py-14">
+      <div className="mx-auto w-full space-y-10 py-14">
         <div className="space-y-6">
           <h1 className="font-serif text-h1">{blog.title}</h1>
           <p className="text-lg font-light">{blog.subtitle}</p>

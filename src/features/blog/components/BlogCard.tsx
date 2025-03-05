@@ -1,8 +1,8 @@
-import { Blog } from '@prisma/client';
-import FeatherIcon from 'feather-icons-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import { Blog } from "@prisma/client";
+import FeatherIcon from "feather-icons-react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 const BlogCardLarge = ({ blog }: { blog: Blog }) => {
   const tag = blog.tags[0];
@@ -26,8 +26,12 @@ const BlogCardLarge = ({ blog }: { blog: Blog }) => {
         </div>
 
         <div className="space-y-1">
-          <h3 className="font-semibold">{blog.title}</h3>
-          <p className="text-md">{blog.description}</p>
+          <h3 className="font-semibold text-foreground duration-500">
+            {blog.title}
+          </h3>
+          <p className="text-md text-foreground duration-500">
+            {blog.description}
+          </p>
         </div>
 
         <div className="flex gap-3 text-sm text-muted-foreground">
@@ -70,12 +74,12 @@ const BlogCardSmall = ({ blog }: { blog: Blog }) => {
 
 const BlogCard = ({
   blog,
-  size = 'large',
+  size = "large",
 }: {
   blog: Blog;
-  size?: 'small' | 'large';
+  size?: "small" | "large";
 }) => {
-  if (size === 'small') {
+  if (size === "small") {
     return <BlogCardSmall blog={blog} />;
   }
 
