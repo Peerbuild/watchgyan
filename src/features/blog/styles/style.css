@@ -172,8 +172,6 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
 
 /* Custom Youtube Video CSS */
 iframe {
-  border: 8px solid #ffd00027;
-  border-radius: 4px;
   min-width: 200px;
   min-height: 200px;
   display: block;
@@ -187,8 +185,8 @@ div[data-youtube-video] > iframe {
 }
 
 .ProseMirror-selectednode iframe {
-  transition: outline 0.15s;
-  outline: 6px solid #fbbf24;
+  outline: 1px solid #5abbf7;
+  filter: brightness(90%);
 }
 
 @media only screen and (max-width: 480px) {
@@ -210,4 +208,29 @@ span[style] > strong {
 
 mark[style] > strong {
   color: inherit;
+}
+
+.BlogContent table p {
+  @apply m-2;
+}
+
+.BlogContent table th p {
+  @apply font-sans font-bold;
+}
+
+.BlogContent table {
+  @apply w-full max-w-full table-fixed;
+}
+
+.BlogContent table .selectedCell {
+  @apply after:pointer-events-none after:absolute after:inset-0 after:border after:border-primary after:bg-primary/30 after:content-[''];
+}
+
+.BlogContent table th,
+.BlogContent table td {
+  @apply relative border p-0;
+}
+
+table p.is-empty:first-child::before {
+  content: "";
 }

@@ -1,11 +1,11 @@
-import '@/features/blog/styles/style.css';
-import { getBlogById } from '@/features/blog/interface/blog.controller';
-import { JSDOM } from 'jsdom';
-import DomPurify from 'dompurify';
-import { Blog } from '@prisma/client';
-import Image from 'next/image';
-import React from 'react';
-import BlogOutline from '@/features/blog/components/BlogOutline';
+import "@/features/blog/styles/style.css";
+import { getBlogById } from "@/features/blog/interface/blog.controller";
+import { JSDOM } from "jsdom";
+import DomPurify from "dompurify";
+import { Blog } from "@prisma/client";
+import Image from "next/image";
+import React from "react";
+import BlogOutline from "@/features/blog/components/BlogOutline";
 
 export default async function BlogPage({
   params,
@@ -16,6 +16,8 @@ export default async function BlogPage({
   const [blogId] = id;
 
   const blog = await getBlogById(blogId);
+
+  console.log(blog.content);
 
   return (
     <div className="mx-auto mt-32 flex max-w-screen-lg flex-row-reverse">
@@ -28,7 +30,7 @@ export default async function BlogPage({
         {blog.thumbnail && (
           <div className="aspect-video w-full overflow-hidden">
             <Image
-              src={blog.thumbnail || ''}
+              src={blog.thumbnail || ""}
               alt={blog.title}
               width={800}
               height={450}
@@ -43,15 +45,20 @@ export default async function BlogPage({
   );
 }
 
-const BlogContent = ({ content }: { content: Blog['content'] }) => {
-  const window = new JSDOM('').window;
+const BlogContent = ({ content }: { content: Blog["content"] }) => {
+  const window = new JSDOM("").window;
   const DOMPurifyServer = DomPurify(window);
+
+  const sanitizedContent = DOMPurifyServer.sanitize(content, {
+    ADD_TAGS: ["iframe"],
+    ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
+  });
 
   return (
     <div
       className="BlogContent"
       dangerouslySetInnerHTML={{
-        __html: DOMPurifyServer.sanitize(content),
+        __html: sanitizedContent,
       }}
     ></div>
   );

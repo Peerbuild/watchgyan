@@ -18,13 +18,40 @@ import { Textarea } from "@/components/ui/textarea";
 import useAutoSizeTextarea from "@/app/hooks/useAutoSizeTextarea";
 import { useEditorMetadata } from "../Providers/EditorMetadataProvider";
 import BlogOutline from "./BlogOutline";
+import { deleteImage } from "@/features/cloudinary/cloudinary.controller";
+import YoutubeUrlDialog from "./YoutubeUrlDialog";
+import { generateHTML, Range } from "@tiptap/core";
 
 const TiptapEditor = ({
   setEditor,
 }: {
   setEditor: Dispatch<SetStateAction<EditorInstance | null>>;
 }) => {
+  const [previousImages, setPreviousImages] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
   const { content, setContent } = useEditorMetadata();
+
+  const handleImageDeletion = async (editor: EditorInstance) => {
+    if (!editor) return;
+
+    const currentImages: string[] = [];
+    editor.getJSON().content?.forEach((node) => {
+      if (node.type === "image") {
+        currentImages.push(node.attrs?.src);
+      }
+    });
+
+    const deletedImages = previousImages.filter(
+      (url) => !currentImages.includes(url),
+    );
+    deletedImages.forEach(async function (url) {
+      // delete image from cloudinary
+      console.log("Deleting image from cloudinary", url);
+      await deleteImage(url);
+    });
+
+    setPreviousImages(currentImages);
+  };
 
   return (
     <EditorRoot>
@@ -52,16 +79,42 @@ const TiptapEditor = ({
         initialContent={content}
         onUpdate={({ editor }) => {
           const json = editor.getJSON();
+          console.log(
+            generateHTML(json, [
+              ...defaultExtensions,
+              slashCommand,
+              UniqueId.configure({
+                attributeName: "id",
+                types: ["heading"],
+              }),
+            ]),
+          );
           setContent(json);
+          handleImageDeletion(editor);
         }}
       >
+        <YoutubeUrlDialog open={open} setOpen={setOpen} />
         <EditorCommand className="rounded-sm bg-background p-2 shadow-[-20px_20px_50px_-8px_var(--tw-shadow-color)] shadow-muted-foreground/50">
           <EditorCommandList>
             {suggestionItems.map((item) => {
+              const command =
+                item.title === "Youtube"
+                  ? ({
+                      editor,
+                      range,
+                    }: {
+                      editor: EditorInstance;
+                      range: Range;
+                    }) => {
+                      console.log("Youtube command");
+                      setOpen(true);
+                      editor.chain().focus().deleteRange(range).run();
+                    }
+                  : item.command;
               return (
                 <EditorCommandItem
                   value={item.title}
-                  onCommand={(val) => item.command && item.command(val)}
+                  onCommand={(val) => command && command(val)}
                   className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent"
                   key={item.title}
                 >
@@ -106,7 +159,7 @@ export const Editor = () => {
   return (
     <div className="flex flex-row-reverse">
       <BlogOutline content={content ?? ""} />
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-6 overflow-auto">
         <div className="relative flex items-center gap-4">
           <div
             className={cn(

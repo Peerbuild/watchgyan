@@ -1,8 +1,8 @@
-'use server';
+"use server";
 
-import { safeAction } from '@/lib/safeAction';
-import { CloudinaryService } from './cloudinary.service';
-import { getSignedUrlResponseDto } from './dto/getSignedUrl.dto';
+import { safeAction } from "@/lib/safeAction";
+import { CloudinaryService } from "./cloudinary.service";
+import { getSignedUrlResponseDto } from "./dto/getSignedUrl.dto";
 
 const cloudinaryService = new CloudinaryService();
 
@@ -13,3 +13,7 @@ export const getSignature = safeAction(
   undefined,
   getSignedUrlResponseDto,
 );
+
+export const deleteImage = safeAction(async (url: string) => {
+  return cloudinaryService.deleteImage(url);
+});
