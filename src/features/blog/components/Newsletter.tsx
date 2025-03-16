@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import FeatherIcon from "feather-icons-react";
+import { EmailInput } from "@/features/newsletter/components/EmailInput";
 import React from "react";
 
 const Newsletter = () => {
@@ -14,18 +12,7 @@ const Newsletter = () => {
             special deals
           </p>
         </div>
-        <div className="flex border-b border-input">
-          <Input
-            className="flex-1 border-none py-0 focus-visible:ring-transparent"
-            placeholder="Your personal email"
-          />
-          <Button size={"icon"} variant={"ghost"}>
-            <FeatherIcon
-              icon="arrow-right"
-              className="text-foreground duration-500"
-            />
-          </Button>
-        </div>
+        <EmailInput />
       </div>
     </section>
   );

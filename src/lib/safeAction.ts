@@ -19,10 +19,10 @@ export const safeAction = <T, U>(
       let parsedInput: T | undefined = input;
 
       // Validate input if inputDto is provided
-      if (inputDto) {
-        if (input === undefined) {
-          throw new ApiError(400, "Input is required but missing");
-        }
+      if (inputDto && input) {
+        //if (input === undefined) {
+        //  throw new ApiError(400, "Input is required but missing");
+        //}
 
         const { success, data, error } = inputDto.safeParse(input);
 

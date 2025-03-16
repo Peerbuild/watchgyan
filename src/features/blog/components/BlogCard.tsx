@@ -3,6 +3,7 @@ import FeatherIcon from "feather-icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { DeleteBlogButton, TogglePublishButton } from "./BlogActions";
 
 const BlogCardLarge = ({ blog }: { blog: Blog }) => {
   const tag = blog.tags[0];
@@ -43,44 +44,53 @@ const BlogCardLarge = ({ blog }: { blog: Blog }) => {
   );
 };
 
-const BlogCardSmall = ({ blog }: { blog: Blog }) => {
-  return (
-    <Link href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
-      <article className="flex gap-2 text-left">
-        <div className="aspect-video w-full max-w-24 overflow-hidden">
-          {blog.thumbnail ? (
-            <Image
-              src={blog.thumbnail}
-              alt={blog.title}
-              className="h-full w-full object-cover"
-              width={300}
-              height={250}
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-muted">
-              <FeatherIcon icon="image" className="text-muted-foreground" />
-            </div>
-          )}
-        </div>
+const BlogCardSmall = ({
+  blog,
+  showActions,
+}: {
+  blog: Blog;
+  showActions?: {
+    publish?: boolean;
+    delete?: boolean;
+  };
+}) => {
+  const { publish = true, delete: deleteAction = true } = showActions || {};
 
-        <div className="space-y-1">
-          <h3 className="text-md">{blog.title}</h3>
-          <p className="text-sm text-muted-foreground">{blog.description}</p>
-        </div>
-      </article>
-    </Link>
+  return (
+    <article className="relative flex items-center gap-6 p-4 text-left shadow-md">
+      <div>
+        <FeatherIcon icon="book-open" className="size-5" />
+      </div>
+
+      <Link href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
+        <span className="absolute inset-0"></span>
+        <h3>{blog.title}</h3>
+      </Link>
+
+      <div className="relative z-20 flex items-center gap-6">
+        {publish && (
+          <TogglePublishButton id={blog.id} isPublished={blog.isPublished} />
+        )}
+        {deleteAction && <DeleteBlogButton id={blog.id} />}
+      </div>
+    </article>
   );
 };
 
 const BlogCard = ({
   blog,
   size = "large",
+  showActions,
 }: {
   blog: Blog;
   size?: "small" | "large";
+  showActions?: {
+    publish?: boolean;
+    delete?: boolean;
+  };
 }) => {
   if (size === "small") {
-    return <BlogCardSmall blog={blog} />;
+    return <BlogCardSmall blog={blog} showActions={showActions} />;
   }
 
   return <BlogCardLarge blog={blog} />;

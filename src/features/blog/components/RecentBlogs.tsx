@@ -1,18 +1,46 @@
 import React from "react";
 import BlogCard from "./BlogCard";
 import { getRecentBlogs } from "../interface/blog.controller";
+import { Blog } from "@prisma/client";
 
-export default async function RecentBlogs() {
-  const recentBlogs = await getRecentBlogs();
+function RecentBlogsSmall({ blogs }: { blogs: Blog[] }) {
+  return (
+    <section className="space-y-5">
+      <h2 className="text-caps2 uppercase">Recent Publishes</h2>
+      <div className="space-y-2">
+        {blogs.map((blog) => (
+          <BlogCard key={blog.id} size="small" blog={blog} />
+        ))}
+      </div>
+    </section>
+  );
+}
 
+function RecentBlogsLarge({ blogs }: { blogs: Blog[] }) {
   return (
     <section className="mx-auto max-w-screen-xl space-y-16">
       <h2 className="text-center font-serif text-h2">Recent Stories</h2>
       <div className="grid grid-cols-3 gap-16">
-        {recentBlogs.map((blog) => (
+        {blogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}
       </div>
     </section>
   );
+}
+
+export default async function RecentBlogs({
+  size = "large",
+}: {
+  size?: "large" | "small";
+}) {
+  const { blogs: recentBlogs } = await getRecentBlogs({
+    limit: 3,
+  });
+
+  if (size === "large") {
+    return <RecentBlogsLarge blogs={recentBlogs} />;
+  }
+
+  return <RecentBlogsSmall blogs={recentBlogs} />;
 }

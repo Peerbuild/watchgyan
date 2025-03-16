@@ -1,6 +1,7 @@
-import React from 'react';
-import { AdminHeader } from '@/components/Header';
-import EditorMetadataProvider from '@/features/blog/Providers/EditorMetadataProvider';
+import React from "react";
+import { AdminHeader } from "@/components/Header";
+import EditorMetadataProvider from "@/features/blog/Providers/EditorMetadataProvider";
+import Sidebar from "@/components/Sidebar";
 
 export default function AdminLayout({
   children,
@@ -8,8 +9,13 @@ export default function AdminLayout({
   return (
     <div>
       <EditorMetadataProvider>
-        <AdminHeader />
-        {children}
+        <div className="flex min-h-svh">
+          <Sidebar />
+          <div className="flex-1">
+            <AdminHeader />
+            {children}
+          </div>
+        </div>
       </EditorMetadataProvider>
     </div>
   );

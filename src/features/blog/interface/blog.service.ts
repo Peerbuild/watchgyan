@@ -1,9 +1,14 @@
-import { prisma } from '@/lib/prisma';
-import { CreateBlogRequest } from '../dto/createBlog.dto';
+import { prisma } from "@/lib/prisma";
+import { CreateBlogRequest } from "../dto/createBlog.dto";
+import { GetDraftBlogsRequest } from "../dto/getDraftBlog.dto";
+import { PublishBlogRequest } from "../dto/publishBlog.dto";
+import { DeleteBlogRequest } from "../dto/deleteBlog.dto";
+import { UpdateBlogRequest } from "../dto/updateBlog.dto";
+import { GetRecentBlogRequest } from "../dto/getRecentBlog.dto";
 
 export class BlogService {
   async createBlog(dto: CreateBlogRequest) {
-    const slug = dto.title.toLowerCase().replace(/ /g, '-');
+    const slug = dto.title.toLowerCase().replace(/ /g, "-");
 
     const blog = await prisma.blog.create({
       data: {
@@ -15,13 +20,40 @@ export class BlogService {
     return blog;
   }
 
-  async getRecentBlogs() {
-    return await prisma.blog.findMany({
-      take: 3,
-      orderBy: {
-        createdAt: 'desc',
+  async publishBlog({ id }: PublishBlogRequest) {
+    return await prisma.blog.update({
+      where: {
+        id,
+      },
+      data: {
+        isPublished: true,
+        isDraft: false,
       },
     });
+  }
+
+  async getRecentBlogs(data?: GetRecentBlogRequest) {
+    const blogs = await prisma.blog.findMany({
+      where: {
+        isDraft: false,
+      },
+      take: data?.limit || 10,
+      skip: data?.offset || 0,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const totalBlogs = await prisma.blog.count({
+      where: {
+        isDraft: false,
+      },
+    });
+
+    return {
+      blogs,
+      totalBlogs,
+    };
   }
 
   async getBlogById(id: string) {
@@ -32,7 +64,7 @@ export class BlogService {
     });
 
     if (!blog) {
-      throw new Error('Blog not found');
+      throw new Error("Blog not found");
     }
 
     return blog;
@@ -43,12 +75,60 @@ export class BlogService {
       take: 6,
       orderBy: [
         {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
         {
-          views: 'desc',
+          views: "desc",
         },
       ],
+    });
+  }
+
+  async getDraftBlogs(data?: GetDraftBlogsRequest) {
+    const blogs = await prisma.blog.findMany({
+      where: {
+        isDraft: true,
+      },
+      ...(data?.limit && { take: data.limit }),
+    });
+
+    return blogs;
+  }
+
+  async updateBlog({ id, ...data }: UpdateBlogRequest) {
+    const isBlogExists = await prisma.blog.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!isBlogExists) {
+      throw new Error("Blog not found");
+    }
+
+    return await prisma.blog.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+      },
+    });
+  }
+
+  async deleteBlog(data: DeleteBlogRequest) {
+    const isBlogExists = await prisma.blog.findUnique({
+      where: {
+        id: data.id,
+      },
+    });
+    if (!isBlogExists) {
+      throw new Error("Blog not found");
+    }
+
+    return await prisma.blog.delete({
+      where: {
+        id: data.id,
+      },
     });
   }
 }

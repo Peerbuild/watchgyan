@@ -10,7 +10,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import React, { useEffect, useState } from "react";
 import { useEditorMetadata } from "../Providers/EditorMetadataProvider";
-import { createBlog } from "../interface/blog.controller";
+import { createBlog, publishBlog } from "../interface/blog.controller";
 import { generateHTML } from "@tiptap/core";
 import { defaultExtensions } from "@/lib/extentions";
 import { slashCommand } from "@/lib/suggestions";
@@ -57,10 +57,14 @@ const BlogPublishDialog = () => {
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
 
-      return await createBlog({
+      const blog = await createBlog({
         ...values,
         content: html,
         tags,
+      });
+
+      return await publishBlog({
+        id: blog.id,
       });
     },
     onError: (error) => {

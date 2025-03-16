@@ -1,13 +1,15 @@
-import BlogCard from '@/features/blog/components/BlogCard';
-import { getRecentBlogs } from '@/features/blog/interface/blog.controller';
-import React from 'react';
-import SectionTitle from './SectionTitle';
-import Link from 'next/link';
-import Animate from '@/components/Animate';
-import AnimatedButton from './AnimatedButton';
+import BlogCard from "@/features/blog/components/BlogCard";
+import { getRecentBlogs } from "@/features/blog/interface/blog.controller";
+import React from "react";
+import SectionTitle from "./SectionTitle";
+import Link from "next/link";
+import Animate from "@/components/Animate";
+import AnimatedButton from "./AnimatedButton";
 
 export default async function RecentBlogs() {
-  const recentBlogs = await getRecentBlogs();
+  const { blogs: recentBlogs } = await getRecentBlogs({
+    limit: 3,
+  });
 
   return (
     <section className="mx-auto max-w-screen-xl px-6 text-center">
@@ -21,7 +23,7 @@ export default async function RecentBlogs() {
             <BlogCard key={blog.id} blog={blog} />
           ))}
         </div>
-        <Link href={'/blog'} className="block">
+        <Link href={"/blog"} className="block">
           <AnimatedButton>Explore all blogs</AnimatedButton>
         </Link>
       </Animate>

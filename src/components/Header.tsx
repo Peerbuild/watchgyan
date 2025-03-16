@@ -40,7 +40,9 @@ export const PublicHeader = () => {
   const { data } = useQuery({
     queryKey: ["recent-blogs"],
     queryFn: async () => {
-      return getRecentBlogs();
+      return getRecentBlogs({
+        limit: 3,
+      });
     },
   });
 
@@ -123,7 +125,7 @@ export const PublicHeader = () => {
               </h2>
 
               <div className="flex flex-col gap-6">
-                {data?.map((item) => (
+                {data?.blogs.map((item) => (
                   <BlogCard size="small" key={item.id} blog={item} />
                 ))}
               </div>
@@ -149,5 +151,5 @@ export const AdminHeader = () => {
     return <EditorHeader />;
   }
 
-  return <div>Header</div>;
+  return <div className="md:hidden">Header</div>;
 };

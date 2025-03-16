@@ -1,9 +1,8 @@
-import { Input } from "@/components/ui/input";
 import SectionTitle from "./SectionTitle";
-import FeatherIcon from "feather-icons-react";
 import Image from "next/image";
 import Animate from "@/components/Animate";
 import Paralax from "@/features/blog/components/Paralax";
+import { EmailInput } from "@/features/newsletter/components/EmailInput";
 
 export default function Newsletter() {
   return (
@@ -28,13 +27,16 @@ export default function Newsletter() {
           title="Inspirational Stories Right to Your Inbox"
           subtitle="NEWSLETTER"
         />
-        <div className="relative mx-auto mt-20 w-full max-w-sm">
-          <Input placeholder="Enter your personal email" className="pr-10" />
-          <FeatherIcon
-            icon="arrow-right"
-            className="absolute right-0 top-1/2 -translate-y-1/2 text-foreground transition-colors duration-500"
-          />
-        </div>
+        <EmailInput />
+        {
+          //<div className="relative mx-auto mt-20 w-full max-w-sm">
+          //  <Input placeholder="Enter your personal email" className="pr-10" />
+          //  <FeatherIcon
+          //    icon="arrow-right"
+          //    className="absolute right-0 top-1/2 -translate-y-1/2 text-foreground transition-colors duration-500"
+          //  />
+          //</div>
+        }
       </Animate>
     </section>
   );

@@ -14,15 +14,24 @@ datasource db {
 }
 
 model Blog {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  subtitle  String?
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  subtitle    String?
   description String
-  slug      String
-  content   String
-  tags      String[]
-  thumbnail String?
-  views     Int      @default(0)
+  slug        String
+  content     String
+  tags        String[]
+  thumbnail   String?
+  views       Int      @default(0)
+  isDraft     Boolean  @default(true)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Subscriber {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
