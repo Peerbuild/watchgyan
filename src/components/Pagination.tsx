@@ -6,6 +6,10 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const MAX_VISIBLE_PAGES = 4;
+const MIN_PAGE_DISPLAY = 6;
+const PAGE_OFFSET = 2;
+
 interface PaginationProps {
   totalItems: number;
   itemsPerPage: number;
@@ -13,35 +17,24 @@ interface PaginationProps {
 }
 
 export default function Pagination({
-  totalItems,
   itemsPerPage,
+  totalItems,
   currentPage,
 }: PaginationProps) {
-  const path = usePathname();
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const lowerBound = Math.max(
+    1,
+    Math.min(currentPage - PAGE_OFFSET, totalPages - (MAX_VISIBLE_PAGES + 1)),
+  );
 
-  const pages = Math.ceil(totalItems / itemsPerPage);
-  const hasMorePages = currentPage + 3 < pages;
-  const lowerBound = hasMorePages
-    ? Math.max(1, currentPage - 2)
-    : Math.max(1, pages - 5);
+  if (totalPages <= 1) return null;
 
   return (
     <div className="flex items-center justify-center gap-6 pt-12">
-      <Link
-        href={{
-          pathname: path,
-          query: { page: String(currentPage - 1) },
-        }}
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "icon" }),
-          currentPage === 1 && "pointer-events-none",
-        )}
-      >
-        <FeatherIcon icon="chevron-left" />
-      </Link>
+      <PreviousButton currentPage={currentPage} pages={totalPages} />
 
       <div className="space-x-8">
-        {[...Array(4)].map((_, index) => {
+        {[...Array(Math.min(totalPages, MAX_VISIBLE_PAGES))].map((_, index) => {
           return (
             <PaginatedItem
               key={index}
@@ -50,26 +43,16 @@ export default function Pagination({
             />
           );
         })}
-        {hasMorePages ? (
-          <span>...</span>
-        ) : (
-          <PaginatedItem currentPage={currentPage} page={pages - 1} />
+
+        {totalPages > MIN_PAGE_DISPLAY - 1 && (
+          <PaginationEllipsis currentPage={currentPage} pages={totalPages} />
         )}
-        <PaginatedItem currentPage={currentPage} page={pages} />
+        {totalPages > MAX_VISIBLE_PAGES && (
+          <PaginatedItem currentPage={currentPage} page={totalPages} />
+        )}
       </div>
 
-      <Link
-        href={{
-          pathname: path,
-          query: { page: String(currentPage + 1) },
-        }}
-        className={cn(
-          buttonVariants({ variant: "ghost", size: "icon" }),
-          currentPage === pages && "pointer-events-none",
-        )}
-      >
-        <FeatherIcon icon="chevron-right" />
-      </Link>
+      <NextButton currentPage={currentPage} pages={totalPages} />
     </div>
   );
 }
@@ -95,6 +78,63 @@ function PaginatedItem({ page, currentPage }: PaginatedItemProps) {
       >
         {page}
       </span>
+    </Link>
+  );
+}
+
+interface PaginationEllipsisProps {
+  currentPage: number;
+  pages: number;
+}
+
+function PaginationEllipsis({ currentPage, pages }: PaginationEllipsisProps) {
+  const hasMorePages =
+    currentPage + (PAGE_OFFSET + 1) < pages && pages > MIN_PAGE_DISPLAY;
+
+  if (!hasMorePages) {
+    return <PaginatedItem currentPage={currentPage} page={pages - 1} />;
+  }
+
+  return <span>...</span>;
+}
+
+interface PaginationButtonProps {
+  currentPage: number;
+  pages: number;
+}
+
+function NextButton({ currentPage, pages }: PaginationButtonProps) {
+  const path = usePathname();
+  return (
+    <Link
+      href={{
+        pathname: path,
+        query: { page: String(currentPage + 1) },
+      }}
+      className={cn(
+        buttonVariants({ variant: "ghost", size: "icon" }),
+        currentPage === pages && "pointer-events-none",
+      )}
+    >
+      <FeatherIcon icon="chevron-right" />
+    </Link>
+  );
+}
+
+function PreviousButton({ currentPage }: PaginationButtonProps) {
+  const path = usePathname();
+  return (
+    <Link
+      href={{
+        pathname: path,
+        query: { page: String(currentPage - 1) },
+      }}
+      className={cn(
+        buttonVariants({ variant: "ghost", size: "icon" }),
+        currentPage === 1 && "pointer-events-none",
+      )}
+    >
+      <FeatherIcon icon="chevron-left" />
     </Link>
   );
 }
