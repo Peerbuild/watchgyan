@@ -4,7 +4,9 @@ import FeatherIcon from "feather-icons-react";
 import CopyToClipboard from "./CopyToClipboard";
 
 export default async function RecentEmails() {
-  const emails = await getEmails();
+  const { emails } = await getEmails({
+    limit: 5,
+  });
 
   return (
     <section className="space-y-5">

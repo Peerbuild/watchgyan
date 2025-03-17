@@ -63,10 +63,11 @@ interface PaginatedItemProps {
 }
 
 function PaginatedItem({ page, currentPage }: PaginatedItemProps) {
+  const path = usePathname();
   return (
     <Link
       href={{
-        pathname: "/admin/blog",
+        pathname: path,
         query: { page: String(page) },
       }}
     >

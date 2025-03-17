@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { AddSubscriberDto } from "../dto/addSubscriber.dto";
+import { GetEmailsRequestDto } from "../dto/getEmails.dto";
 
 export class NewsletterService {
   async addSubscriber({ email }: AddSubscriberDto) {
@@ -19,7 +20,17 @@ export class NewsletterService {
     });
   }
 
-  async getEmails() {
-    return await prisma.subscriber.findMany();
+  async getEmails(data?: GetEmailsRequestDto) {
+    const emails = await prisma.subscriber.findMany({
+      take: data?.limit,
+      skip: data?.offset,
+    });
+
+    const totalEmails = await prisma.subscriber.count();
+
+    return {
+      emails,
+      totalEmails,
+    };
   }
 }
