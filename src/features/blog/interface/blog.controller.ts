@@ -19,6 +19,10 @@ import {
   GetRecentBlogRequest,
   getRecentBlogRequestDto,
 } from "../dto/getRecentBlog.dto";
+import {
+  searchBlogRequestDto,
+  SearchBlogRequestDto,
+} from "../dto/searchBlog.dto";
 
 const blogService = new BlogService();
 
@@ -66,3 +70,7 @@ export const deleteBlog = safeAction(async (data: DeleteBlogRequest) => {
   revalidatePath("/");
   return blog;
 }, deleteBlogRequestDto);
+
+export const searchBlogs = safeAction(async (data: SearchBlogRequestDto) => {
+  return blogService.searchBlogs(data);
+}, searchBlogRequestDto);

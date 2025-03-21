@@ -4,7 +4,7 @@ import { buttonVariants } from "./ui/button";
 import FeatherIcon from "feather-icons-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const MAX_VISIBLE_PAGES = 4;
 const MIN_PAGE_DISPLAY = 6;
@@ -64,11 +64,15 @@ interface PaginatedItemProps {
 
 function PaginatedItem({ page, currentPage }: PaginatedItemProps) {
   const path = usePathname();
+  const searchParams = useSearchParams();
+
+  const queryParams = Object.fromEntries(searchParams.entries());
+
   return (
     <Link
       href={{
         pathname: path,
-        query: { page: String(page) },
+        query: { ...queryParams, page: String(page) },
       }}
     >
       <span
@@ -106,11 +110,15 @@ interface PaginationButtonProps {
 
 function NextButton({ currentPage, pages }: PaginationButtonProps) {
   const path = usePathname();
+  const searchParams = useSearchParams();
+
+  const queryParams = Object.fromEntries(searchParams.entries());
+
   return (
     <Link
       href={{
         pathname: path,
-        query: { page: String(currentPage + 1) },
+        query: { ...queryParams, page: String(currentPage + 1) },
       }}
       className={cn(
         buttonVariants({ variant: "ghost", size: "icon" }),
@@ -124,11 +132,15 @@ function NextButton({ currentPage, pages }: PaginationButtonProps) {
 
 function PreviousButton({ currentPage }: PaginationButtonProps) {
   const path = usePathname();
+  const searchParams = useSearchParams();
+
+  const queryParams = Object.fromEntries(searchParams.entries());
+
   return (
     <Link
       href={{
         pathname: path,
-        query: { page: String(currentPage - 1) },
+        query: { ...queryParams, page: String(currentPage - 1) },
       }}
       className={cn(
         buttonVariants({ variant: "ghost", size: "icon" }),

@@ -1,8 +1,13 @@
 import React from "react";
-import { addSubscriber, getEmails } from "../interface/newletter.controller";
+import {
+  addSubscriber,
+  getEmails,
+  searchEmails,
+} from "../interface/newletter.controller";
 import FeatherIcon from "feather-icons-react";
 import CopyToClipboard from "./CopyToClipboard";
 import Pagination from "@/components/Pagination";
+import { Search } from "@/components/Search";
 
 const createBulkEmails = async () => {
   const emails = [];
@@ -24,20 +29,29 @@ const EMAILS_PER_PAGE = 11;
 export default async function AllEmailList({
   searchParams,
 }: {
-  searchParams: Promise<{ page: string | undefined }>;
+  searchParams: Promise<{ page: string | undefined; q: string | undefined }>;
 }) {
-  const { page } = await searchParams;
+  const { page, q } = await searchParams;
   const currentPage = page ? Number(page) : 1;
   const offset = (Number(currentPage) - 1) * EMAILS_PER_PAGE;
-  const { emails, totalEmails } = await getEmails({
-    limit: EMAILS_PER_PAGE,
-    offset,
-  });
+  const { emails, totalEmails } = q
+    ? await searchEmails({
+        query: q,
+        limit: EMAILS_PER_PAGE,
+        offset,
+      })
+    : await getEmails({
+        limit: EMAILS_PER_PAGE,
+        offset,
+      });
 
   return (
     <div>
       <section className="space-y-5">
-        <h2 className="text-caps2 uppercase">All Mails</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-caps2 uppercase">All Mails</h2>
+          <Search />
+        </div>
         <div>
           {emails.map(({ email, id }) => {
             return (

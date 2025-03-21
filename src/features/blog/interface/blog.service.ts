@@ -5,6 +5,7 @@ import { PublishBlogRequest } from "../dto/publishBlog.dto";
 import { DeleteBlogRequest } from "../dto/deleteBlog.dto";
 import { UpdateBlogRequest } from "../dto/updateBlog.dto";
 import { GetRecentBlogRequest } from "../dto/getRecentBlog.dto";
+import { SearchBlogRequestDto } from "../dto/searchBlog.dto";
 
 export class BlogService {
   async createBlog(dto: CreateBlogRequest) {
@@ -130,5 +131,33 @@ export class BlogService {
         id: data.id,
       },
     });
+  }
+
+  async searchBlogs(data: SearchBlogRequestDto) {
+    const blogs = await prisma.blog.findMany({
+      where: {
+        title: {
+          contains: data.query,
+          mode: "insensitive",
+        },
+      },
+
+      take: data.limit || 10,
+      skip: data.offset || 0,
+    });
+
+    const totalBlogs = await prisma.blog.count({
+      where: {
+        title: {
+          contains: data.query,
+          mode: "insensitive",
+        },
+      },
+    });
+
+    return {
+      blogs,
+      totalBlogs,
+    };
   }
 }

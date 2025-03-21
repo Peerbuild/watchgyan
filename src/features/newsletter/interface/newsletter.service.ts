@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { AddSubscriberDto } from "../dto/addSubscriber.dto";
 import { GetEmailsRequestDto } from "../dto/getEmails.dto";
+import { SearchEmailsRequestDto } from "../dto/SearchEmail.dto";
 
 export class NewsletterService {
   async addSubscriber({ email }: AddSubscriberDto) {
@@ -27,6 +28,31 @@ export class NewsletterService {
     });
 
     const totalEmails = await prisma.subscriber.count();
+
+    return {
+      emails,
+      totalEmails,
+    };
+  }
+
+  async searchEmails(data: SearchEmailsRequestDto) {
+    const emails = await prisma.subscriber.findMany({
+      where: {
+        email: {
+          contains: data.query,
+        },
+      },
+      take: data.limit ?? 10,
+      skip: data.offset ?? 0,
+    });
+
+    const totalEmails = await prisma.subscriber.count({
+      where: {
+        email: {
+          contains: data.query,
+        },
+      },
+    });
 
     return {
       emails,

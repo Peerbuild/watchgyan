@@ -3,7 +3,6 @@ import "./globals.css";
 import { DMSans, PlayflairDisplay } from "@/lib/fonts";
 import ReactQueryProvider from "@/providers/QueryClientProvider";
 import { Toaster } from "@/components/ui/sonner";
-import LenisScroll from "@/components/LenisScroll";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,9 +19,7 @@ export default function RootLayout({
       <body
         className={`${DMSans.variable} ${PlayflairDisplay.variable} font-sans text-body antialiased transition-colors duration-500`}
       >
-        <ReactQueryProvider>
-          <LenisScroll>{children}</LenisScroll>
-        </ReactQueryProvider>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
         <Toaster richColors />
       </body>
     </html>

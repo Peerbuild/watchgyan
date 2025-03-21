@@ -1,4 +1,5 @@
 import { PublicHeader } from "@/components/Header";
+import LenisScroll from "@/components/LenisScroll";
 
 export default function PublicLayout({
   children,
@@ -6,9 +7,11 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <PublicHeader />
-      {children}
-    </div>
+    <LenisScroll>
+      <div>
+        <PublicHeader />
+        {children}
+      </div>
+    </LenisScroll>
   );
 }
