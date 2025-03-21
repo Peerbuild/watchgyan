@@ -1,10 +1,6 @@
 "use client";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import {
-  InfiniteData,
-  QueryFunctionContext,
-  useInfiniteQuery,
-} from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import React, { useCallback, useEffect, useRef } from "react";
 
 interface InfiniteListProps<T> {
@@ -27,7 +23,7 @@ export default function InifiniteList<T>({
       queryKey,
       queryFn,
       initialPageParam: 0,
-      getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      getNextPageParam: (lastPage, _, lastPageParam) => {
         return Math.floor(lastPage.totalItems / 10) > lastPageParam
           ? lastPageParam + 1
           : null;
@@ -44,6 +40,8 @@ export default function InifiniteList<T>({
     gap: 0,
   });
 
+  const virtualItems = virtualizer.getVirtualItems();
+
   useEffect(() => {
     const [lastItem] = virtualizer.getVirtualItems().slice(-1);
 
@@ -56,12 +54,13 @@ export default function InifiniteList<T>({
     ) {
       fetchNextPage();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
     items.length,
-    virtualizer.getVirtualItems(),
+    virtualItems,
   ]);
 
   return (

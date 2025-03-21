@@ -8,44 +8,11 @@ import {
 import BlogCard from "./BlogCard";
 import { Blog } from "@prisma/client";
 
-const blogs: {
-  title: string;
-  description: string;
-  thumbnail: string;
-  duration: string;
-  tags: string[];
-}[] = [
-  {
-    title: "The Power of Positive Thinking",
-    description: "Positive thinking can change your life",
-    thumbnail: "/image-1.jpg",
-    duration: "5 min read",
-    tags: ["Positive Thinking", "Mindset"],
-  },
-  {
-    title: "The Power of Positive Thinking",
-    description: "Positive thinking can change your life",
-    thumbnail: "/image-1.jpg",
-    duration: "5 min read",
-    tags: ["Positive Thinking", "Mindset"],
-  },
-  {
-    title: "The Power of Positive Thinking",
-    description: "Positive thinking can change your life",
-    thumbnail: "/image-1.jpg",
-    duration: "5 min read",
-    tags: ["Positive Thinking", "Mindset"],
-  },
-  {
-    title: "The Power of Positive Thinking",
-    description: "Positive thinking can change your life",
-    thumbnail: "/image-1.jpg",
-    duration: "5 min read",
-    tags: ["Positive Thinking", "Mindset"],
-  },
-];
+interface BlogCardCarouselProps {
+  blogs: Blog[];
+}
 
-export default function BlogCardCarousel() {
+export default function BlogCardCarousel({ blogs }: BlogCardCarouselProps) {
   return (
     <Carousel className="flex gap-20">
       <div className="flex flex-col justify-between">

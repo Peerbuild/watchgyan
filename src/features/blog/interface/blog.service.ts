@@ -91,6 +91,9 @@ export class BlogService {
         isDraft: true,
       },
       ...(data?.limit && { take: data.limit }),
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return blogs;

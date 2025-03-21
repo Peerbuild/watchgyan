@@ -1,6 +1,6 @@
-'use client';
-import { JSONContent } from 'novel';
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+"use client";
+import { JSONContent } from "novel";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 interface EditorMetadataContextProps {
   title: string;
@@ -16,8 +16,8 @@ const EditorMetadataContext = createContext<EditorMetadataContextProps | null>(
 );
 
 const EditorMetadataProvider = ({ children }: PropsWithChildren) => {
-  const [title, setTitle] = useState('');
-  const [subtitle, setSubtitle] = useState('');
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
   const [content, setContent] = useState<JSONContent | undefined>(undefined);
 
   return (
@@ -43,9 +43,8 @@ export const useEditorMetadata = () => {
 
   if (!context) {
     throw new Error(
-      'useEditorMetadata must be used within an EditorMetadataProvider',
+      "useEditorMetadata must be used within an EditorMetadataProvider",
     );
   }
-
   return context;
 };

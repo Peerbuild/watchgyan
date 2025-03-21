@@ -13,6 +13,10 @@ import {
   searchBlogInCategoryRequestDto,
   SearchBlogInCategoryRequestDto,
 } from "../dto/searchBlogInCategory.dto";
+import {
+  getBlogsByCategoryRequestDto,
+  GetBlogsByCategoryRequestDto,
+} from "../dto/getBlogByCategory.dto";
 
 const categoryService = new CategoryService();
 
@@ -20,9 +24,12 @@ export const getCategories = safeAction(async () => {
   return categoryService.getCategories();
 });
 
-export const getBlogsByCategory = safeAction(async (categoryName: string) => {
-  return categoryService.getBlogsByCategory(categoryName);
-});
+export const getBlogsByCategory = safeAction(
+  async (data: GetBlogsByCategoryRequestDto) => {
+    return categoryService.getBlogsByCategory(data);
+  },
+  getBlogsByCategoryRequestDto,
+);
 
 export const getBlogsWithCategory = safeAction(
   async (data: GetBlogsWithCategoryRequestDto) => {

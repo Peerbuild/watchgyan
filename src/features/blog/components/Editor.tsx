@@ -1,5 +1,11 @@
 "use client";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   EditorCommand,
   EditorCommandItem,
@@ -10,7 +16,7 @@ import {
 } from "novel";
 import UniqueId from "tiptap-unique-id";
 import { PlayflairDisplay } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
+import { cn, isEditorContentEmpty } from "@/lib/utils";
 import { defaultExtensions } from "@/lib/extentions";
 import { slashCommand, suggestionItems } from "@/lib/suggestions";
 import { handleCommandNavigation } from "novel/extensions";
@@ -20,7 +26,13 @@ import { useEditorMetadata } from "../Providers/EditorMetadataProvider";
 import BlogOutline from "./BlogOutline";
 import { deleteImage } from "@/features/cloudinary/cloudinary.controller";
 import YoutubeUrlDialog from "./YoutubeUrlDialog";
-import { generateHTML, Range } from "@tiptap/core";
+import { generateHTML, generateJSON, Range } from "@tiptap/core";
+import { useMutation } from "@tanstack/react-query";
+import { createBlog, updateBlog } from "../interface/blog.controller";
+import { toast } from "sonner";
+import useDebounce from "@/hooks/useDebounce";
+import useAutosave from "@/hooks/useAutosave";
+import { Blog } from "@prisma/client";
 
 const TiptapEditor = ({
   setEditor,
@@ -79,16 +91,6 @@ const TiptapEditor = ({
         initialContent={content}
         onUpdate={({ editor }) => {
           const json = editor.getJSON();
-          console.log(
-            generateHTML(json, [
-              ...defaultExtensions,
-              slashCommand,
-              UniqueId.configure({
-                attributeName: "id",
-                types: ["heading"],
-              }),
-            ]),
-          );
           setContent(json);
           handleImageDeletion(editor);
         }}
@@ -106,7 +108,6 @@ const TiptapEditor = ({
                       editor: EditorInstance;
                       range: Range;
                     }) => {
-                      console.log("Youtube command");
                       setOpen(true);
                       editor.chain().focus().deleteRange(range).run();
                     }
@@ -137,12 +138,18 @@ const TiptapEditor = ({
   );
 };
 
-export const Editor = () => {
+interface EditorProps {
+  blog?: Blog;
+}
+
+export const Editor = ({ blog }: EditorProps) => {
   const subtitleInputRef = React.useRef<HTMLTextAreaElement>(null);
   const titleInputRef = React.useRef<HTMLTextAreaElement>(null);
   const [editor, setEditor] = useState<EditorInstance | null>(null);
+  const [isCreated, setIsCreated] = useState(!!blog);
+  const blogId = useRef<string | null>(null);
 
-  const { title, setTitle, subtitle, setSubtitle, content } =
+  const { title, setTitle, subtitle, setSubtitle, content, setContent } =
     useEditorMetadata();
 
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -150,11 +157,134 @@ export const Editor = () => {
   useAutoSizeTextarea({ value: subtitle, textareaRef: subtitleInputRef });
   useAutoSizeTextarea({ value: title, textareaRef: titleInputRef });
 
+  const debouncedTitle = useDebounce(title, 500);
+
+  const debouncedContent = useDebounce(
+    generateHTML(
+      content ??
+        generateJSON("", [
+          ...defaultExtensions,
+          slashCommand,
+          UniqueId.configure({
+            attributeName: "id",
+            types: ["heading"],
+          }),
+        ]),
+      [
+        ...defaultExtensions,
+        slashCommand,
+        UniqueId.configure({
+          attributeName: "id",
+          types: ["heading"],
+        }),
+      ],
+    ),
+    500,
+  );
+
+  const createMutation = useMutation({
+    mutationFn: async () => {
+      if (isEditorContentEmpty(content) || !title) {
+        throw new Error("Title is required");
+      }
+
+      const html = generateHTML(content!, [
+        ...defaultExtensions,
+        slashCommand,
+        UniqueId.configure({
+          attributeName: "id",
+          types: ["heading"],
+        }),
+      ]);
+
+      return await createBlog({
+        content: html,
+        title,
+        description: "",
+        subtitle,
+        tags: [],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      setIsCreated(false);
+    },
+    onSuccess: (data) => {
+      blogId.current = data.id;
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: async () => {
+      if (!debouncedContent || !debouncedTitle || !blogId || !blogId.current) {
+        return;
+      }
+
+      await updateBlog({
+        id: blogId.current,
+        title,
+        content: debouncedContent,
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      console.log("Blog updated");
+    },
+  });
+
+  const { setAutosave } = useAutosave(updateMutation.mutate);
+
   useEffect(() => {
     if (showSubtitle) {
       subtitleInputRef.current?.focus();
     }
   }, [showSubtitle]);
+
+  useEffect(() => {
+    if (!title || isEditorContentEmpty(content)) {
+      return;
+    }
+    setAutosave(true);
+
+    if (isCreated) {
+      return;
+    }
+
+    setIsCreated(true);
+    createMutation.mutate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, subtitle, content, isCreated]);
+
+  useEffect(() => {
+    if (!isCreated || !blogId || !blogId.current) return;
+
+    updateMutation.mutate();
+    setAutosave(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedTitle, debouncedContent, isCreated]);
+
+  useEffect(() => {
+    if (blog) {
+      setTitle(blog.title);
+      if (blog.subtitle) {
+        setSubtitle(blog.subtitle);
+      }
+      setContent(
+        generateJSON(blog.content, [
+          ...defaultExtensions,
+          slashCommand,
+          UniqueId.configure({
+            attributeName: "id",
+            types: ["heading"],
+          }),
+        ]),
+      );
+      blogId.current = blog.id;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blog]);
 
   return (
     <div className="flex flex-row-reverse">
@@ -216,7 +346,11 @@ export const Editor = () => {
             />
           </div>
         )}
-        <TiptapEditor setEditor={setEditor} />
+        {blog ? (
+          content && <TiptapEditor setEditor={setEditor} />
+        ) : (
+          <TiptapEditor setEditor={setEditor} />
+        )}
       </div>
     </div>
   );

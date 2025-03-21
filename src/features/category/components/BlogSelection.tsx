@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  getBlogsByCategory,
-  getCategories,
-} from "../interface/category.controller";
+import { getCategories } from "../interface/category.controller";
 import BlogSelectorMenu from "./BlogSelectorMenu";
 
 export default async function BlogSelection() {

@@ -8,10 +8,6 @@ import {
 import { Blog, Category } from "@prisma/client";
 import FeatherIcon from "feather-icons-react";
 import InifiniteList from "./InifiniteList";
-import {
-  getRecentBlogs,
-  searchBlogs,
-} from "@/features/blog/interface/blog.controller";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   addBlogToCategory,
@@ -20,7 +16,6 @@ import {
 } from "../interface/category.controller";
 import {
   InfiniteData,
-  QueryFunctionContext,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
@@ -120,7 +115,8 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
     queryClient.invalidateQueries({
       queryKey: ["blogs", category.name],
     });
-  }, [debouncedSearch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch, category.name]);
 
   return (
     <DropdownMenu key={category.id}>

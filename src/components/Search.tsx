@@ -24,7 +24,7 @@ export const Search = () => {
     router.push(`${path}?${query}`, {
       scroll: false,
     });
-  }, [debouncedSearch]);
+  }, [debouncedSearch, path, router]);
 
   return (
     <div className="flex items-center">

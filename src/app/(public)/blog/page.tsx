@@ -1,3 +1,4 @@
+import CuratedPicks from "@/features/blog/components/CuratedPicks";
 import Herosection from "@/features/blog/components/Herosection";
 import LatestGlobalBlogs from "@/features/blog/components/LatestGlobalBlogs";
 import RecentBlogs from "@/features/blog/components/RecentBlogs";
@@ -11,6 +12,7 @@ export default function BlogPage() {
       <Herosection />
       <RecentBlogs />
       <TopArticles />
+      <CuratedPicks />
       <ThemeSwitcherWrapper>
         <LatestGlobalBlogs />
         <Footer />

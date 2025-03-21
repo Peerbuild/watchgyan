@@ -2,8 +2,6 @@ import React from "react";
 import { getRecentBlogs, searchBlogs } from "../interface/blog.controller";
 import BlogCard from "./BlogCard";
 import Pagination from "@/components/Pagination";
-import { Input } from "@/components/ui/input";
-import FeatherIcon from "feather-icons-react";
 import { Search } from "@/components/Search";
 
 const BLOGS_PER_PAGE = 7;

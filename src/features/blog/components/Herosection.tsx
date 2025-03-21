@@ -3,7 +3,12 @@ import Image from "next/image";
 import React from "react";
 import Paralax from "./Paralax";
 
-const Herosection = () => {
+const Herosection = async () => {
+  //const featuredPosts = await getBlogsByCategory({
+  //  categoryName: "Featured Posts",
+  //  limit: 5,
+  //});
+
   return (
     <section className="dark relative mx-auto flex min-h-svh items-center space-y-8 py-32 text-foreground">
       <div className="absolute inset-0 h-full w-full overflow-hidden">

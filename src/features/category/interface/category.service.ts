@@ -2,19 +2,22 @@ import { prisma } from "@/lib/prisma";
 import { GetBlogsWithCategoryRequestDto } from "../dto/getBlogsWithCategory.dto";
 import { AddBlogToCategoryRequestDto } from "../dto/addBlogToCategory.dto";
 import { SearchBlogInCategoryRequestDto } from "../dto/searchBlogInCategory.dto";
+import { GetBlogsByCategoryRequestDto } from "../dto/getBlogByCategory.dto";
 
 export class CategoryService {
   async getCategories() {
     return await prisma.category.findMany();
   }
 
-  async getBlogsByCategory(categoryName: string) {
+  async getBlogsByCategory(data: GetBlogsByCategoryRequestDto) {
     return await prisma.blog.findMany({
       where: {
         category: {
-          name: categoryName,
+          name: data.categoryName,
         },
       },
+
+      take: data.limit || 10,
     });
   }
 

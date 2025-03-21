@@ -56,13 +56,18 @@ const BlogCardSmall = ({
 }) => {
   const { publish = true, delete: deleteAction = true } = showActions || {};
 
+  const isDraft = blog.isDraft;
+  const url = isDraft
+    ? `/admin/blog/write/${blog.id}`
+    : `/blog/${blog.id}/${blog.slug}`;
+
   return (
     <article className="relative flex items-center gap-6 p-4 text-left shadow-md">
       <div>
         <FeatherIcon icon="book-open" className="size-5" />
       </div>
 
-      <Link href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
+      <Link href={url} className="flex-1">
         <span className="absolute inset-0"></span>
         <h3>{blog.title}</h3>
       </Link>

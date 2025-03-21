@@ -1,28 +1,9 @@
 import React from "react";
-import {
-  addSubscriber,
-  getEmails,
-  searchEmails,
-} from "../interface/newletter.controller";
+import { getEmails, searchEmails } from "../interface/newletter.controller";
 import FeatherIcon from "feather-icons-react";
 import CopyToClipboard from "./CopyToClipboard";
 import Pagination from "@/components/Pagination";
 import { Search } from "@/components/Search";
-
-const createBulkEmails = async () => {
-  const emails = [];
-  for (let i = 61; i < 100; i++) {
-    emails.push({
-      email: `testemail${i + 1}@gmail.com`,
-    });
-  }
-
-  await Promise.all(
-    emails.map((email) => {
-      return addSubscriber(email);
-    }),
-  );
-};
 
 const EMAILS_PER_PAGE = 11;
 

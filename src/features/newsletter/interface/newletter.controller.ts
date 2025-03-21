@@ -4,7 +4,6 @@ import { safeAction } from "@/lib/safeAction";
 import { NewsletterService } from "./newsletter.service";
 import { addSubscriberDto, AddSubscriberDto } from "../dto/addSubscriber.dto";
 import { GetEmailsRequestDto, getEmailsRequestDto } from "../dto/getEmails.dto";
-import { SearchBlogInCategoryRequestDto } from "@/features/category/dto/searchBlogInCategory.dto";
 import {
   SearchEmailsRequestDto,
   searchEmailsRequestDto,
