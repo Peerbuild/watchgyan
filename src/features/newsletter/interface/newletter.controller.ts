@@ -11,9 +11,14 @@ import {
 
 const newsletterService = new NewsletterService();
 
-export const addSubscriber = safeAction(async (data: AddSubscriberDto) => {
-  await newsletterService.addSubscriber(data);
-}, addSubscriberDto);
+export const addSubscriber = safeAction(
+  async (data: AddSubscriberDto) => {
+    await newsletterService.addSubscriber(data);
+  },
+  addSubscriberDto,
+  undefined,
+  true,
+);
 
 export const getEmails = safeAction(async (data?: GetEmailsRequestDto) => {
   return await newsletterService.getEmails(data);

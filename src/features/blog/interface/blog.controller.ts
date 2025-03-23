@@ -45,15 +45,22 @@ export const getRecentBlogs = safeAction(
     return blogService.getRecentBlogs(data);
   },
   getRecentBlogRequestDto,
+  undefined,
+  true,
 );
 
 export const getBlogById = safeAction(async (id: string) => {
   return blogService.getBlogById(id);
 }, getBlogByIdRequestDto);
 
-export const getTopBlogs = safeAction(async () => {
-  return blogService.getTopBlogs();
-});
+export const getTopBlogs = safeAction(
+  async () => {
+    return blogService.getTopBlogs();
+  },
+  undefined,
+  undefined,
+  true,
+);
 
 export const getDraftBlogs = safeAction(async (data?: GetDraftBlogsRequest) => {
   return blogService.getDraftBlogs(data);

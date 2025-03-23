@@ -29,6 +29,8 @@ export const getBlogsByCategory = safeAction(
     return categoryService.getBlogsByCategory(data);
   },
   getBlogsByCategoryRequestDto,
+  undefined,
+  true,
 );
 
 export const getBlogsWithCategory = safeAction(
