@@ -2,10 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { toast } from "sonner";
 
-export default function LoginPage() {
+const LoginButton = () => {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
@@ -15,6 +15,10 @@ export default function LoginPage() {
     }
   }, [error]);
 
+  return <Button onClick={() => signIn("google")}>Sign in with Google</Button>;
+};
+
+export default function LoginPage() {
   return (
     <div className="flex min-h-svh items-center justify-center">
       <main className="space-y-6">
@@ -22,8 +26,9 @@ export default function LoginPage() {
           <h1 className="font-serif text-h3">Welcome Back! Pankaj</h1>
           <p>Sign in to continue</p>
         </div>
-
-        <Button onClick={() => signIn("google")}>Sign in with Google</Button>
+        <Suspense>
+          <LoginButton />
+        </Suspense>
       </main>
     </div>
   );

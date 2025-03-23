@@ -10,17 +10,29 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import React, { useEffect, useState } from "react";
 import { useEditorMetadata } from "../Providers/EditorMetadataProvider";
-import { createBlog, publishBlog } from "../interface/blog.controller";
+import { publishBlog, updateBlog } from "../interface/blog.controller";
 import { generateHTML } from "@tiptap/core";
 import { defaultExtensions } from "@/lib/extentions";
 import { slashCommand } from "@/lib/suggestions";
 import { toast } from "sonner";
 import { cn, isEditorContentEmpty, uploadMedia } from "@/lib/utils";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const BlogPublishDialog = () => {
-  const { title, subtitle, content } = useEditorMetadata();
+  const params = useParams<{
+    id: string | undefined;
+  }>();
+  const {
+    title,
+    subtitle,
+    content,
+    description,
+    tags,
+    thumbnail,
+    isDraft,
+    id,
+  } = useEditorMetadata();
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [values, setValues] = useState({
     title: "",
@@ -57,15 +69,25 @@ const BlogPublishDialog = () => {
         .map((tag) => tag.trim())
         .filter((tag) => tag !== "");
 
-      const blog = await createBlog({
-        ...values,
-        content: html,
-        tags,
-      });
+      if (isDraft && (params.id || id)) {
+        const blogId = params.id ? params.id[0] : id;
+        return await publishBlog({
+          id: blogId || id,
+        });
+      }
 
-      return await publishBlog({
-        id: blog.id,
-      });
+      if (params.id) {
+        return await updateBlog({
+          id: params.id[0],
+          ...values,
+          content: html,
+          tags,
+          isDraft: false,
+          isPublished: true,
+        });
+      }
+
+      throw new Error("Invalid Blog ID");
     },
     onError: (error) => {
       toast.error(error.message);
@@ -80,10 +102,12 @@ const BlogPublishDialog = () => {
       ...prev,
       title,
       subtitle,
-      description: subtitle,
+      description: description || subtitle,
       content,
+      tags: tags.join(", "),
+      thumbnail,
     }));
-  }, [title, subtitle, content]);
+  }, [title, subtitle, content, description, tags, thumbnail]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

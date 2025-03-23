@@ -11,7 +11,7 @@ import {
 
 const newsletterService = new NewsletterService();
 
-export const addSubscriber = safeAction(
+export const addSubscriber = await safeAction(
   async (data: AddSubscriberDto) => {
     await newsletterService.addSubscriber(data);
   },
@@ -20,10 +20,16 @@ export const addSubscriber = safeAction(
   true,
 );
 
-export const getEmails = safeAction(async (data?: GetEmailsRequestDto) => {
-  return await newsletterService.getEmails(data);
-}, getEmailsRequestDto);
+export const getEmails = await safeAction(
+  async (data?: GetEmailsRequestDto) => {
+    return await newsletterService.getEmails(data);
+  },
+  getEmailsRequestDto,
+);
 
-export const searchEmails = safeAction(async (data: SearchEmailsRequestDto) => {
-  return await newsletterService.searchEmails(data);
-}, searchEmailsRequestDto);
+export const searchEmails = await safeAction(
+  async (data: SearchEmailsRequestDto) => {
+    return await newsletterService.searchEmails(data);
+  },
+  searchEmailsRequestDto,
+);

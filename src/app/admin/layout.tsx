@@ -3,6 +3,8 @@ import { AdminHeader } from "@/components/Header";
 import EditorMetadataProvider from "@/features/blog/Providers/EditorMetadataProvider";
 import Sidebar from "@/components/Sidebar";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {

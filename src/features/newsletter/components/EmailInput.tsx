@@ -27,7 +27,7 @@ export const EmailInput = () => {
   return (
     <div className="flex border-b border-input">
       <Input
-        className="flex-1 border-none py-0 focus-visible:ring-transparent"
+        className="flex-1 border-none py-0 text-foreground focus-visible:ring-transparent"
         placeholder="Your personal email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}

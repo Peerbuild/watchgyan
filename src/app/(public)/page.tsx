@@ -6,6 +6,7 @@ import Newsletter from "@/features/home/components/Newsletter";
 import RecentBlogs from "@/features/home/components/RecentBlogs";
 import Testimonials from "@/features/home/components/Testimonial";
 import ThemeSwitcherWrapper from "@/features/home/components/ThemeSwitcherWrapper";
+import { Suspense } from "react";
 
 export default async function Home() {
   return (
@@ -64,7 +65,9 @@ export default async function Home() {
       </div>
 
       <Testimonials />
-      <Footer/>
+      <Suspense>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

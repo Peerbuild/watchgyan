@@ -6,7 +6,7 @@ import { getSignedUrlResponseDto } from "./dto/getSignedUrl.dto";
 
 const cloudinaryService = new CloudinaryService();
 
-export const getSignature = safeAction(
+export const getSignature = await safeAction(
   async () => {
     return cloudinaryService.getSignature();
   },
@@ -14,6 +14,6 @@ export const getSignature = safeAction(
   getSignedUrlResponseDto,
 );
 
-export const deleteImage = safeAction(async (url: string) => {
+export const deleteImage = await safeAction(async (url: string) => {
   return cloudinaryService.deleteImage(url);
 });

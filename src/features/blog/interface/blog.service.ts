@@ -100,6 +100,7 @@ export class BlogService {
   }
 
   async updateBlog({ id, ...data }: UpdateBlogRequest) {
+    console.log(id);
     const isBlogExists = await prisma.blog.findUnique({
       where: {
         id,

@@ -1,7 +1,7 @@
 import AllBlogs from "@/features/blog/components/AllBlogs";
 import BlogSelection from "@/features/category/components/BlogSelection";
 import DraftBlogs from "@/features/blog/components/DraftBlogs";
-import React from "react";
+import React, { Suspense } from "react";
 
 export default function BlogPage({
   searchParams,
@@ -12,7 +12,9 @@ export default function BlogPage({
     <div className="space-y-24 px-24 py-28">
       <DraftBlogs />
       <BlogSelection />
-      <AllBlogs searchParams={searchParams} />
+      <Suspense>
+        <AllBlogs searchParams={searchParams} />
+      </Suspense>
     </div>
   );
 }

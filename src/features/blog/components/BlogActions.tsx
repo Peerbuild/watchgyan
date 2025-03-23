@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Switch } from "@/components/ui/switch";
+import { useRouter } from "next/navigation";
 
 export function DeleteBlogButton({ id }: { id: string }) {
   const mutation = useMutation({
@@ -115,3 +116,19 @@ export function TogglePublishButton({
     <Switch checked={isPublished} onCheckedChange={() => mutation.mutate()} />
   );
 }
+
+export const EditBlogButton = ({ id }: { id: string }) => {
+  const router = useRouter();
+
+  return (
+    <Button
+      variant={"ghost"}
+      size={"icon"}
+      onClick={() => {
+        router.push(`/admin/blog/write/${id}`);
+      }}
+    >
+      <FeatherIcon icon="edit" className="size-5" />
+    </Button>
+  );
+};

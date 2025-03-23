@@ -1,7 +1,6 @@
 "use server";
 
 import { safeAction } from "@/lib/safeAction";
-import { BlogService } from "./blog.service";
 import { CreateBlogRequest, createBlogRequestDto } from "../dto/createBlog.dto";
 import { getBlogByIdRequestDto } from "../dto/getBlogById.dto";
 import { revalidatePath } from "next/cache";
@@ -24,23 +23,27 @@ import {
   SearchBlogRequestDto,
 } from "../dto/searchBlog.dto";
 
+const BlogService = (await import("./blog.service")).BlogService;
 const blogService = new BlogService();
 
-export const createBlog = safeAction(async (data: CreateBlogRequest) => {
+export const createBlog = await safeAction(async (data: CreateBlogRequest) => {
   const newBlog = blogService.createBlog(data);
   //revalidatePath("/blog");
   //revalidatePath("/");
   return newBlog;
 }, createBlogRequestDto);
 
-export const publishBlog = safeAction(async (data: PublishBlogRequest) => {
-  const publishedBlog = blogService.publishBlog(data);
-  revalidatePath("/blog");
-  revalidatePath("/");
-  return publishedBlog;
-}, publishBlogRequestDto);
+export const publishBlog = await safeAction(
+  async (data: PublishBlogRequest) => {
+    const publishedBlog = blogService.publishBlog(data);
+    revalidatePath("/blog");
+    revalidatePath("/");
+    return publishedBlog;
+  },
+  publishBlogRequestDto,
+);
 
-export const getRecentBlogs = safeAction(
+export const getRecentBlogs = await safeAction(
   async (data?: GetRecentBlogRequest) => {
     return blogService.getRecentBlogs(data);
   },
@@ -49,11 +52,11 @@ export const getRecentBlogs = safeAction(
   true,
 );
 
-export const getBlogById = safeAction(async (id: string) => {
+export const getBlogById = await safeAction(async (id: string) => {
   return blogService.getBlogById(id);
 }, getBlogByIdRequestDto);
 
-export const getTopBlogs = safeAction(
+export const getTopBlogs = await safeAction(
   async () => {
     return blogService.getTopBlogs();
   },
@@ -62,22 +65,28 @@ export const getTopBlogs = safeAction(
   true,
 );
 
-export const getDraftBlogs = safeAction(async (data?: GetDraftBlogsRequest) => {
-  return blogService.getDraftBlogs(data);
-}, getDraftBlogsRequestDto);
+export const getDraftBlogs = await safeAction(
+  async (data?: GetDraftBlogsRequest) => {
+    return blogService.getDraftBlogs(data);
+  },
+  getDraftBlogsRequestDto,
+);
 
-export const updateBlog = safeAction(async (data: UpdateBlogRequest) => {
+export const updateBlog = await safeAction(async (data: UpdateBlogRequest) => {
   const updatedBlog = blogService.updateBlog(data);
   revalidatePath("/");
   return updatedBlog;
 });
 
-export const deleteBlog = safeAction(async (data: DeleteBlogRequest) => {
+export const deleteBlog = await safeAction(async (data: DeleteBlogRequest) => {
   const blog = await blogService.deleteBlog(data);
   revalidatePath("/");
   return blog;
 }, deleteBlogRequestDto);
 
-export const searchBlogs = safeAction(async (data: SearchBlogRequestDto) => {
-  return blogService.searchBlogs(data);
-}, searchBlogRequestDto);
+export const searchBlogs = await safeAction(
+  async (data: SearchBlogRequestDto) => {
+    return blogService.searchBlogs(data);
+  },
+  searchBlogRequestDto,
+);

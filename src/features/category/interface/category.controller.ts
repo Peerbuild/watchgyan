@@ -20,11 +20,10 @@ import {
 
 const categoryService = new CategoryService();
 
-export const getCategories = safeAction(async () => {
+export const getCategories = await safeAction(async () => {
   return categoryService.getCategories();
 });
-
-export const getBlogsByCategory = safeAction(
+export const getBlogsByCategory = await safeAction(
   async (data: GetBlogsByCategoryRequestDto) => {
     return categoryService.getBlogsByCategory(data);
   },
@@ -33,21 +32,21 @@ export const getBlogsByCategory = safeAction(
   true,
 );
 
-export const getBlogsWithCategory = safeAction(
+export const getBlogsWithCategory = await safeAction(
   async (data: GetBlogsWithCategoryRequestDto) => {
     return categoryService.getBlogsWithCategory(data);
   },
   getBlogsWithCategoryRequestDto,
 );
 
-export const addBlogToCategory = safeAction(
+export const addBlogToCategory = await safeAction(
   async (data: AddBlogToCategoryRequestDto) => {
     return categoryService.addBlogToCategory(data);
   },
   addBlogToCategoryRequestDto,
 );
 
-export const searchBlogsInCategory = safeAction(
+export const searchBlogsInCategory = await safeAction(
   async (data: SearchBlogInCategoryRequestDto) => {
     return categoryService.searchBlogsInCategory(data);
   },

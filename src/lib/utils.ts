@@ -2,7 +2,6 @@ import { getSignature } from "@/features/cloudinary/cloudinary.controller";
 import { clsx, type ClassValue } from "clsx";
 import { EditorInstance, JSONContent } from "novel";
 import { extendTailwindMerge } from "tailwind-merge";
-import { ApiError } from "./safeAction";
 
 const twMerge = extendTailwindMerge({
   extend: {
@@ -23,6 +22,7 @@ export function isEditorContentEmpty(content: JSONContent | undefined) {
 }
 
 export async function uploadMedia(file: File) {
+  const ApiError = (await import("./ApiError")).default;
   const signResponse = await getSignature();
 
   const url = `https://api.cloudinary.com/v1_1/${signResponse.cloudName}/upload`;

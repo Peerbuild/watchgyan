@@ -36,12 +36,14 @@ import { Blog } from "@prisma/client";
 
 const TiptapEditor = ({
   setEditor,
+  initialContent,
 }: {
   setEditor: Dispatch<SetStateAction<EditorInstance | null>>;
+  initialContent?: string;
 }) => {
   const [previousImages, setPreviousImages] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
-  const { content, setContent } = useEditorMetadata();
+  const { setContent } = useEditorMetadata();
 
   const handleImageDeletion = async (editor: EditorInstance) => {
     if (!editor) return;
@@ -79,6 +81,7 @@ const TiptapEditor = ({
         ]}
         onCreate={({ editor }) => {
           setEditor(editor);
+          editor.commands.setContent(initialContent ?? "");
         }}
         editorProps={{
           handleDOMEvents: {
@@ -88,7 +91,6 @@ const TiptapEditor = ({
             class: `BlogContent`,
           },
         }}
-        initialContent={content}
         onUpdate={({ editor }) => {
           const json = editor.getJSON();
           setContent(json);
@@ -149,8 +151,18 @@ export const Editor = ({ blog }: EditorProps) => {
   const [isCreated, setIsCreated] = useState(!!blog);
   const blogId = useRef<string | null>(null);
 
-  const { title, setTitle, subtitle, setSubtitle, content, setContent } =
-    useEditorMetadata();
+  const {
+    title,
+    setTitle,
+    subtitle,
+    setSubtitle,
+    content,
+    setContent,
+    setDescription,
+    setTags,
+    setThumbnail,
+    setIsDraft,
+  } = useEditorMetadata();
 
   const [showSubtitle, setShowSubtitle] = useState(false);
 
@@ -243,7 +255,7 @@ export const Editor = ({ blog }: EditorProps) => {
   }, [showSubtitle]);
 
   useEffect(() => {
-    if (!title || isEditorContentEmpty(content)) {
+    if (!title || isEditorContentEmpty(content) || !blog?.isDraft) {
       return;
     }
     setAutosave(true);
@@ -258,7 +270,7 @@ export const Editor = ({ blog }: EditorProps) => {
   }, [title, subtitle, content, isCreated]);
 
   useEffect(() => {
-    if (!isCreated || !blogId || !blogId.current) return;
+    if (!isCreated || !blogId || !blogId.current || !blog?.isDraft) return;
 
     updateMutation.mutate();
     setAutosave(false);
@@ -281,6 +293,12 @@ export const Editor = ({ blog }: EditorProps) => {
           }),
         ]),
       );
+      setDescription(blog.description);
+      setTags(blog.tags);
+      if (blog.thumbnail) {
+        setThumbnail(blog.thumbnail);
+      }
+      setIsDraft(blog.isDraft);
       blogId.current = blog.id;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -347,7 +365,9 @@ export const Editor = ({ blog }: EditorProps) => {
           </div>
         )}
         {blog ? (
-          content && <TiptapEditor setEditor={setEditor} />
+          content && (
+            <TiptapEditor initialContent={blog.content} setEditor={setEditor} />
+          )
         ) : (
           <TiptapEditor setEditor={setEditor} />
         )}

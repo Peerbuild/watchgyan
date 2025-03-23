@@ -3,7 +3,11 @@ import FeatherIcon from "feather-icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { DeleteBlogButton, TogglePublishButton } from "./BlogActions";
+import {
+  DeleteBlogButton,
+  EditBlogButton,
+  TogglePublishButton,
+} from "./BlogActions";
 
 const BlogCardLarge = ({ blog }: { blog: Blog }) => {
   const tag = blog.tags[0];
@@ -52,9 +56,14 @@ const BlogCardSmall = ({
   showActions?: {
     publish?: boolean;
     delete?: boolean;
+    edit?: boolean;
   };
 }) => {
-  const { publish = true, delete: deleteAction = true } = showActions || {};
+  const {
+    publish = true,
+    delete: deleteAction = true,
+    edit = true,
+  } = showActions || {};
 
   const isDraft = blog.isDraft;
   const url = isDraft
@@ -73,6 +82,7 @@ const BlogCardSmall = ({
       </Link>
 
       <div className="relative z-20 flex items-center gap-6">
+        {edit && <EditBlogButton id={blog.id} />}
         {publish && (
           <TogglePublishButton id={blog.id} isPublished={blog.isPublished} />
         )}

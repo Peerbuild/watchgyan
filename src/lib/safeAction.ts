@@ -1,28 +1,23 @@
+"use server";
 import { ZodSchema } from "zod";
 import { auth } from "./auth";
 
-export class ApiError extends Error {
-  constructor(
-    public status: number,
-    public message: string,
-  ) {
-    super(message);
-  }
-}
-
-export const safeAction = <T, U>(
+export const safeAction = async <T, U>(
   action: (data: T) => Promise<U> | (() => Promise<U>), // Action with or without input
   inputDto?: ZodSchema<T>, // Optional schema for input validation
   outputDto?: ZodSchema<U>, // Schema for output validation
   isPublic: boolean = false,
 ) => {
   return async function (input?: T) {
+    const ApiError = (await import("./ApiError")).default;
     try {
       let parsedInput: T | undefined = input;
-      const session = await auth();
 
-      if (!isPublic && !session?.user) {
-        throw new ApiError(401, "Unauthorized");
+      if (!isPublic) {
+        const session = await auth();
+        if (!session) {
+          throw new ApiError(401, "Unauthorized");
+        }
       }
 
       // Validate input if inputDto is provided
@@ -54,6 +49,8 @@ export const safeAction = <T, U>(
       return output as U;
     } catch (error) {
       if (error instanceof ApiError) throw error;
+
+      console.error(error);
 
       throw new ApiError(
         500,

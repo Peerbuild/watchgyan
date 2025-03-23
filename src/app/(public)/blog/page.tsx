@@ -5,6 +5,9 @@ import RecentBlogs from "@/features/blog/components/RecentBlogs";
 import TopArticles from "@/features/blog/components/TopArticles";
 import Footer from "@/features/home/components/Footer";
 import ThemeSwitcherWrapper from "@/features/home/components/ThemeSwitcherWrapper";
+import { Suspense } from "react";
+
+export const dynamic = "force-dynamic";
 
 export default function BlogPage() {
   return (
@@ -15,7 +18,9 @@ export default function BlogPage() {
       <CuratedPicks />
       <ThemeSwitcherWrapper>
         <LatestGlobalBlogs />
-        <Footer />
+        <Suspense>
+          <Footer />
+        </Suspense>
       </ThemeSwitcherWrapper>
     </div>
   );

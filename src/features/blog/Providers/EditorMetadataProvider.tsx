@@ -3,12 +3,22 @@ import { JSONContent } from "novel";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 interface EditorMetadataContextProps {
+  id: string;
+  setId: (id: string) => void;
+  isDraft: boolean;
+  setIsDraft: (isDraft: boolean) => void;
   title: string;
   setTitle: (title: string) => void;
   subtitle: string;
   setSubtitle: (subtitle: string) => void;
   content: JSONContent | undefined;
   setContent: (content: JSONContent) => void;
+  description: string;
+  setDescription: (description: string) => void;
+  tags: string[];
+  setTags: (tags: string[]) => void;
+  thumbnail: string;
+  setThumbnail: (thumbnail: string) => void;
 }
 
 const EditorMetadataContext = createContext<EditorMetadataContextProps | null>(
@@ -19,16 +29,31 @@ const EditorMetadataProvider = ({ children }: PropsWithChildren) => {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [content, setContent] = useState<JSONContent | undefined>(undefined);
+  const [description, setDescription] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [thumbnail, setThumbnail] = useState("");
+  const [isDraft, setIsDraft] = useState(true);
+  const [id, setId] = useState("");
 
   return (
     <EditorMetadataContext.Provider
       value={{
+        id,
+        setId,
+        isDraft,
+        setIsDraft,
         title,
         setTitle,
         subtitle,
         setSubtitle,
         content,
         setContent,
+        description,
+        setDescription,
+        tags,
+        setTags,
+        thumbnail,
+        setThumbnail,
       }}
     >
       {children}
