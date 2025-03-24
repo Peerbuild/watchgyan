@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import SectionTitle from './SectionTitle';
-import Animate from '@/components/Animate';
-import AnimatedButton from './AnimatedButton';
+import Image from "next/image";
+import SectionTitle from "./SectionTitle";
+import Animate from "@/components/Animate";
+import AnimatedButton from "./AnimatedButton";
 
 type Video = {
   snippet: {
@@ -15,15 +15,17 @@ type Video = {
   };
 };
 
-// TODO: have to add cache and revalidate every hour
 const getLatestVideos = async () => {
   const url =
-    'https://youtube-v3-lite.p.rapidapi.com/search?channelId=UCPIQoK95A4-rkNIM3T6COQA&part=id%2Csnippet';
+    "https://youtube-v3-lite.p.rapidapi.com/search?channelId=UCPIQoK95A4-rkNIM3T6COQA&part=id%2Csnippet";
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'x-rapidapi-key': process.env.YOUTUBE_API_KEY!,
-      'x-rapidapi-host': 'youtube-v3-lite.p.rapidapi.com',
+      "x-rapidapi-key": process.env.YOUTUBE_API_KEY!,
+      "x-rapidapi-host": "youtube-v3-lite.p.rapidapi.com",
+    },
+    next: {
+      revalidate: 3 * 60 * 60,
     },
   };
 
@@ -51,15 +53,15 @@ export default async function LatestVideos() {
             opacity: 0,
             rotate: 0,
             scale: 1,
-            y: '-10%',
-            x: '25%',
+            y: "-10%",
+            x: "25%",
           }}
           visible={{
             opacity: 1,
             rotate: 120,
             scale: 1.3,
-            y: '-10%',
-            x: '25%',
+            y: "-10%",
+            x: "25%",
           }}
           childrenClassName="absolute -z-10 -right-40 top-10 md:top-0 h-[10rem] w-[16rem] md:h-[36rem] mg:w-[28rem]  rounded-[50%] bg-primary/50 mg:bg-primary/35 blur-[60px] md:blur-[120px]"
         >
@@ -71,15 +73,15 @@ export default async function LatestVideos() {
             opacity: 0,
             rotate: 0,
             scale: 1,
-            y: '50%',
-            x: '-25%',
+            y: "50%",
+            x: "-25%",
           }}
           visible={{
             opacity: 1,
             rotate: 120,
             scale: 1.3,
-            y: '50%',
-            x: '-25%',
+            y: "50%",
+            x: "-25%",
           }}
           childrenClassName="absolute -z-10 -left-40 bottom-0 h-[20rem] w-[16rem] lg:h-[30rem] lg:w-[24rem]   rounded-[50%] bg-primary/35 blur-[120px]"
         >

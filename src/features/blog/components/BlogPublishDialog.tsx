@@ -37,7 +37,7 @@ const BlogPublishDialog = () => {
   const [values, setValues] = useState({
     title: "",
     subtitle: "",
-    description: "",
+    description: description || subtitle || "",
     tags: "",
     thumbnail: "",
     content,

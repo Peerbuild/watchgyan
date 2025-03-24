@@ -33,10 +33,35 @@ export class BlogService {
     });
   }
 
+  async getAllBlogs(data?: GetRecentBlogRequest) {
+    const blogs = await prisma.blog.findMany({
+      where: {
+        isDraft: false,
+      },
+      take: data?.limit || 10,
+      skip: data?.offset || 0,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const totalBlogs = await prisma.blog.count({
+      where: {
+        isDraft: false,
+      },
+    });
+
+    return {
+      blogs,
+      totalBlogs,
+    };
+  }
+
   async getRecentBlogs(data?: GetRecentBlogRequest) {
     const blogs = await prisma.blog.findMany({
       where: {
         isDraft: false,
+        isPublished: true,
       },
       take: data?.limit || 10,
       skip: data?.offset || 0,
@@ -73,6 +98,9 @@ export class BlogService {
 
   async getTopBlogs() {
     return await prisma.blog.findMany({
+      where: {
+        isPublished: true,
+      },
       take: 6,
       orderBy: [
         {
@@ -89,6 +117,7 @@ export class BlogService {
     const blogs = await prisma.blog.findMany({
       where: {
         isDraft: true,
+        isPublished: false,
       },
       ...(data?.limit && { take: data.limit }),
       orderBy: {
@@ -100,7 +129,6 @@ export class BlogService {
   }
 
   async updateBlog({ id, ...data }: UpdateBlogRequest) {
-    console.log(id);
     const isBlogExists = await prisma.blog.findUnique({
       where: {
         id,

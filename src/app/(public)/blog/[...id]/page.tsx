@@ -6,6 +6,8 @@ import { Blog } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 import BlogOutline from "@/features/blog/components/BlogOutline";
+import { notFound, redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 
 export default async function BlogPage({
   params,
@@ -13,11 +15,25 @@ export default async function BlogPage({
   params: Promise<{ id: string[] }>;
 }) {
   const { id } = await params;
-  const [blogId] = id;
+  const [blogId, slug] = id;
 
   const blog = await getBlogById(blogId);
 
-  console.log(blog.content);
+  if (!blog) {
+    return notFound();
+  }
+
+  if (!blog.isPublished) {
+    const session = await auth();
+
+    if (!session) {
+      return notFound();
+    }
+  }
+
+  if (!slug || slug !== blog.slug) {
+    return redirect(`/blog/${blogId}/${blog.slug}`);
+  }
 
   return (
     <div className="mx-auto mt-32 flex max-w-screen-lg flex-row-reverse">

@@ -44,6 +44,8 @@ export default function FeaturedPostCarousel({ blogs }: FeaturedPostProps) {
     return () => clearInterval(interval);
   }, [currentSlide, blogs.length]);
 
+  if (!blogs.length) return null;
+
   return (
     <div key={key}>
       <div className="absolute inset-0 h-full w-full overflow-hidden">

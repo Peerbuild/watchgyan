@@ -28,8 +28,8 @@ const blogService = new BlogService();
 
 export const createBlog = await safeAction(async (data: CreateBlogRequest) => {
   const newBlog = blogService.createBlog(data);
-  //revalidatePath("/blog");
-  //revalidatePath("/");
+  revalidatePath("/blog");
+  revalidatePath("/");
   return newBlog;
 }, createBlogRequestDto);
 
@@ -43,6 +43,13 @@ export const publishBlog = await safeAction(
   publishBlogRequestDto,
 );
 
+export const getAllBlogs = await safeAction(
+  async (data?: GetRecentBlogRequest) => {
+    return blogService.getAllBlogs(data);
+  },
+  getRecentBlogRequestDto,
+);
+
 export const getRecentBlogs = await safeAction(
   async (data?: GetRecentBlogRequest) => {
     return blogService.getRecentBlogs(data);
@@ -52,9 +59,14 @@ export const getRecentBlogs = await safeAction(
   true,
 );
 
-export const getBlogById = await safeAction(async (id: string) => {
-  return blogService.getBlogById(id);
-}, getBlogByIdRequestDto);
+export const getBlogById = await safeAction(
+  async (id: string) => {
+    return blogService.getBlogById(id);
+  },
+  getBlogByIdRequestDto,
+  undefined,
+  true,
+);
 
 export const getTopBlogs = await safeAction(
   async () => {

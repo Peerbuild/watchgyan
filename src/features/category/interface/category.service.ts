@@ -12,6 +12,7 @@ export class CategoryService {
   async getBlogsByCategory(data: GetBlogsByCategoryRequestDto) {
     return await prisma.blog.findMany({
       where: {
+        isPublished: true,
         category: {
           name: data.categoryName,
         },
@@ -28,6 +29,7 @@ export class CategoryService {
   }: GetBlogsWithCategoryRequestDto) {
     const blogsWithCategory = await prisma.blog.findMany({
       where: {
+        isPublished: true,
         category: {
           name: categoryName,
         },
@@ -36,6 +38,7 @@ export class CategoryService {
 
     const remainingBlogs = await prisma.blog.findMany({
       where: {
+        isPublished: true,
         category: null,
       },
       take: (limit ?? 10) - blogsWithCategory.length,

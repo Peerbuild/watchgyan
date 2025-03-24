@@ -39,7 +39,6 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
           offset: pageParam * 10,
         });
 
-        console.log(blogs);
         return {
           items: blogs.blogs,
           totalItems: blogs.totalBlogs,
@@ -51,7 +50,6 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
           limit: 10,
           offset: pageParam * 10,
         });
-        console.log(blogs);
         return {
           items: blogs.blogs,
           totalItems: blogs.totalBlogs,

@@ -162,6 +162,7 @@ export const Editor = ({ blog }: EditorProps) => {
     setTags,
     setThumbnail,
     setIsDraft,
+    setId,
   } = useEditorMetadata();
 
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -223,6 +224,7 @@ export const Editor = ({ blog }: EditorProps) => {
     },
     onSuccess: (data) => {
       blogId.current = data.id;
+      setId(data.id);
     },
   });
 
@@ -255,7 +257,7 @@ export const Editor = ({ blog }: EditorProps) => {
   }, [showSubtitle]);
 
   useEffect(() => {
-    if (!title || isEditorContentEmpty(content) || !blog?.isDraft) {
+    if (!title || isEditorContentEmpty(content) || blog?.isPublished) {
       return;
     }
     setAutosave(true);
@@ -270,7 +272,7 @@ export const Editor = ({ blog }: EditorProps) => {
   }, [title, subtitle, content, isCreated]);
 
   useEffect(() => {
-    if (!isCreated || !blogId || !blogId.current || !blog?.isDraft) return;
+    if (!isCreated || !blogId || !blogId.current || blog?.isPublished) return;
 
     updateMutation.mutate();
     setAutosave(false);
@@ -299,6 +301,7 @@ export const Editor = ({ blog }: EditorProps) => {
         setThumbnail(blog.thumbnail);
       }
       setIsDraft(blog.isDraft);
+      setId(blog.id);
       blogId.current = blog.id;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

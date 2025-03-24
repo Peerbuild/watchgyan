@@ -1,5 +1,5 @@
 import React from "react";
-import { getRecentBlogs, searchBlogs } from "../interface/blog.controller";
+import { getAllBlogs, searchBlogs } from "../interface/blog.controller";
 import BlogCard from "./BlogCard";
 import Pagination from "@/components/Pagination";
 import { Search } from "@/components/Search";
@@ -24,7 +24,7 @@ export default async function AllBlogs({
         limit: BLOGS_PER_PAGE,
         offset,
       })
-    : await getRecentBlogs({
+    : await getAllBlogs({
         limit: BLOGS_PER_PAGE,
         offset,
       });
