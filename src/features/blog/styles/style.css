@@ -3,7 +3,7 @@
 }
 
 .BlogContent {
-  @apply prose max-w-full font-normal dark:prose-invert focus:outline-none prose-h1:font-serif prose-p:text-body prose-strong:prose-headings:font-medium prose-li:-my-4;
+  @apply prose max-w-full font-normal dark:prose-invert focus:outline-none prose-headings:font-medium prose-h1:font-serif prose-p:text-body prose-strong:prose-headings:font-medium prose-li:-my-4;
 }
 
 .ProseMirror .is-editor-empty:first-child::before {

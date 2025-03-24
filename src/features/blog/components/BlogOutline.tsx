@@ -41,7 +41,7 @@ const BlogOutline = ({ content }: BlogOutlineProps) => {
   }, [content]);
 
   return (
-    <div className="w-40 py-14">
+    <div className="w-52">
       <ul className="sticky top-10 space-y-2">
         {headings.map((heading) => {
           return (

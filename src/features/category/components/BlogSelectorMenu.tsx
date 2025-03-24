@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   addBlogToCategory,
   getBlogsWithCategory,
+  removeBlogFromCategory,
   searchBlogsInCategory,
 } from "../interface/category.controller";
 import {
@@ -80,7 +81,12 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
           const updatedPages = oldData.pages.map((page) => {
             const updatedItems = page.items.map((blog) =>
               blog.id === blogId
-                ? { ...blog, categoryId: checked ? category.id : null }
+                ? {
+                    ...blog,
+                    categoryIds: checked
+                      ? [...blog.categoryIds, category.id]
+                      : blog.categoryIds.filter((c) => c !== category.id),
+                  }
                 : blog,
             );
 
@@ -93,10 +99,18 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
           return { ...oldData, pages: updatedPages };
         },
       );
-      return await addBlogToCategory({
-        categoryId: checked ? category.id : null,
-        blogId,
-      });
+
+      if (!checked) {
+        return await removeBlogFromCategory({
+          categoryId: category.id,
+          blogId,
+        });
+      } else {
+        return await addBlogToCategory({
+          categoryId: category.id,
+          blogId,
+        });
+      }
     },
     onError: (error) => {
       console.error(error);
@@ -147,7 +161,7 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
           renderItem={(blog) => (
             <div key={blog.id} className="mt-2 flex items-center gap-6 text-sm">
               <Checkbox
-                checked={blog.categoryId === category.id}
+                checked={blog.categoryIds.includes(category.id)}
                 onCheckedChange={(checked: boolean) => {
                   mutation.mutate({ blogId: blog.id, checked });
                 }}

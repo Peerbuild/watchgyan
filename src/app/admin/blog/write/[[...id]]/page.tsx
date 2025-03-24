@@ -15,7 +15,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
 
   if (!id) {
     return (
-      <div className="mx-auto mb-40 mt-20 max-w-screen-lg">
+      <div className="mx-auto mb-40 mt-20 max-w-screen-xl">
         <Suspense>
           <Editor />
         </Suspense>
@@ -32,7 +32,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
   }
 
   return (
-    <div className="mx-auto mb-40 mt-20 max-w-screen-lg">
+    <div className="mx-auto mb-40 mt-20 max-w-screen-xl">
       <Suspense>
         <Editor blog={blog} />
       </Suspense>

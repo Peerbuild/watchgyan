@@ -5,30 +5,44 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import React from "react";
 import BlogPublishDialog from "./BlogPublishDialog";
 import { useEditorMetadata } from "../Providers/EditorMetadataProvider";
-import { isEditorContentEmpty } from "@/lib/utils";
+import { cn, isEditorContentEmpty } from "@/lib/utils";
 import Link from "next/link";
 
 export default function EditorHeader() {
-  const { title, content, id } = useEditorMetadata();
+  const { title, content, id, isSaving } = useEditorMetadata();
 
   return (
-    <header className="flex items-center justify-end gap-4 px-12 py-10">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            variant={"outline"}
-            disabled={!title || isEditorContentEmpty(content)}
+    <header className="flex items-center justify-between gap-4 px-12 py-10">
+      <div>
+        {id && (
+          <span
+            className={cn(
+              "text-md text-muted-foreground",
+              isSaving && "animate-pulse",
+            )}
           >
-            PUBLISH
+            {isSaving ? "Saving..." : "Saved"}
+          </span>
+        )}
+      </div>
+      <div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant={"outline"}
+              disabled={!title || isEditorContentEmpty(content)}
+            >
+              PUBLISH
+            </Button>
+          </DialogTrigger>
+          <BlogPublishDialog />
+        </Dialog>
+        <Link href={`/blog/${id}`}>
+          <Button variant={"ghost"} className="uppercase">
+            PREVIEW
           </Button>
-        </DialogTrigger>
-        <BlogPublishDialog />
-      </Dialog>
-      <Link href={`/blog/${id}`}>
-        <Button variant={"ghost"} className="uppercase">
-          PREVIEW
-        </Button>
-      </Link>
+        </Link>
+      </div>
     </header>
   );
 }

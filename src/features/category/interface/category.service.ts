@@ -3,6 +3,7 @@ import { GetBlogsWithCategoryRequestDto } from "../dto/getBlogsWithCategory.dto"
 import { AddBlogToCategoryRequestDto } from "../dto/addBlogToCategory.dto";
 import { SearchBlogInCategoryRequestDto } from "../dto/searchBlogInCategory.dto";
 import { GetBlogsByCategoryRequestDto } from "../dto/getBlogByCategory.dto";
+import { RemoveBlogFromCategoryRequestDto } from "../dto/removeBlogFromCategory.dto";
 
 export class CategoryService {
   async getCategories() {
@@ -13,8 +14,12 @@ export class CategoryService {
     return await prisma.blog.findMany({
       where: {
         isPublished: true,
-        category: {
-          name: data.categoryName,
+        categories: {
+          some: {
+            name: {
+              contains: data.categoryName,
+            },
+          },
         },
       },
 
@@ -30,8 +35,12 @@ export class CategoryService {
     const blogsWithCategory = await prisma.blog.findMany({
       where: {
         isPublished: true,
-        category: {
-          name: categoryName,
+        categories: {
+          some: {
+            name: {
+              contains: categoryName,
+            },
+          },
         },
       },
     });
@@ -39,7 +48,13 @@ export class CategoryService {
     const remainingBlogs = await prisma.blog.findMany({
       where: {
         isPublished: true,
-        category: null,
+        categories: {
+          none: {
+            name: {
+              contains: categoryName,
+            },
+          },
+        },
       },
       take: (limit ?? 10) - blogsWithCategory.length,
       skip: offset ?? 0,
@@ -63,25 +78,12 @@ export class CategoryService {
   async addBlogToCategory(data: AddBlogToCategoryRequestDto) {
     const { blogId, categoryId } = data;
 
-    if (!categoryId) {
-      return await prisma.blog.update({
-        where: {
-          id: blogId,
-        },
-        data: {
-          category: {
-            disconnect: true,
-          },
-        },
-      });
-    }
-
     return await prisma.blog.update({
       where: {
         id: blogId,
       },
       data: {
-        category: {
+        categories: {
           connect: {
             id: categoryId,
           },
@@ -90,19 +92,29 @@ export class CategoryService {
     });
   }
 
+  async removeBlogFromCategory(data: RemoveBlogFromCategoryRequestDto) {
+    const { blogId, categoryId } = data;
+
+    return await prisma.blog.update({
+      where: {
+        id: blogId,
+      },
+      data: {
+        categories: {
+          disconnect: {
+            id: categoryId,
+          },
+        },
+      },
+    });
+  }
+
   async searchBlogsInCategory(data: SearchBlogInCategoryRequestDto) {
-    const { categoryId, query: searchQuery } = data;
+    const { query: searchQuery } = data;
 
     const query = {
       where: {
-        OR: [
-          {
-            category: null,
-          },
-          {
-            categoryId: categoryId,
-          },
-        ],
+        isPublished: true,
         title: {
           contains: searchQuery,
           mode: "insensitive" as const,

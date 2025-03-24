@@ -18,12 +18,17 @@ import {
   GetBlogsByCategoryRequestDto,
 } from "../dto/getBlogByCategory.dto";
 import { revalidatePath } from "next/cache";
+import {
+  RemoveBlogFromCategoryRequestDto,
+  removeBlogFromCategoryRequestDto,
+} from "../dto/removeBlogFromCategory.dto";
 
 const categoryService = new CategoryService();
 
 export const getCategories = await safeAction(async () => {
   return categoryService.getCategories();
 });
+
 export const getBlogsByCategory = await safeAction(
   async (data: GetBlogsByCategoryRequestDto) => {
     return categoryService.getBlogsByCategory(data);
@@ -48,6 +53,16 @@ export const addBlogToCategory = await safeAction(
     return blog;
   },
   addBlogToCategoryRequestDto,
+);
+
+export const removeBlogFromCategory = await safeAction(
+  async (data: RemoveBlogFromCategoryRequestDto) => {
+    const blog = await categoryService.removeBlogFromCategory(data);
+    revalidatePath("/blog");
+    revalidatePath("/");
+    return blog;
+  },
+  removeBlogFromCategoryRequestDto,
 );
 
 export const searchBlogsInCategory = await safeAction(

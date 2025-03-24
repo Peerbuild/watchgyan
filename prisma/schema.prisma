@@ -26,11 +26,11 @@ model Blog {
   isDraft     Boolean  @default(true)
   isPublished Boolean  @default(false)
 
-  category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?   @map("_categoryId") @db.ObjectId
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  categories  Category[] @relation(fields: [categoryIds], references: [id])
+  categoryIds String[]   @db.ObjectId
 }
 
 model Category {
@@ -38,7 +38,9 @@ model Category {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Blog      Blog[]
+
+  blogs   Blog[]   @relation(fields: [blogIds], references: [id])
+  blogIds String[] @db.ObjectId
 }
 
 model Subscriber {

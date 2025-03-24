@@ -163,6 +163,7 @@ export const Editor = ({ blog }: EditorProps) => {
     setThumbnail,
     setIsDraft,
     setId,
+    setIsSaving,
   } = useEditorMetadata();
 
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -234,6 +235,8 @@ export const Editor = ({ blog }: EditorProps) => {
         return;
       }
 
+      setIsSaving(true);
+
       await updateBlog({
         id: blogId.current,
         title,
@@ -242,9 +245,11 @@ export const Editor = ({ blog }: EditorProps) => {
     },
     onError: (error) => {
       toast.error(error.message);
+      setIsSaving(false);
     },
     onSuccess: () => {
       console.log("Blog updated");
+      setIsSaving(false);
     },
   });
 
@@ -308,9 +313,9 @@ export const Editor = ({ blog }: EditorProps) => {
   }, [blog]);
 
   return (
-    <div className="flex flex-row-reverse">
+    <div className="flex flex-row-reverse justify-between gap-36">
       <BlogOutline content={content ?? ""} />
-      <div className="flex-1 space-y-6 overflow-auto">
+      <div className="max-w-[65ch] flex-1 space-y-6 overflow-auto">
         <div className="relative flex items-center gap-4">
           <div
             className={cn(
