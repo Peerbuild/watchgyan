@@ -27,7 +27,7 @@ const BlogService = (await import("./blog.service")).BlogService;
 const blogService = new BlogService();
 
 export const createBlog = await safeAction(async (data: CreateBlogRequest) => {
-  const newBlog = blogService.createBlog(data);
+  const newBlog = await blogService.createBlog(data);
   revalidatePath("/blog");
   revalidatePath("/");
   return newBlog;
@@ -35,7 +35,7 @@ export const createBlog = await safeAction(async (data: CreateBlogRequest) => {
 
 export const publishBlog = await safeAction(
   async (data: PublishBlogRequest) => {
-    const publishedBlog = blogService.publishBlog(data);
+    const publishedBlog = await blogService.publishBlog(data);
     revalidatePath("/blog");
     revalidatePath("/");
     return publishedBlog;
@@ -85,7 +85,9 @@ export const getDraftBlogs = await safeAction(
 );
 
 export const updateBlog = await safeAction(async (data: UpdateBlogRequest) => {
-  const updatedBlog = blogService.updateBlog(data);
+  const updatedBlog = await blogService.updateBlog(data);
+  revalidatePath(`/blog/${updatedBlog.id}/${updatedBlog.slug}`);
+  revalidatePath("/blog");
   revalidatePath("/");
   return updatedBlog;
 });

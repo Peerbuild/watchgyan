@@ -17,6 +17,7 @@ import {
   getBlogsByCategoryRequestDto,
   GetBlogsByCategoryRequestDto,
 } from "../dto/getBlogByCategory.dto";
+import { revalidatePath } from "next/cache";
 
 const categoryService = new CategoryService();
 
@@ -41,7 +42,10 @@ export const getBlogsWithCategory = await safeAction(
 
 export const addBlogToCategory = await safeAction(
   async (data: AddBlogToCategoryRequestDto) => {
-    return categoryService.addBlogToCategory(data);
+    const blog = await categoryService.addBlogToCategory(data);
+    revalidatePath("/blog");
+    revalidatePath("/");
+    return blog;
   },
   addBlogToCategoryRequestDto,
 );

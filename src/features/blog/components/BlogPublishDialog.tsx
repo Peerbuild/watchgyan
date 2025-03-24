@@ -116,10 +116,10 @@ const BlogPublishDialog = () => {
     try {
       setIsImageUploading(true);
       const result = await uploadMedia(file);
-      setValues({
-        ...values,
+      setValues((prev) => ({
+        ...prev,
         thumbnail: result.secure_url,
-      });
+      }));
     } catch (error) {
       toast.error((error as Error).message);
     } finally {
@@ -166,10 +166,10 @@ const BlogPublishDialog = () => {
           <AutoSizeTextarea
             value={values.title}
             onChange={(e) => {
-              setValues({
-                ...values,
+              setValues((prev) => ({
+                ...prev,
                 title: e.target.value,
-              });
+              }));
             }}
             placeholder="Enter a post title"
             className="border-b font-serif text-body font-semibold"
@@ -177,10 +177,10 @@ const BlogPublishDialog = () => {
           <AutoSizeTextarea
             value={values.description}
             onChange={(e) => {
-              setValues({
-                ...values,
+              setValues((prev) => ({
+                ...prev,
                 description: e.target.value,
-              });
+              }));
             }}
             className="border-b text-md"
             placeholder="Enter a breif description"
@@ -195,16 +195,17 @@ const BlogPublishDialog = () => {
             rows={6}
             value={values.tags}
             onChange={(e) =>
-              setValues({
-                ...values,
+              setValues((prev) => ({
+                ...prev,
                 tags: e.target.value,
-              })
+              }))
             }
             placeholder="Add a topic..."
             className="resize-none rounded-none border-none bg-muted px-4 py-3 text-md"
           />
           <div className="space-x-2">
             <Button
+              disabled={mutation.isPending}
               className="uppercase"
               onClick={() => {
                 mutation.mutate();
