@@ -1,5 +1,8 @@
 import "@/features/blog/styles/style.css";
-import { getBlogById } from "@/features/blog/interface/blog.controller";
+import {
+  getBlogById,
+  getRecentBlogs,
+} from "@/features/blog/interface/blog.controller";
 import { JSDOM } from "jsdom";
 import DomPurify from "dompurify";
 import { Blog } from "@prisma/client";
@@ -8,6 +11,16 @@ import React from "react";
 import BlogOutline from "@/features/blog/components/BlogOutline";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+
+export async function generateStaticParams() {
+  const { blogs } = await getRecentBlogs({
+    limit: 50,
+  });
+
+  return blogs.map((blog) => ({
+    id: [blog.id, blog.slug],
+  }));
+}
 
 export default async function BlogPage({
   params,

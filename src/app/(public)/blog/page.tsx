@@ -7,8 +7,6 @@ import Footer from "@/features/home/components/Footer";
 import ThemeSwitcherWrapper from "@/features/home/components/ThemeSwitcherWrapper";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
-
 export default function BlogPage() {
   return (
     <div className="theme-wrapper space-y-32 bg-background transition-colors duration-500">
