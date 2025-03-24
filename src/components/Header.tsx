@@ -52,7 +52,7 @@ export const PublicHeader = () => {
         "absolute top-0 z-50 flex w-full items-center justify-between px-6 py-8 transition-all duration-500 lg:px-12 lg:py-10"
       }
     >
-      <Logo />
+      <Logo className={path === "/blog" ? "dark" : ""} />
       <nav className="hidden lg:block">
         <ul className="flex gap-8">
           {navlinks.map((link) => {

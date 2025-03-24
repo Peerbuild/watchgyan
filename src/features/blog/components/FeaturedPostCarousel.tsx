@@ -36,6 +36,8 @@ export default function FeaturedPostCarousel({ blogs }: FeaturedPostProps) {
   const [key, setKey] = useState(0);
 
   useEffect(() => {
+    if (blogs.length <= 1) return;
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % blogs.length);
       setKey((prev) => prev + 1);

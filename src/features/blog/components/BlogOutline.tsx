@@ -41,8 +41,8 @@ const BlogOutline = ({ content }: BlogOutlineProps) => {
   }, [content]);
 
   return (
-    <div className="w-40">
-      <ul className="sticky top-0 space-y-2">
+    <div className="w-40 py-14">
+      <ul className="sticky top-10 space-y-2">
         {headings.map((heading) => {
           return (
             <Link
@@ -52,7 +52,7 @@ const BlogOutline = ({ content }: BlogOutlineProps) => {
             >
               <li
                 className={cn(
-                  "break-words text-right text-muted-foreground",
+                  "break-words text-right text-md text-muted-foreground",
                   activeId === heading.id && "text-primary",
                 )}
               >
