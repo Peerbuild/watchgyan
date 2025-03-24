@@ -10,6 +10,11 @@ export default auth((req) => {
     const adminUrl = new URL("/admin/glance", req.nextUrl.origin);
     return Response.redirect(adminUrl);
   }
+
+  if (req.nextUrl.pathname === "/admin") {
+    const glanceUrl = new URL("/admin/glance", req.nextUrl.origin);
+    return Response.redirect(glanceUrl);
+  }
 });
 
 export const config = {

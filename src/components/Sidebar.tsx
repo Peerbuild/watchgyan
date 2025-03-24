@@ -9,10 +9,6 @@ import { cn } from "@/lib/utils";
 
 const navlinks = [
   {
-    name: "Analytics",
-    link: "/admin/analytics",
-  },
-  {
     name: "Glance",
     link: "/admin/glance",
   },
