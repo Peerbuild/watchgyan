@@ -127,7 +127,7 @@ function TestimonialCard({
   return (
     <div className="h-full space-y-2 rounded-lg p-6">
       <div className="flex items-center gap-2">
-        <div className="flex items-center justify-center rounded-full bg-muted p-2">
+        <div className="flex items-center justify-center rounded-full bg-muted p-2 transition-colors duration-500">
           <FeatherIcon icon="user" />
         </div>
         <div className="text-xs font-medium">{name}</div>

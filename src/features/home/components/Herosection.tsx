@@ -3,6 +3,7 @@ import FeatherIcon from "feather-icons-react";
 import AnimatedButton from "./AnimatedButton";
 import Animate from "@/components/Animate";
 import Image from "next/image";
+import Link from "next/link";
 
 const communityFeatures = [
   {
@@ -74,11 +75,16 @@ export default function Herosection() {
                 })}
               </div>
             </div>
-            <AnimatedButton size={"lg"}>
-              Join Community
-              <Separator orientation="vertical" className="h-1/2 bg-primary" />
-              <span className="line-through">₹ 199</span> Free
-            </AnimatedButton>
+            <Link href="/#newsletter">
+              <AnimatedButton size={"lg"}>
+                Join Community
+                <Separator
+                  orientation="vertical"
+                  className="h-1/2 bg-primary"
+                />
+                <span className="line-through">₹ 199</span> Free
+              </AnimatedButton>
+            </Link>
           </Animate>
         </main>
       </div>

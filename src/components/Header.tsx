@@ -17,6 +17,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { getRecentBlogs } from "@/features/blog/interface/blog.controller";
 import BlogCard from "@/features/blog/components/BlogCard";
+import RotatingText from "./ui/animations/RotatingText/RotatingText";
 
 const navlinks = [
   {
@@ -63,6 +64,20 @@ export const PublicHeader = () => {
         <ul className="flex gap-8">
           {navlinks.map((link) => {
             const isActive = path === link.link;
+            if (link.name === "Community") {
+              return (
+                <li key={link.name} className="w-32">
+                  <span
+                    className={cn(
+                      "dark inline-block h-full cursor-pointer text-caps2 font-medium uppercase text-muted-foreground transition-colors hover:text-primary",
+                      isActive && "text-primary",
+                    )}
+                  >
+                    <RotatingText texts={["Community", "Coming Soon"]} />
+                  </span>
+                </li>
+              );
+            }
             return (
               <li key={link.name}>
                 <Link
@@ -114,6 +129,22 @@ export const PublicHeader = () => {
                 {[...navlinks, { name: "Contact", link: "#contact" }].map(
                   (link) => {
                     const isActive = path === link.link;
+                    if (link.name === "Community") {
+                      return (
+                        <span key={link.name}>
+                          <span
+                            className={cn(
+                              "inline-block h-full cursor-pointer text-caps2 font-medium uppercase text-muted-foreground transition-colors hover:text-foreground",
+                              isActive && "text-foreground",
+                            )}
+                          >
+                            <RotatingText
+                              texts={["Community", "Coming Soon"]}
+                            />
+                          </span>
+                        </span>
+                      );
+                    }
                     return (
                       <li key={link.name}>
                         <Link
@@ -141,7 +172,7 @@ export const PublicHeader = () => {
 
               <div className="flex flex-col gap-6">
                 {data?.blogs.map((item) => (
-                  <BlogCard size="small" key={item.id} blog={item} />
+                  <BlogCard size="medium" key={item.id} blog={item} />
                 ))}
               </div>
             </div>

@@ -26,7 +26,7 @@ const BlogCardLarge = ({ blog }: { blog: Blog }) => {
               height={250}
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-muted">
+            <div className="flex h-full w-full items-center justify-center bg-muted transition-colors duration-500">
               <FeatherIcon icon="image" className="text-muted-foreground" />
             </div>
           )}
@@ -44,6 +44,35 @@ const BlogCardLarge = ({ blog }: { blog: Blog }) => {
         <div className="flex gap-3 text-sm text-muted-foreground">
           <div>{readingTime} mins</div>
           {tag && <div>{tag}</div>}
+        </div>
+      </article>
+    </Link>
+  );
+};
+
+const BlogCardMedium = ({ blog }: { blog: Blog }) => {
+  return (
+    <Link href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
+      <article className="flex gap-2 text-left">
+        <div className="aspect-video w-full max-w-28 overflow-hidden">
+          {blog.thumbnail ? (
+            <Image
+              src={blog.thumbnail}
+              alt={blog.title}
+              className="h-full w-full object-cover"
+              width={300}
+              height={250}
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-muted">
+              <FeatherIcon icon="image" className="text-muted-foreground" />
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-1">
+          <h3 className="text-sm">{blog.title}</h3>
+          <p className="text-sm text-muted-foreground">{blog.description}</p>
         </div>
       </article>
     </Link>
@@ -100,17 +129,20 @@ const BlogCard = ({
   showActions,
 }: {
   blog: Blog;
-  size?: "small" | "large";
+  size?: "small" | "large" | "medium";
   showActions?: {
     publish?: boolean;
     delete?: boolean;
   };
 }) => {
-  if (size === "small") {
-    return <BlogCardSmall blog={blog} showActions={showActions} />;
+  switch (size) {
+    case "small":
+      return <BlogCardSmall blog={blog} showActions={showActions} />;
+    case "medium":
+      return <BlogCardMedium blog={blog} />;
+    default:
+      return <BlogCardLarge blog={blog} />;
   }
-
-  return <BlogCardLarge blog={blog} />;
 };
 
 export default BlogCard;
