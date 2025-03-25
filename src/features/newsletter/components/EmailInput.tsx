@@ -38,11 +38,9 @@ export const EmailInput = () => {
         onClick={() => {
           mutation.mutate({ email });
         }}
+        className="text-muted-foreground hover:text-foreground"
       >
-        <FeatherIcon
-          icon="arrow-right"
-          className="text-foreground duration-500"
-        />
+        <FeatherIcon icon="arrow-right" className="duration-500" />
       </Button>
     </div>
   );

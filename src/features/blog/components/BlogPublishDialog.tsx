@@ -32,6 +32,7 @@ const BlogPublishDialog = () => {
     thumbnail,
     isDraft,
     id,
+    words,
   } = useEditorMetadata();
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [values, setValues] = useState({
@@ -46,7 +47,6 @@ const BlogPublishDialog = () => {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      console.log(isEditorContentEmpty(values.content), values.title);
       if (
         isEditorContentEmpty(values.content) ||
         !values.title ||
@@ -73,6 +73,9 @@ const BlogPublishDialog = () => {
         const blogId = params.id ? params.id[0] : id;
         return await publishBlog({
           id: blogId || id,
+          ...values,
+          content: html,
+          tags,
         });
       }
 
@@ -84,6 +87,7 @@ const BlogPublishDialog = () => {
           tags,
           isDraft: false,
           isPublished: true,
+          words,
         });
       }
 

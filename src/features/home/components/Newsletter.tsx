@@ -6,7 +6,10 @@ import { EmailInput } from "@/features/newsletter/components/EmailInput";
 
 export default function Newsletter() {
   return (
-    <section className="relative mx-auto flex h-[30rem] max-w-screen-lg flex-col items-center justify-center px-8 lg:h-[40rem]">
+    <section
+      id="newsletter"
+      className="relative mx-auto flex h-[30rem] max-w-screen-lg flex-col items-center justify-center px-8 lg:h-[40rem]"
+    >
       <div className="absolute left-1/2 top-[16%] h-full w-full -translate-x-1/2 -translate-y-1/2 lg:top-1/4">
         <Paralax
           inputRange={[0, 1]}
@@ -27,16 +30,9 @@ export default function Newsletter() {
           title="Inspirational Stories Right to Your Inbox"
           subtitle="NEWSLETTER"
         />
-        <EmailInput />
-        {
-          //<div className="relative mx-auto mt-20 w-full max-w-sm">
-          //  <Input placeholder="Enter your personal email" className="pr-10" />
-          //  <FeatherIcon
-          //    icon="arrow-right"
-          //    className="absolute right-0 top-1/2 -translate-y-1/2 text-foreground transition-colors duration-500"
-          //  />
-          //</div>
-        }
+        <div className="relative mx-auto mt-20 w-full max-w-sm">
+          <EmailInput />
+        </div>
       </Animate>
     </section>
   );

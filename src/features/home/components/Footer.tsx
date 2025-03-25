@@ -9,11 +9,11 @@ export default function Footer() {
   return (
     <footer
       className={cn(
-        "mx-auto space-y-28 border-t px-6 pb-28 pt-20 text-md text-foreground transition-colors duration-500 md:px-24 md:pb-11",
+        "mx-auto space-y-28 border-t border-muted px-6 pb-28 pt-20 text-md text-foreground transition-colors duration-500 md:px-24 md:pb-11",
         path === "/" && "dark bg-background",
       )}
     >
-      <div className="mx-auto flex max-w-screen-xl flex-wrap justify-between gap-16">
+      <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-16 md:flex-row">
         <div className="space-y-5">
           <h3 className="text-caps3 uppercase text-muted-foreground">
             Community & Blog

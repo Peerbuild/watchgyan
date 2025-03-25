@@ -12,6 +12,7 @@ import BlogOutline from "@/features/blog/components/BlogOutline";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import Footer from "@/features/home/components/Footer";
+import LatestGlobalBlogs from "@/features/blog/components/LatestGlobalBlogs";
 
 export async function generateStaticParams() {
   const { blogs } = await getRecentBlogs({
@@ -51,7 +52,7 @@ export default async function BlogPage({
 
   return (
     <div>
-      <div className="mx-auto mt-32 flex max-w-screen-xl flex-row-reverse justify-between gap-48 py-14">
+      <div className="mx-auto mt-32 flex max-w-screen-xl flex-row-reverse justify-between gap-48 px-6 md:py-14">
         <BlogOutline content={blog.content} />
         <div className="mx-auto w-full max-w-[65ch] space-y-10">
           <div className="space-y-6">
@@ -73,6 +74,7 @@ export default async function BlogPage({
           <BlogContent content={blog.content} />
         </div>
       </div>
+      <LatestGlobalBlogs />
       <Footer />
     </div>
   );

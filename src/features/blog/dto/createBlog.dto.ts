@@ -8,6 +8,7 @@ export const createBlogRequestDto = z.object({
   content: z.string().min(1, { message: "Content is required" }),
   tags: z.array(z.string()),
   thumbnail: z.string().optional(),
+  words: z.number().positive(),
 });
 
 export type CreateBlogRequest = z.infer<typeof createBlogRequestDto>;

@@ -18,9 +18,11 @@ function RecentBlogsSmall({ blogs }: { blogs: Blog[] }) {
 
 function RecentBlogsLarge({ blogs }: { blogs: Blog[] }) {
   return (
-    <section className="mx-auto max-w-screen-xl space-y-16">
-      <h2 className="text-center font-serif text-h2">Recent Stories</h2>
-      <div className="grid grid-cols-3 gap-16">
+    <section className="mx-auto max-w-screen-xl space-y-16 px-6">
+      <h2 className="text-center font-serif text-h3 md:text-h2">
+        Recent Stories
+      </h2>
+      <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}

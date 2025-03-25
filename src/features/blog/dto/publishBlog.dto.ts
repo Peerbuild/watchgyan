@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { createBlogRequestDto } from "./createBlog.dto";
 
-export const publishBlogRequestDto = z.object({
+export const publishBlogRequestDto = createBlogRequestDto.partial().extend({
   id: z.string(),
 });
 

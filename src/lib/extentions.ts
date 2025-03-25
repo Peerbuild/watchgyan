@@ -7,6 +7,7 @@ import {
   StarterKit,
   Placeholder,
   Youtube,
+  CharacterCount,
 } from "novel/extensions";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
@@ -149,5 +150,6 @@ export const defaultExtensions = [
   TableRow,
   tableHeader,
   TableCell,
+  CharacterCount,
   youtube,
 ];

@@ -40,7 +40,7 @@ export default function Herosection() {
           </div>
 
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 h-[105%] w-full bg-gradient-to-b from-background via-background/70 via-10% to-background to-80% lg:bg-[radial-gradient(100.31%_100.84%_at_93.91%_-5%,var(--tw-gradient-stops))] lg:from-background/10 lg:to-background lg:to-100%" />
+          <div className="absolute inset-0 h-[105%] w-full bg-gradient-to-b from-background via-background/70 via-10% to-background to-80% lg:bg-[radial-gradient(80.31%_50.84%_at_93.91%_40%,var(--tw-gradient-stops))] lg:from-background/10 lg:to-background lg:to-100%" />
         </div>
         <main className="relative z-10 mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
           <Animate className="space-y-10 lg:space-y-14">

@@ -6,6 +6,7 @@ import Paralax from "./Paralax";
 import Animate from "@/components/Animate";
 import { motion } from "motion/react";
 import { Blog } from "@prisma/client";
+import Link from "next/link";
 
 const convertToRoman = (num: number) => {
   const romanNumeralMap = [
@@ -69,21 +70,25 @@ export default function FeaturedPostCarousel({ blogs }: FeaturedPostProps) {
         </Paralax>
         <div className="absolute inset-0 h-full w-full bg-[linear-gradient(120deg,var(--tw-gradient-stops))] from-background from-40% to-background/40"></div>
       </div>
-      <div className="relative z-10 mx-auto w-full max-w-screen-2xl px-24">
+      <div className="relative z-10 mx-auto w-full max-w-screen-2xl px-9 md:px-24">
         <Animate className="max-w-lg">
           <p className="text-caps2 uppercase">Featured post</p>
-          <h2 className="mt-4 font-serif text-display animate-in fade-in-0 slide-in-from-bottom-6">
+          <h2 className="mt-4 font-serif text-h2 animate-in fade-in-0 slide-in-from-bottom-6 md:text-display">
             {blogs[currentSlide].title}
           </h2>
           <p className="mt-5 text-sub font-light">
             {blogs[currentSlide].description}
           </p>
-          <Button className="mt-12 uppercase" variant={"outline"}>
-            Read Story
-          </Button>
+          <Link
+            href={`/blog/${blogs[currentSlide].id}/${blogs[currentSlide].slug}`}
+          >
+            <Button className="mt-12 uppercase" variant={"outline"}>
+              Read Story
+            </Button>
+          </Link>
         </Animate>
       </div>
-      <div className="absolute bottom-20 right-20 z-10 flex gap-4">
+      <div className="absolute bottom-10 right-10 z-10 flex gap-4 md:bottom-20 md:right-20">
         {[...Array(blogs.length)].map((_, i) => (
           <div key={i} className="flex w-5 min-w-0 flex-1 flex-col text-center">
             {convertToRoman(i + 1)}{" "}

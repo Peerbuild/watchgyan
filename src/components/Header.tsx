@@ -7,7 +7,13 @@ import { Button } from "./ui/button";
 import EditorHeader from "@/features/blog/components/Header";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { getRecentBlogs } from "@/features/blog/interface/blog.controller";
 import BlogCard from "@/features/blog/components/BlogCard";
@@ -19,14 +25,14 @@ const navlinks = [
   },
   {
     name: "Youtube",
-    link: "#journey",
+    link: "/#youtube",
   },
   {
     name: "Newsletter",
-    link: "#newsletter",
+    link: "/#newsletter",
   },
   {
-    name: "blog",
+    name: "Blog",
     link: "/blog",
   },
   {
@@ -74,7 +80,11 @@ export const PublicHeader = () => {
         </ul>
       </nav>
       <div className="hidden items-center gap-10 text-muted-foreground lg:flex">
-        <Button variant={"ghost"} size={"icon"}>
+        <Button
+          className={path === "/blog" ? "hover:text-background" : ""}
+          variant={"ghost"}
+          size={"icon"}
+        >
           <FeatherIcon icon="mail" />
         </Button>
       </div>
@@ -84,7 +94,10 @@ export const PublicHeader = () => {
             <Button variant={"ghost"} size={"icon"}>
               <FeatherIcon
                 icon="menu"
-                className="text-foreground transition-colors duration-500"
+                className={cn(
+                  "text-foreground transition-colors duration-500",
+                  path === "/blog" && "dark",
+                )}
               />
             </Button>
           </DialogTrigger>
@@ -110,7 +123,9 @@ export const PublicHeader = () => {
                             isActive && "text-foreground",
                           )}
                         >
-                          {link.name}
+                          <DialogClose className="uppercase">
+                            {link.name}
+                          </DialogClose>
                         </Link>
                       </li>
                     );

@@ -1284,8 +1284,8 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-character-count@2.11.2':
-    resolution: {integrity: sha512-Oc43NqzYO8A5jit5i10t4nAXtb79ANakTUK1O4CQFQs8Ym1Mwn2sWNPEYG31SSbbTRYOwVRUfvjMTQYcrI6FVg==}
+  '@tiptap/extension-character-count@2.11.5':
+    resolution: {integrity: sha512-Da2VGb7ClmKwXdQdQC2735qylYD8/MQAPA0skPEcHxcDTDuI8ibyIDnMPnczgS/hR5g0TYE2DQp/dkhJXeovkQ==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
@@ -4851,7 +4851,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.11.2(@tiptap/pm@2.11.2)
 
-  '@tiptap/extension-character-count@2.11.2(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)':
+  '@tiptap/extension-character-count@2.11.5(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)':
     dependencies:
       '@tiptap/core': 2.11.2(@tiptap/pm@2.11.2)
       '@tiptap/pm': 2.11.2
@@ -6679,7 +6679,7 @@ snapshots:
     dependencies:
       '@radix-ui/react-slot': 1.1.1(@types/react@19.0.2)(react@19.0.0)
       '@tiptap/core': 2.11.2(@tiptap/pm@2.11.2)
-      '@tiptap/extension-character-count': 2.11.2(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)
+      '@tiptap/extension-character-count': 2.11.5(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)
       '@tiptap/extension-code-block-lowlight': 2.11.2(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/extension-code-block@2.11.2(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2))(@tiptap/pm@2.11.2)(highlight.js@11.11.1)(lowlight@3.3.0)
       '@tiptap/extension-color': 2.11.2(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))(@tiptap/extension-text-style@2.11.2(@tiptap/core@2.11.2(@tiptap/pm@2.11.2)))
       '@tiptap/extension-highlight': 2.11.2(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))

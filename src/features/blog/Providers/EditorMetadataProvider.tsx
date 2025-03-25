@@ -21,6 +21,8 @@ interface EditorMetadataContextProps {
   setThumbnail: (thumbnail: string) => void;
   isSaving: boolean;
   setIsSaving: (isSaving: boolean) => void;
+  words: number;
+  setWords: (words: number) => void;
 }
 
 const EditorMetadataContext = createContext<EditorMetadataContextProps | null>(
@@ -37,12 +39,15 @@ const EditorMetadataProvider = ({ children }: PropsWithChildren) => {
   const [isDraft, setIsDraft] = useState(true);
   const [id, setId] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [words, setWords] = useState(0);
 
   return (
     <EditorMetadataContext.Provider
       value={{
         id,
         setId,
+        words,
+        setWords,
         isDraft,
         setIsDraft,
         title,

@@ -11,6 +11,8 @@ import {
 
 const BlogCardLarge = ({ blog }: { blog: Blog }) => {
   const tag = blog.tags[0];
+  const readingTime = Math.ceil(blog.words / 200);
+
   return (
     <Link href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
       <article className="space-y-4 text-left">
@@ -40,7 +42,7 @@ const BlogCardLarge = ({ blog }: { blog: Blog }) => {
         </div>
 
         <div className="flex gap-3 text-sm text-muted-foreground">
-          <div>3 Min</div>
+          <div>{readingTime} mins</div>
           {tag && <div>{tag}</div>}
         </div>
       </article>

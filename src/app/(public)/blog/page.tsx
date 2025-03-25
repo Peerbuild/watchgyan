@@ -9,7 +9,7 @@ import { Suspense } from "react";
 
 export default function BlogPage() {
   return (
-    <div className="theme-wrapper space-y-32 bg-background transition-colors duration-500">
+    <div className="theme-wrapper space-y-24 bg-background transition-colors duration-500 md:space-y-32">
       <Herosection />
       <RecentBlogs />
       <TopArticles />

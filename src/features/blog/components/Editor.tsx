@@ -164,6 +164,7 @@ export const Editor = ({ blog }: EditorProps) => {
     setIsDraft,
     setId,
     setIsSaving,
+    setWords,
   } = useEditorMetadata();
 
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -211,9 +212,12 @@ export const Editor = ({ blog }: EditorProps) => {
         }),
       ]);
 
+      const words = editor?.storage.characterCount.words();
+
       return await createBlog({
         content: html,
         title,
+        words,
         description: "",
         subtitle,
         tags: [],
@@ -237,10 +241,13 @@ export const Editor = ({ blog }: EditorProps) => {
 
       setIsSaving(true);
 
+      const words = editor?.storage.characterCount.words();
+
       await updateBlog({
         id: blogId.current,
         title,
         content: debouncedContent,
+        words,
       });
     },
     onError: (error) => {
@@ -277,6 +284,8 @@ export const Editor = ({ blog }: EditorProps) => {
   }, [title, subtitle, content, isCreated]);
 
   useEffect(() => {
+    setWords(editor?.storage.characterCount.words() ?? 0);
+
     if (!isCreated || !blogId || !blogId.current || blog?.isPublished) return;
 
     updateMutation.mutate();

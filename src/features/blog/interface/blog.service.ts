@@ -21,12 +21,18 @@ export class BlogService {
     return blog;
   }
 
-  async publishBlog({ id }: PublishBlogRequest) {
+  async publishBlog(data: PublishBlogRequest) {
+    const slug = data.title
+      ? data.title.toLowerCase().replace(/ /g, "-")
+      : null;
+
     return await prisma.blog.update({
       where: {
-        id,
+        id: data.id,
       },
       data: {
+        ...data,
+        ...(slug && { slug }),
         isPublished: true,
         isDraft: false,
       },
@@ -138,12 +144,17 @@ export class BlogService {
       throw new Error("Blog not found");
     }
 
+    const slug = data.title
+      ? data.title.toLowerCase().replace(/ /g, "-")
+      : isBlogExists.slug;
+
     return await prisma.blog.update({
       where: {
         id,
       },
       data: {
         ...data,
+        slug,
       },
     });
   }

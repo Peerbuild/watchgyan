@@ -45,7 +45,7 @@ export default async function LatestVideos() {
   const videos = await getLatestVideos();
 
   return (
-    <section className="relative px-6 text-center">
+    <section className="relative px-6 text-center" id="youtube">
       <div>
         <Animate
           delay={1.5}

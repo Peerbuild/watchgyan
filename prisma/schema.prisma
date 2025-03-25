@@ -23,6 +23,7 @@ model Blog {
   tags        String[]
   thumbnail   String?
   views       Int      @default(0)
+  words       Int      @default(0)
   isDraft     Boolean  @default(true)
   isPublished Boolean  @default(false)
 
