@@ -142,8 +142,8 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
         }}
         className="rounded-none p-4 pt-2"
       >
-        <div className="flex items-center justify-between">
-          <div className="text-caps3 uppercase text-muted-foreground">
+        <div className="flex items-center justify-between gap-4">
+          <div className="text-nowrap text-caps3 uppercase text-muted-foreground">
             Available Blogs
           </div>
           <div>

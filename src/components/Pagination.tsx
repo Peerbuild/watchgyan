@@ -30,10 +30,10 @@ export default function Pagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-6 pt-12">
+    <div className="flex items-center justify-center gap-4 pt-12 md:gap-6">
       <PreviousButton currentPage={currentPage} pages={totalPages} />
 
-      <div className="space-x-8">
+      <div className="space-x-6 md:space-x-8">
         {[...Array(Math.min(totalPages, MAX_VISIBLE_PAGES))].map((_, index) => {
           return (
             <PaginatedItem
@@ -77,7 +77,7 @@ function PaginatedItem({ page, currentPage }: PaginatedItemProps) {
     >
       <span
         className={cn(
-          "text-muted-foreground",
+          "text-md text-muted-foreground md:text-body",
           currentPage === page && "text-foreground",
         )}
       >
@@ -100,7 +100,7 @@ function PaginationEllipsis({ currentPage, pages }: PaginationEllipsisProps) {
     return <PaginatedItem currentPage={currentPage} page={pages - 1} />;
   }
 
-  return <span>...</span>;
+  return <span className="text-muted-foreground">...</span>;
 }
 
 interface PaginationButtonProps {

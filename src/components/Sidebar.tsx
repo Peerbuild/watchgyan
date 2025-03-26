@@ -26,7 +26,7 @@ export default function Sidebar() {
   const path = usePathname();
 
   return (
-    <aside className="space-y-24 self-stretch border-r px-12 py-20">
+    <aside className="hidden space-y-24 self-stretch border-r px-12 py-20 lg:block">
       <div className="flex items-center gap-2">
         <div className="h-14 w-14 overflow-hidden rounded-full">
           <Image

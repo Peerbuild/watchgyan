@@ -31,8 +31,8 @@ export default async function AllBlogs({
 
   return (
     <section className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h2 className="text-caps2 uppercase">All Blogs</h2>
+      <div className="flex items-center justify-between gap-8">
+        <h2 className="text-nowrap text-caps2 uppercase">All Blogs</h2>
         <Search />
       </div>
       <div>

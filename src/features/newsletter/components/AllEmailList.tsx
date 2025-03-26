@@ -1,9 +1,8 @@
 import React from "react";
 import { getEmails, searchEmails } from "../interface/newletter.controller";
-import FeatherIcon from "feather-icons-react";
-import CopyToClipboard from "./CopyToClipboard";
 import Pagination from "@/components/Pagination";
 import { Search } from "@/components/Search";
+import EmailCard from "./EmailCard";
 
 const EMAILS_PER_PAGE = 11;
 
@@ -35,15 +34,7 @@ export default async function AllEmailList({
         </div>
         <div>
           {emails.map(({ email, id }) => {
-            return (
-              <div className="flex items-center gap-6 p-4 shadow-md" key={id}>
-                <div>
-                  <FeatherIcon icon="user" />
-                </div>
-                <div className="flex-1">{email}</div>
-                <CopyToClipboard data={email} />
-              </div>
-            );
+            return <EmailCard email={email} key={id} />;
           })}
         </div>
       </section>

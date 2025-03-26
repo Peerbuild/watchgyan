@@ -124,6 +124,7 @@ export const EditBlogButton = ({ id }: { id: string }) => {
     <Button
       variant={"ghost"}
       size={"icon"}
+      className="hidden lg:inline-flex"
       onClick={() => {
         router.push(`/admin/blog/write/${id}`);
       }}

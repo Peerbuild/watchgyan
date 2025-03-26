@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export default function Glance() {
   return (
-    <div className="space-y-24 px-24 py-28">
+    <div className="space-y-24 px-8 py-12 md:px-24 md:py-28">
       <Suspense>
         <DraftBlogs />
       </Suspense>
