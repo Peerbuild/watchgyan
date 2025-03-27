@@ -74,7 +74,9 @@ export const suggestionItems = createSuggestionItems([
     command: ({ editor, range }) => {
       editor
         .chain()
-        .focus()
+        .focus(false, {
+          scrollIntoView: false,
+        })
         .deleteRange(range)
         .setNode("heading", { level: 2 })
         .run();
@@ -88,7 +90,9 @@ export const suggestionItems = createSuggestionItems([
     command: ({ editor, range }) => {
       editor
         .chain()
-        .focus()
+        .focus(false, {
+          scrollIntoView: false,
+        })
         .deleteRange(range)
         .setNode("heading", { level: 3 })
         .run();
@@ -100,7 +104,14 @@ export const suggestionItems = createSuggestionItems([
     searchTerms: ["unordered", "point"],
     icon: <List size={18} />,
     command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).toggleBulletList().run();
+      editor
+        .chain()
+        .focus(false, {
+          scrollIntoView: false,
+        })
+        .deleteRange(range)
+        .toggleBulletList()
+        .run();
     },
   },
   {
@@ -109,7 +120,14 @@ export const suggestionItems = createSuggestionItems([
     searchTerms: ["ordered"],
     icon: <ListOrdered size={18} />,
     command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+      editor
+        .chain()
+        .focus(false, {
+          scrollIntoView: false,
+        })
+        .deleteRange(range)
+        .toggleOrderedList()
+        .run();
     },
   },
   {
@@ -120,7 +138,9 @@ export const suggestionItems = createSuggestionItems([
     command: ({ editor, range }) =>
       editor
         .chain()
-        .focus()
+        .focus(false, {
+          scrollIntoView: false,
+        })
         .deleteRange(range)
         .toggleNode("paragraph", "paragraph")
         .toggleBlockquote()
@@ -132,7 +152,14 @@ export const suggestionItems = createSuggestionItems([
     searchTerms: ["hr", "horizontal rule"],
     icon: <Minus size={18} />,
     command: ({ editor, range }) =>
-      editor.chain().focus().deleteRange(range).setHorizontalRule().run(),
+      editor
+        .chain()
+        .focus(false, {
+          scrollIntoView: false,
+        })
+        .deleteRange(range)
+        .setHorizontalRule()
+        .run(),
   },
   {
     title: "Image",
@@ -140,7 +167,13 @@ export const suggestionItems = createSuggestionItems([
     searchTerms: ["photo", "picture", "media"],
     icon: <ImageIcon size={18} />,
     command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).run();
+      editor
+        .chain()
+        .focus(false, {
+          scrollIntoView: false,
+        })
+        .deleteRange(range)
+        .run();
       // upload image
       const input = document.createElement("input");
       input.type = "file";
@@ -190,7 +223,13 @@ export const suggestionItems = createSuggestionItems([
     searchTerms: ["embed", "video"],
     icon: <Youtube size={18} />,
     command: ({ editor, range }) => {
-      editor.chain().focus().deleteRange(range).run();
+      editor
+        .chain()
+        .focus(false, {
+          scrollIntoView: false,
+        })
+        .deleteRange(range)
+        .run();
     },
   },
 ]);

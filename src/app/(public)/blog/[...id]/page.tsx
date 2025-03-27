@@ -46,7 +46,7 @@ export default async function BlogPage({
     }
   }
 
-  if (!slug || slug !== blog.slug) {
+  if (!slug || decodeURIComponent(slug) !== blog.slug) {
     return redirect(`/blog/${blogId}/${blog.slug}`);
   }
 
