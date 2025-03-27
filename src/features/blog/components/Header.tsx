@@ -38,7 +38,11 @@ export default function EditorHeader() {
           <BlogPublishDialog />
         </Dialog>
         <Link href={`/blog/${id}`}>
-          <Button variant={"ghost"} className="uppercase">
+          <Button
+            variant={"ghost"}
+            className="uppercase"
+            disabled={!title || isEditorContentEmpty(content)}
+          >
             PREVIEW
           </Button>
         </Link>
