@@ -34,18 +34,25 @@ interface FeaturedPostProps {
 
 export default function FeaturedPostCarousel({ blogs }: FeaturedPostProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isInteracted, setIsInteracted] = useState(false);
   const [key, setKey] = useState(0);
+
+  const moveToSlide = (index: number) => {
+    setCurrentSlide(index);
+    setKey((prev) => prev + 1);
+  };
 
   useEffect(() => {
     if (blogs.length <= 1) return;
+    const timer = isInteracted ? 10000 : 5000;
 
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % blogs.length);
-      setKey((prev) => prev + 1);
-    }, 5000);
+    const timeout = setTimeout(() => {
+      moveToSlide((currentSlide + 1) % blogs.length);
+      setIsInteracted(false);
+    }, timer);
 
-    return () => clearInterval(interval);
-  }, [currentSlide, blogs.length]);
+    return () => clearTimeout(timeout);
+  }, [blogs.length, currentSlide, isInteracted]);
 
   if (!blogs.length) return null;
 
@@ -90,13 +97,23 @@ export default function FeaturedPostCarousel({ blogs }: FeaturedPostProps) {
       </div>
       <div className="absolute bottom-10 right-10 z-10 flex gap-4 md:bottom-20 md:right-20">
         {[...Array(blogs.length)].map((_, i) => (
-          <div key={i} className="flex w-5 min-w-0 flex-1 flex-col text-center">
+          <div
+            onClick={() => {
+              setIsInteracted(true);
+              moveToSlide(i);
+            }}
+            key={i}
+            className="flex w-5 min-w-0 flex-1 cursor-pointer flex-col text-center"
+          >
             {convertToRoman(i + 1)}{" "}
             {currentSlide === i && (
               <motion.span
-                layout={"position"}
-                layoutId="underline"
-                className="inline-block h-0.5 w-full bg-foreground"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{
+                  duration: isInteracted ? 10 : 5,
+                }}
+                className="mt-1 inline-block h-0.5 w-full origin-left bg-foreground will-change-contents"
               ></motion.span>
             )}
           </div>

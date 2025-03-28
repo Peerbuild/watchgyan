@@ -161,6 +161,10 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        fill: {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
         marque: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
@@ -168,6 +172,7 @@ export default {
       },
       animation: {
         marque: "marque var(--duration) linear infinite",
+        fill: "fill var(--duration) ease-in-out",
       },
     },
   },

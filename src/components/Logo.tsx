@@ -12,9 +12,6 @@ export default function Logo({ className }: { className?: string }) {
       >
         WatchGyan
       </h1>
-      <span className={cn("text-caps3 uppercase text-foreground", className)}>
-        Hindi
-      </span>
     </Link>
   );
 }
