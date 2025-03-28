@@ -367,7 +367,7 @@ export const Editor = ({ blog }: EditorProps) => {
               value={subtitle}
               rows={1}
               onChange={(e) => setSubtitle(e.target.value)}
-              className={`md:text-lg ml-1 resize-none border-none p-0 text-muted-foreground shadow-none focus-visible:ring-0`}
+              className={`ml-1 resize-none border-none p-0 text-muted-foreground shadow-none focus-visible:ring-0 md:text-h3 md:font-light`}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   if (!subtitle) {
