@@ -1,16 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { DMSans, PlayflairDisplay } from "@/lib/fonts";
+import ReactQueryProvider from "@/providers/QueryClientProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,9 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${DMSans.variable} ${PlayflairDisplay.variable} font-sans text-body antialiased transition-colors duration-500`}
       >
-        {children}
+        <Toaster richColors />
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
