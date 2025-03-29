@@ -1,5 +1,5 @@
-import FeatherIcon from "feather-icons-react";
 import SectionTitle from "./SectionTitle";
+import Image from "next/image";
 
 type Testimonial = {
   name: string;
@@ -8,62 +8,33 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    name: "Aman Sharma",
-    testimonial: "I went from struggling with views to constant vitality.",
+    name: "Technical Guruji",
+    testimonial: "Loved your presentation! Keep going, brother.",
   },
   {
-    name: "Meera Joshi",
+    name: "Saintosk",
+    testimonial: "I like Pankaj's style of product detailing.",
+  },
+  {
+    name: "Mithrataluri",
+    testimonial: "The best and most relatable watch enthusiast!",
+  },
+  {
+    name: "Seemant Gupta",
+    testimonial: "The most genuine guy out there. No gimmicks, just value!",
+  },
+  {
+    name: "Ashwin Arya",
+    testimonial: "Glad I found your content—helped me build my collection!",
+  },
+  {
+    name: "Soumik Sarkar",
     testimonial:
-      "Hands down the best investment I have made, simple and straightforward strategies.",
+      "Hats off! You're taking wristwatch culture to the next level.",
   },
   {
-    name: "Liam Carter",
-    testimonial:
-      "I struggled to get engagement for months—until this. Now, my content gets traction daily!",
-  },
-  {
-    name: "Sophia Martinez",
-    testimonial:
-      "This changed the game for me. More leads, more conversions, and zero guesswork.",
-  },
-  {
-    name: "Ethan Williams",
-    testimonial:
-      "From invisible to undeniable. The smartest decision I ever made.",
-  },
-  {
-    name: "Isabella Chen",
-    testimonial:
-      "My revenue doubled in just weeks. Wish I had found this sooner!",
-  },
-  {
-    name: "Daniel Thompson",
-    testimonial:
-      "No fluff, just results. If you're serious about growth, this is it.",
-  },
-  {
-    name: "Olivia Bennett",
-    testimonial:
-      "I was stuck at 500 followers for months. Now I wake up to new leads every day.",
-  },
-  {
-    name: "Raj Patel",
-    testimonial:
-      "Clear, actionable, and no BS. I finally understand what works—and why.",
-  },
-  {
-    name: "Emily Wong",
-    testimonial:
-      "I used to chase clients. Now they come to me. Best investment I’ve made.",
-  },
-  {
-    name: "James Müller",
-    testimonial:
-      "I thought growth was luck. Turns out, it’s just the right strategy.",
-  },
-  {
-    name: "Aisha Khan",
-    testimonial: "From 2 sales a month to 20+. Same effort, better system.",
+    name: "Dr. Vineet Rai",
+    testimonial: "Genuine, unbiased, and insightful. Keep up the good work!",
   },
 ];
 
@@ -127,8 +98,14 @@ function TestimonialCard({
   return (
     <div className="h-full space-y-2 rounded-lg p-6">
       <div className="flex items-center gap-2">
-        <div className="flex items-center justify-center rounded-full bg-muted p-2 transition-colors duration-500">
-          <FeatherIcon icon="user" />
+        <div className="flex size-10 items-center justify-center overflow-hidden rounded-full bg-muted transition-colors duration-500">
+          <Image
+            className="h-full w-full object-cover"
+            src={`/pfps/${name}.png`}
+            alt={name}
+            width={40}
+            height={40}
+          />
         </div>
         <div className="text-xs font-medium">{name}</div>
       </div>

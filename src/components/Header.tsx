@@ -98,13 +98,15 @@ export const PublicHeader = () => {
         </ul>
       </nav>
       <div className="hidden items-center gap-10 text-muted-foreground lg:flex">
-        <Button
-          className={path === "/blog" ? "hover:text-background" : ""}
-          variant={"ghost"}
-          size={"icon"}
-        >
-          <FeatherIcon icon="mail" />
-        </Button>
+        <a href={"mailto:watchgyanhindi@outlook.com"}>
+          <Button
+            className={path === "/blog" ? "hover:text-background" : ""}
+            variant={"ghost"}
+            size={"icon"}
+          >
+            <FeatherIcon icon="mail" />
+          </Button>
+        </a>
       </div>
       <div className="lg:hidden">
         <MobileNav

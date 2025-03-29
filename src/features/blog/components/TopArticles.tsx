@@ -6,7 +6,10 @@ export default async function TopArticles() {
   const topArticles = await getTopBlogs();
 
   return (
-    <section className="mx-auto max-w-screen-xl space-y-16 px-6">
+    <section
+      id="toparticles"
+      className="mx-auto max-w-screen-xl space-y-16 px-6"
+    >
       <h2 className="text-center font-serif text-h3 md:text-h2">
         Top Articles
       </h2>

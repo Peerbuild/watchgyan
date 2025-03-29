@@ -18,7 +18,7 @@ function RecentBlogsSmall({ blogs }: { blogs: Blog[] }) {
 
 function RecentBlogsLarge({ blogs }: { blogs: Blog[] }) {
   return (
-    <section className="mx-auto max-w-screen-xl space-y-16 px-6">
+    <section id="recent" className="mx-auto max-w-screen-xl space-y-16 px-6">
       <h2 className="text-center font-serif text-h3 md:text-h2">
         Recent Stories
       </h2>
