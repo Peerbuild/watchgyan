@@ -4,6 +4,9 @@ import Animate from "@/components/Animate";
 import AnimatedButton from "./AnimatedButton";
 
 type Video = {
+  id: {
+    videoId: string;
+  };
   snippet: {
     thumbnails: {
       high: {
@@ -95,17 +98,24 @@ export default async function LatestVideos() {
           subtitle="Latest Drops"
         />
         <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-5">
-          {videos?.map(({ snippet }, i) => {
+          {videos?.map(({ snippet, id }, i) => {
             return (
-              <div key={i} className="aspect-video overflow-hidden">
-                <Image
-                  className="h-full w-full object-cover"
-                  src={snippet.thumbnails.high.url}
-                  alt="Video Thumbnail"
-                  width={snippet.thumbnails.high.width}
-                  height={snippet.thumbnails.high.height}
-                />
-              </div>
+              <a
+                key={i}
+                href={`
+              https://www.youtube.com/watch?v=${id.videoId}
+`}
+              >
+                <div className="aspect-video overflow-hidden">
+                  <Image
+                    className="h-full w-full object-cover"
+                    src={snippet.thumbnails.high.url}
+                    alt="Video Thumbnail"
+                    width={snippet.thumbnails.high.width}
+                    height={snippet.thumbnails.high.height}
+                  />
+                </div>
+              </a>
             );
           })}
         </div>
