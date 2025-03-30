@@ -27,8 +27,8 @@ export default function Newsletter() {
       </div>
       <Animate className="relative z-10">
         <SectionTitle
-          title="Experience Inspiring Stories Firsthand"
-          subtitle="JOIN US"
+          title="Experience Inspiring Watch Tales Firsthand"
+          subtitle="NEWSLETTER"
         />
         <div className="relative mx-auto mt-20 w-full max-w-sm">
           <EmailInput />

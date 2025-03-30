@@ -77,7 +77,7 @@ export default function Herosection() {
             </div>
             <Link href="/#newsletter">
               <AnimatedButton size={"lg"}>
-                Join Community
+                Join Newsletter
                 <Separator
                   orientation="vertical"
                   className="h-1/2 bg-primary"

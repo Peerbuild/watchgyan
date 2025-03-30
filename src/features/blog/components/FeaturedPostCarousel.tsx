@@ -77,13 +77,15 @@ export default function FeaturedPostCarousel({ blogs }: FeaturedPostProps) {
         </Paralax>
         <div className="absolute inset-0 h-full w-full bg-[linear-gradient(120deg,var(--tw-gradient-stops))] from-background from-40% to-background/40"></div>
       </div>
-      <div className="relative z-10 mx-auto w-full max-w-screen-2xl px-9 md:px-24">
+      <div className="relative z-10 mx-auto mt-10 w-full max-w-screen-2xl px-9 md:px-24">
         <Animate className="max-w-lg">
-          <p className="text-caps2 uppercase">Featured post</p>
+          <p className="text-caps2 uppercase text-foreground/80">
+            Featured post
+          </p>
           <h2 className="mt-4 font-serif text-h2 animate-in fade-in-0 slide-in-from-bottom-6 md:text-display">
             {blogs[currentSlide].title}
           </h2>
-          <p className="mt-5 text-sub font-light">
+          <p className="mt-5 text-sub font-light text-foreground/80">
             {blogs[currentSlide].description}
           </p>
           <Link
