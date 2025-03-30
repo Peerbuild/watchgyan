@@ -96,10 +96,7 @@ const BlogCardSmall = ({
     edit = true,
   } = showActions || {};
 
-  const isDraft = blog.isDraft;
-  const url = isDraft
-    ? `/admin/blog/write/${blog.id}`
-    : `/blog/${blog.id}/${blog.slug}`;
+  const url = `/blog/${blog.id}/${blog.slug}`;
 
   return (
     <article className="relative flex items-center gap-6 p-4 text-left shadow-md">
