@@ -140,7 +140,7 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
         style={{
           width: "var(--radix-dropdown-menu-trigger-width)",
         }}
-        className="rounded-none p-4 pt-2"
+        className="space-y-2 rounded-none p-4 pt-2"
       >
         <div className="flex items-center justify-between gap-4">
           <div className="text-nowrap text-caps3 uppercase text-muted-foreground">
@@ -159,7 +159,7 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
           queryKey={["blogs", category.name]}
           queryFn={queryFn}
           renderItem={(blog) => (
-            <div key={blog.id} className="mt-2 flex items-center gap-6 text-sm">
+            <div key={blog.id} className="flex items-center gap-6 text-sm">
               <Checkbox
                 checked={blog.categoryIds.includes(category.id)}
                 onCheckedChange={(checked: boolean) => {

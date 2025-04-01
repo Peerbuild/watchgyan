@@ -106,7 +106,7 @@ const BlogCardSmall = ({
 
       <Link href={url} className="flex-1">
         <span className="absolute inset-0"></span>
-        <h3>{blog.title}</h3>
+        <h3 className="line-clamp-1">{blog.title}</h3>
       </Link>
 
       <div className="relative z-20 flex items-center gap-6">

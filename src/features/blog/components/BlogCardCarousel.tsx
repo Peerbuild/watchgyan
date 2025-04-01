@@ -27,10 +27,7 @@ export default function BlogCardCarousel({ blogs }: BlogCardCarouselProps) {
       <CarouselContent className="w-full">
         {blogs.map((blog, index) => {
           return (
-            <CarouselItem
-              className="basis-auto md:pl-14 lg:basis-1/3"
-              key={index}
-            >
+            <CarouselItem className="md:pl-14 lg:basis-1/3" key={index}>
               <BlogCard blog={blog as unknown as Blog} />
             </CarouselItem>
           );

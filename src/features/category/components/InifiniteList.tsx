@@ -37,7 +37,7 @@ export default function InifiniteList<T>({
     getScrollElement: useCallback(() => parentRef.current!, []),
     estimateSize: useCallback(() => 30, []),
     overscan: 5,
-    gap: 0,
+    gap: 8,
   });
 
   const virtualItems = virtualizer.getVirtualItems();
@@ -65,7 +65,12 @@ export default function InifiniteList<T>({
 
   return (
     <div ref={parentRef} className="h-60 overflow-auto">
-      <div className="relative w-full">
+      <div
+        className="relative w-full"
+        style={{
+          height: virtualizer.getTotalSize(),
+        }}
+      >
         {virtualizer.getVirtualItems().map((virtualItem) => {
           const item = items[virtualItem.index];
 
@@ -74,6 +79,8 @@ export default function InifiniteList<T>({
             <div
               key={virtualItem.index}
               className="absolute w-full"
+              data-index={virtualItem.index}
+              ref={virtualizer.measureElement}
               style={{
                 transform: `translateY(${virtualItem.start}px)`,
               }}
