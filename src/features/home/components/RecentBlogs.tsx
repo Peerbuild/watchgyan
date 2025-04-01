@@ -23,7 +23,7 @@ export default async function RecentBlogs() {
             <BlogCard key={blog.id} blog={blog} />
           ))}
         </div>
-        <Link href={"/blog"} className="block">
+        <Link href={"/blog"} className="relative z-20 block">
           <AnimatedButton>Explore all blogs</AnimatedButton>
         </Link>
       </Animate>

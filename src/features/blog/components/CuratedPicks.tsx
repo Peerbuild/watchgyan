@@ -9,7 +9,7 @@ export default async function CuratedPicks() {
   });
 
   return (
-    <section id="picks" className="mx-auto max-w-screen-xl space-y-16">
+    <section id="picks" className="mx-auto max-w-screen-xl space-y-16 px-6">
       <h2 className="text-center font-serif text-h3 text-foreground transition-colors duration-500 md:text-h2">
         Curated Picks
       </h2>
