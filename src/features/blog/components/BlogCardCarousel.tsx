@@ -14,7 +14,7 @@ interface BlogCardCarouselProps {
 
 export default function BlogCardCarousel({ blogs }: BlogCardCarouselProps) {
   return (
-    <Carousel className="flex flex-col gap-20 md:flex-row">
+    <Carousel className="flex flex-col gap-12 md:flex-row md:gap-20">
       <div className="flex items-end justify-between md:flex-col md:items-start">
         <h2 className="max-w-40 font-serif text-h3 text-foreground duration-500 md:max-w-none md:text-h2">
           Latest Global Stories
@@ -24,10 +24,10 @@ export default function BlogCardCarousel({ blogs }: BlogCardCarouselProps) {
           <CarouselNext className="relative inset-0 translate-x-0 translate-y-0" />
         </div>
       </div>
-      <CarouselContent className="w-full">
+      <CarouselContent className="-ml-9 w-[90%] md:w-full">
         {blogs.map((blog, index) => {
           return (
-            <CarouselItem className="md:pl-14 lg:basis-1/3" key={index}>
+            <CarouselItem className="pl-9 md:pl-14 lg:basis-1/3" key={index}>
               <BlogCard blog={blog as unknown as Blog} />
             </CarouselItem>
           );
