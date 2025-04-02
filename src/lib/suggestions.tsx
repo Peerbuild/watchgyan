@@ -46,7 +46,9 @@ export const suggestionItems = createSuggestionItems([
     command: ({ editor, range }) => {
       editor
         .chain()
-        .focus()
+        .focus(false, {
+          scrollIntoView: false,
+        })
         .deleteRange(range)
         .toggleNode("paragraph", "paragraph")
         .run();
@@ -60,7 +62,9 @@ export const suggestionItems = createSuggestionItems([
     command: ({ editor, range }) => {
       editor
         .chain()
-        .focus()
+        .focus(false, {
+          scrollIntoView: false,
+        })
         .deleteRange(range)
         .setNode("heading", { level: 1 })
         .run();
