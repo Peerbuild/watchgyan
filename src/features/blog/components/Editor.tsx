@@ -167,7 +167,7 @@ export const Editor = ({ blog }: EditorProps) => {
     setWords,
   } = useEditorMetadata();
 
-  const [showSubtitle, setShowSubtitle] = useState(false);
+  const [showSubtitle, setShowSubtitle] = useState(!!blog?.subtitle);
 
   useAutoSizeTextarea({ value: subtitle, textareaRef: subtitleInputRef });
   useAutoSizeTextarea({ value: title, textareaRef: titleInputRef });
@@ -269,6 +269,7 @@ export const Editor = ({ blog }: EditorProps) => {
   }, [showSubtitle]);
 
   useEffect(() => {
+    console.log(title, content, blog?.isPublished);
     if (!title || isEditorContentEmpty(content) || blog?.isPublished) {
       return;
     }
@@ -318,6 +319,17 @@ export const Editor = ({ blog }: EditorProps) => {
       setId(blog.id);
       blogId.current = blog.id;
     }
+
+    return () => {
+      setTitle("");
+      setSubtitle("");
+      setDescription("");
+      setTags([]);
+      setThumbnail("");
+      setIsDraft(false);
+      setId("");
+      blogId.current = null;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blog]);
 

@@ -21,14 +21,17 @@ export class BlogService {
     return blog;
   }
 
-  async publishBlog(data: PublishBlogRequest) {
+  async publishBlog({ id, ...data }: PublishBlogRequest) {
     const slug = data.title
-      ? data.title.toLowerCase().replace(/ /g, "-")
+      ? data.title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^a-zA-Z0-9-]/g, "")
       : null;
 
     return await prisma.blog.update({
       where: {
-        id: data.id,
+        id,
       },
       data: {
         ...data,
