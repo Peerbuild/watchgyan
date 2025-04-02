@@ -9,7 +9,10 @@ import { SearchBlogRequestDto } from "../dto/searchBlog.dto";
 
 export class BlogService {
   async createBlog(dto: CreateBlogRequest) {
-    const slug = dto.title.toLowerCase().replace(/ /g, "-");
+    const slug = dto.title
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^a-zA-Z0-9-]/g, "");
 
     const blog = await prisma.blog.create({
       data: {
@@ -148,7 +151,10 @@ export class BlogService {
     }
 
     const slug = data.title
-      ? data.title.toLowerCase().replace(/ /g, "-")
+      ? data.title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^a-zA-Z0-9-]/g, "")
       : isBlogExists.slug;
 
     return await prisma.blog.update({
