@@ -14,7 +14,7 @@ const BlogCardLarge = ({ blog }: { blog: Blog }) => {
   const readingTime = Math.ceil(blog.words / 200);
 
   return (
-    <Link scroll href={`/blog/${blog.id}/${blog.slug}`} className="flex-1">
+    <Link scroll href={`/blog/${blog.id}/${blog.slug}`}>
       <article className="space-y-4 text-left">
         <div className="aspect-video w-full overflow-hidden">
           {blog.thumbnail ? (
