@@ -10,7 +10,7 @@ export default async function LatestGlobalBlogs() {
 
   return (
     <section className="relative py-24">
-      <div className="mx-auto max-w-screen-2xl overflow-visible pl-9 md:pl-24">
+      <div className="mx-auto max-w-screen-2xl overflow-visible pl-9 md:px-12">
         <BlogCardCarousel blogs={blogs} />
       </div>
     </section>

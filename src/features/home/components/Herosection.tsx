@@ -62,7 +62,7 @@ export default function Herosection() {
                 {communityFeatures.map((feature) => {
                   return (
                     <div
-                      className="flex w-fit items-center gap-2 text-foreground transition-colors"
+                      className="flex w-fit items-center gap-3 text-foreground transition-colors"
                       key={feature.title}
                     >
                       <FeatherIcon
