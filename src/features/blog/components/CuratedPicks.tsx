@@ -5,7 +5,6 @@ import BlogCard from "./BlogCard";
 export default async function CuratedPicks() {
   const curatedPicks = await getBlogsByCategory({
     categoryName: "Curated Picks",
-    limit: 6,
   });
 
   return (

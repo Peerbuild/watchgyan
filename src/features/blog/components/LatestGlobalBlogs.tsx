@@ -5,7 +5,6 @@ import { getBlogsByCategory } from "@/features/category/interface/category.contr
 export default async function LatestGlobalBlogs() {
   const blogs = await getBlogsByCategory({
     categoryName: "Latest Global Stories",
-    limit: 10,
   });
 
   return (

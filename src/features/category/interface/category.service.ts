@@ -23,7 +23,7 @@ export class CategoryService {
         },
       },
 
-      take: data.limit || 10,
+      take: data.limit,
     });
   }
 
