@@ -3,26 +3,39 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import FeatherIcon from "feather-icons-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddSubscriberDto } from "../dto/addSubscriber.dto";
 import { addSubscriber } from "../interface/newletter.controller";
 import { toast } from "sonner";
 
 export const EmailInput = () => {
   const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const mutation = useMutation({
     mutationFn: async (data: AddSubscriberDto) => {
+      setIsSubmitted(true);
+      return;
       return await addSubscriber(data);
     },
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: () => {
-      toast.success("You have successfully subscribed to our newsletter");
+      setIsSubmitted(true);
       setEmail("");
     },
   });
+
+  useEffect(() => {
+    if (isSubmitted) {
+      const timeout = setTimeout(() => {
+        setIsSubmitted(false);
+      }, 2000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isSubmitted]);
 
   return (
     <div className="flex border-b border-input">
@@ -40,7 +53,14 @@ export const EmailInput = () => {
         }}
         className="text-muted-foreground hover:text-foreground"
       >
-        <FeatherIcon icon="arrow-right" className="duration-500" />
+        {isSubmitted ? (
+          <FeatherIcon
+            icon="check"
+            className="text-green-400 duration-500 animate-in fade-in-0"
+          />
+        ) : (
+          <FeatherIcon icon="arrow-right" className="duration-500" />
+        )}
       </Button>
     </div>
   );

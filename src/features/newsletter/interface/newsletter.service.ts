@@ -25,6 +25,9 @@ export class NewsletterService {
     const emails = await prisma.subscriber.findMany({
       take: data?.limit,
       skip: data?.offset,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     const totalEmails = await prisma.subscriber.count();

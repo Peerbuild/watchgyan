@@ -71,11 +71,11 @@ export default function FeaturedPostCarousel({ blogs }: FeaturedPostProps) {
               width={1900}
               height={1000}
               priority
-              className="h-full w-full object-cover saturate-50 duration-500 animate-in fade-in-0"
+              className="h-full w-full object-cover duration-500 animate-in fade-in-0"
             />
           )}
         </Paralax>
-        <div className="absolute inset-0 h-full w-full bg-[linear-gradient(120deg,var(--tw-gradient-stops))] from-background from-40% to-background/40"></div>
+        <div className="absolute inset-0 h-full w-full bg-[linear-gradient(120deg,var(--tw-gradient-stops))] from-background/90 from-40% to-background/40"></div>
       </div>
       <div className="relative z-10 mx-auto mt-10 w-full max-w-screen-2xl px-9 md:px-24">
         <Animate className="max-w-lg">
