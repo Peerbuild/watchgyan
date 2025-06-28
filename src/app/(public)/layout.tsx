@@ -1,5 +1,6 @@
 import { PublicHeader } from "@/components/Header";
 import LenisScroll from "@/components/LenisScroll";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export default function PublicLayout({
   children,
@@ -8,6 +9,7 @@ export default function PublicLayout({
 }>) {
   return (
     <LenisScroll>
+      <GoogleAnalytics gaId="G-8V574HGLM5" />
       <div>
         <PublicHeader />
         {children}
