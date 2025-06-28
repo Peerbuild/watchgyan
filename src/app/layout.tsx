@@ -5,9 +5,15 @@ import ReactQueryProvider from "@/providers/QueryClientProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "WatchGyan",
+  title: {
+    default: "WatchGyan - Your Ultimate Watch Destination",
+    template: "%s | WatchGyan",
+  },
   description:
     "WatchGyan by Pankaj Savant is your go-to destination for expert watch reviews, in-depth guides, and horology insights. Whether you're a collector or a beginner, WatchGyan helps you make informed choices and deepen your passion for timepieces.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({

@@ -48,6 +48,8 @@ export const getAllBlogs = await safeAction(
     return blogService.getAllBlogs(data);
   },
   getRecentBlogRequestDto,
+  undefined,
+  true,
 );
 
 export const getRecentBlogs = await safeAction(

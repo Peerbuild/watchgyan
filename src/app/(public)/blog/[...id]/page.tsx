@@ -13,6 +13,11 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import Footer from "@/features/home/components/Footer";
 import LatestGlobalBlogs from "@/features/blog/components/LatestGlobalBlogs";
+import { Metadata } from "next";
+
+type Props = {
+  params: Promise<{ id: string[] }>;
+};
 
 export async function generateStaticParams() {
   const { blogs } = await getRecentBlogs({
@@ -24,11 +29,35 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogPage({
-  params,
-}: {
-  params: Promise<{ id: string[] }>;
-}) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const [blogId] = id;
+
+  const blog = await getBlogById(blogId);
+
+  return {
+    title: blog.title,
+    description: blog.description,
+    keywords: blog.tags,
+    openGraph: {
+      title: blog.title,
+      description: blog.description,
+      url: `https://watchgyan.com/blog/${blogId}/${blog.slug}`,
+      images: blog.thumbnail
+        ? [
+            {
+              url: blog.thumbnail,
+              width: 800,
+              height: 450,
+              alt: blog.title,
+            },
+          ]
+        : [],
+    },
+  };
+}
+
+export default async function BlogPage({ params }: Props) {
   const { id } = await params;
   const [blogId, slug] = id;
 
