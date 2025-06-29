@@ -24,7 +24,7 @@ export default function BlogCardCarousel({ blogs }: BlogCardCarouselProps) {
           <CarouselNext className="relative inset-0 translate-x-0 translate-y-0" />
         </div>
       </div>
-      <CarouselContent className="-ml-9 w-[90%] md:-ml-14 md:w-auto">
+      <CarouselContent className="-ml-9 w-[90%] md:-ml-10 md:w-auto">
         {blogs.map((blog, index) => {
           return (
             <CarouselItem className="pl-9 md:pl-10 lg:basis-1/3" key={index}>
