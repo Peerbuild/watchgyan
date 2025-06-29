@@ -22,7 +22,7 @@ function RecentBlogsLarge({ blogs }: { blogs: Blog[] }) {
       <h2 className="text-center font-serif text-h3 md:text-h2">
         Recent Stories
       </h2>
-      <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}
