@@ -15,7 +15,6 @@ export const EmailInput = () => {
   const mutation = useMutation({
     mutationFn: async (data: AddSubscriberDto) => {
       setIsSubmitted(true);
-      return;
       return await addSubscriber(data);
     },
     onError: (error) => {
