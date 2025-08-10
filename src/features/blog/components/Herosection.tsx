@@ -5,6 +5,7 @@ import { getBlogsByCategory } from "@/features/category/interface/category.contr
 const Herosection = async () => {
   const featuredPosts = await getBlogsByCategory({
     categoryName: "Featured Posts",
+    sort: "desc",
   });
 
   return (

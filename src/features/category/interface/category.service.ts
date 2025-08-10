@@ -22,7 +22,9 @@ export class CategoryService {
           },
         },
       },
-
+      orderBy: {
+        createdAt: data.sort,
+      },
       take: data.limit,
     });
   }

@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Blog, Category } from "@prisma/client";
+import { Category } from "@prisma/client";
 import FeatherIcon from "feather-icons-react";
 import InifiniteList from "./InifiniteList";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,11 +15,7 @@ import {
   removeBlogFromCategory,
   searchBlogsInCategory,
 } from "../interface/category.controller";
-import {
-  InfiniteData,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import useDebounce from "@/hooks/useDebounce";
 
@@ -31,6 +27,12 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500);
 
+  // Local optimistic update store
+  const [localChanges, setLocalChanges] = useState<Record<string, boolean>>({});
+
+  const queryClient = useQueryClient();
+
+  // Query function switches depending on search
   const queryFn = search
     ? async ({ pageParam }: { pageParam: number }) => {
         const blogs = await searchBlogsInCategory({
@@ -57,8 +59,6 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
         };
       };
 
-  const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: async ({
       blogId,
@@ -67,65 +67,44 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
       blogId: string;
       checked: boolean;
     }) => {
-      // optimistically update
-      queryClient.setQueryData(
-        ["blogs", category.name],
-        (
-          oldData?: InfiniteData<{
-            items: Blog[];
-            totalItems: number;
-          }>,
-        ) => {
-          if (!oldData) return oldData;
+      // Optimistic local update
+      setLocalChanges((prev) => ({
+        ...prev,
+        [blogId]: checked,
+      }));
 
-          const updatedPages = oldData.pages.map((page) => {
-            const updatedItems = page.items.map((blog) =>
-              blog.id === blogId
-                ? {
-                    ...blog,
-                    categoryIds: checked
-                      ? [...blog.categoryIds, category.id]
-                      : blog.categoryIds.filter((c) => c !== category.id),
-                  }
-                : blog,
-            );
-
-            return {
-              ...page,
-              items: updatedItems,
-            };
-          });
-
-          return { ...oldData, pages: updatedPages };
-        },
-      );
-
-      if (!checked) {
-        return await removeBlogFromCategory({
+      if (checked) {
+        return await addBlogToCategory({
           categoryId: category.id,
           blogId,
         });
       } else {
-        return await addBlogToCategory({
+        return await removeBlogFromCategory({
           categoryId: category.id,
           blogId,
         });
       }
     },
-    onError: (error) => {
+    onError: (error, variables) => {
       console.error(error);
+      // revert if API failed
+      setLocalChanges((prev) => {
+        const updated = { ...prev };
+        delete updated[variables.blogId];
+        return updated;
+      });
     },
-    onSuccess: async () => {
-      // Invalidate the query to refetch the data
-      await queryClient.invalidateQueries({
-        queryKey: ["blog", category.name],
+    onSettled: () => {
+      // Invalidate the correct query key based on search
+      queryClient.invalidateQueries({
+        queryKey: ["blogs", category.name, debouncedSearch || ""],
       });
     },
   });
 
   useEffect(() => {
     queryClient.invalidateQueries({
-      queryKey: ["blogs", category.name],
+      queryKey: ["blogs", category.name, debouncedSearch || ""],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch, category.name]);
@@ -156,19 +135,27 @@ export default function BlogSelectorMenu({ category }: BlogSelectorMenuProps) {
           </div>
         </div>
         <InifiniteList
-          queryKey={["blogs", category.name]}
+          queryKey={["blogs", category.name, debouncedSearch || ""]}
           queryFn={queryFn}
-          renderItem={(blog) => (
-            <div key={blog.id} className="flex items-center gap-6 text-sm">
-              <Checkbox
-                checked={blog.categoryIds.includes(category.id)}
-                onCheckedChange={(checked: boolean) => {
-                  mutation.mutate({ blogId: blog.id, checked });
-                }}
-              />
-              {blog.title}
-            </div>
-          )}
+          renderItem={(blog) => {
+            // Merge local changes with server state for instant UI feedback
+            const finalChecked =
+              localChanges[blog.id] !== undefined
+                ? localChanges[blog.id]
+                : blog.categoryIds.includes(category.id);
+
+            return (
+              <div key={blog.id} className="flex items-center gap-6 text-sm">
+                <Checkbox
+                  checked={finalChecked}
+                  onCheckedChange={(checked: boolean) => {
+                    mutation.mutate({ blogId: blog.id, checked });
+                  }}
+                />
+                {blog.title}
+              </div>
+            );
+          }}
         />
       </DropdownMenuContent>
     </DropdownMenu>

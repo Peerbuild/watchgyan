@@ -173,6 +173,7 @@ export const Editor = ({ blog }: EditorProps) => {
   useAutoSizeTextarea({ value: title, textareaRef: titleInputRef });
 
   const debouncedTitle = useDebounce(title, 500);
+  const debouncedSubtitle = useDebounce(subtitle, 500);
 
   const debouncedContent = useDebounce(
     generateHTML(
@@ -246,6 +247,7 @@ export const Editor = ({ blog }: EditorProps) => {
       await updateBlog({
         id: blogId.current,
         title,
+        subtitle: debouncedSubtitle,
         content: debouncedContent,
         words,
       });
@@ -292,7 +294,7 @@ export const Editor = ({ blog }: EditorProps) => {
     updateMutation.mutate();
     setAutosave(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedTitle, debouncedContent, isCreated]);
+  }, [debouncedTitle, debouncedContent, debouncedSubtitle, isCreated]);
 
   useEffect(() => {
     if (blog) {
