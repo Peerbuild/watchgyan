@@ -5,6 +5,7 @@ import BlogCard from "./BlogCard";
 export default async function AllBlogsGrid() {
   const allBlogs = await getAllBlogs({
     limit: 100,
+    isPublished: true,
   });
 
   return (

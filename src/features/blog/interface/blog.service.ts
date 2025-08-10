@@ -49,6 +49,7 @@ export class BlogService {
     const blogs = await prisma.blog.findMany({
       where: {
         isDraft: false,
+        isPublished: data?.isPublished,
       },
       take: data?.limit || 10,
       skip: data?.offset || 0,
@@ -60,6 +61,7 @@ export class BlogService {
     const totalBlogs = await prisma.blog.count({
       where: {
         isDraft: false,
+        isPublished: data?.isPublished,
       },
     });
 
