@@ -6,7 +6,6 @@ import FeatherIcon from "feather-icons-react";
 import React, { useEffect, useState } from "react";
 import { AddSubscriberDto } from "../dto/addSubscriber.dto";
 import { addSubscriber } from "../interface/newletter.controller";
-import { toast } from "sonner";
 
 export const EmailInput = () => {
   const [email, setEmail] = useState("");
@@ -15,12 +14,13 @@ export const EmailInput = () => {
   const mutation = useMutation({
     mutationFn: async (data: AddSubscriberDto) => {
       setIsSubmitted(true);
+      setEmail("");
       return await addSubscriber(data);
     },
     onError: (error) => {
-      toast.error(error.message);
+      console.error(error);
     },
-    onSuccess: () => {
+    onSettled: () => {
       setIsSubmitted(true);
       setEmail("");
     },
@@ -30,7 +30,7 @@ export const EmailInput = () => {
     if (isSubmitted) {
       const timeout = setTimeout(() => {
         setIsSubmitted(false);
-      }, 2000);
+      }, 4000);
 
       return () => clearTimeout(timeout);
     }
