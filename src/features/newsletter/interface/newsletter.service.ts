@@ -43,6 +43,7 @@ export class NewsletterService {
       where: {
         email: {
           contains: data.query,
+          mode: "insensitive",
         },
       },
       take: data.limit ?? 10,
@@ -53,6 +54,7 @@ export class NewsletterService {
       where: {
         email: {
           contains: data.query,
+          mode: "insensitive",
         },
       },
     });
